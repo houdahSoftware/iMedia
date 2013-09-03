@@ -147,7 +147,6 @@
 		CEAF1F25125A7DBF001C3EBB /* iMedia.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CEAF1F22125A7DBF001C3EBB /* iMedia.tiff */; };
 		CEAF1F26125A7DBF001C3EBB /* i.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CEAF1F23125A7DBF001C3EBB /* i.tiff */; };
 		CEAF1F27125A7DBF001C3EBB /* i2.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CEAF1F24125A7DBF001C3EBB /* i2.tiff */; };
-		CEAF1F2E125A7DE4001C3EBB /* NSWindow_Flipr.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAF1F2C125A7DE4001C3EBB /* NSWindow_Flipr.m */; };
 		CEAF1F2F125A7DE4001C3EBB /* NSWindow_Flipr.h in Headers */ = {isa = PBXBuildFile; fileRef = CEAF1F2D125A7DE4001C3EBB /* NSWindow_Flipr.h */; };
 		CEAF1F3B125A80D4001C3EBB /* IMBHoverButton.h in Headers */ = {isa = PBXBuildFile; fileRef = CEAF1F39125A80D4001C3EBB /* IMBHoverButton.h */; };
 		CEAF1F3C125A80D4001C3EBB /* IMBHoverButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAF1F3A125A80D4001C3EBB /* IMBHoverButton.m */; };
@@ -223,7 +222,6 @@
 		D054B0011529A65100EBFA1C /* IMBGarageBandParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D02D17591081CF3B00142E8A /* IMBGarageBandParser.m */; };
 		D05D398F152A280F00E30C43 /* IMBFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E8D2D1019E8A5005D8614 /* IMBFileWatcher.m */; };
 		D05D3990152A280F00E30C43 /* IMBKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E8D2A1019E89E005D8614 /* IMBKQueue.m */; };
-		D05D3991152A280F00E30C43 /* IMBFNSubscribeFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E8D7B1019EAB8005D8614 /* IMBFNSubscribeFileWatcher.m */; };
 		D05D3992152A280F00E30C43 /* IMBFSEventsWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E8D801019EB09005D8614 /* IMBFSEventsWatcher.m */; };
 		D05D3993152A280F00E30C43 /* IMBMainThreadProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E8D831019EB4D005D8614 /* IMBMainThreadProxy.m */; };
 		D05D399F152ACD1300E30C43 /* SBServiceMain.m in Sources */ = {isa = PBXBuildFile; fileRef = D08109A7151A052300201850 /* SBServiceMain.m */; };
@@ -2874,7 +2872,6 @@
 				D0F2DBA11098262D004280C1 /* FMResultSet.m in Sources */,
 				D02E53C910A5563500B205BD /* NSData+SKExtensions.m in Sources */,
 				8F47B39210C416050013ED25 /* IMBOrderedDictionary.m in Sources */,
-				CEAF1F2E125A7DE4001C3EBB /* NSWindow_Flipr.m in Sources */,
 				CEAF1F3C125A80D4001C3EBB /* IMBHoverButton.m in Sources */,
 				D09653BD150A280700B6C83D /* IMBParserMessenger.m in Sources */,
 				D09653C0150A2DA300B6C83D /* IMBParser.m in Sources */,
@@ -2946,7 +2943,6 @@
 				D054B0011529A65100EBFA1C /* IMBGarageBandParser.m in Sources */,
 				D05D398F152A280F00E30C43 /* IMBFileWatcher.m in Sources */,
 				D05D3990152A280F00E30C43 /* IMBKQueue.m in Sources */,
-				D05D3991152A280F00E30C43 /* IMBFNSubscribeFileWatcher.m in Sources */,
 				D05D3992152A280F00E30C43 /* IMBFSEventsWatcher.m in Sources */,
 				D05D3993152A280F00E30C43 /* IMBMainThreadProxy.m in Sources */,
 				D0904DA9152CA51F003FDD08 /* IMBFileSystemObserver.m in Sources */,
