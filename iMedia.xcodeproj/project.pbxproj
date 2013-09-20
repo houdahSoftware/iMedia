@@ -513,6 +513,83 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6547829E17EBD6BE00F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
+			remoteInfo = XPCKit;
+		};
+		654782A417EBD6C700F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
+			remoteInfo = XPCKit;
+		};
+		654782A617EBD6D000F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
+			remoteInfo = XPCKit;
+		};
+		654782A817EBD6D600F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
+			remoteInfo = XPCKit;
+		};
+		654782AA17EBD6DD00F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
+			remoteInfo = XPCKit;
+		};
+		654782AC17EBD6E400F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
+			remoteInfo = XPCKit;
+		};
+		654782AE17EBD6E900F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
+			remoteInfo = XPCKit;
+		};
+		654782B017EBD6ED00F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
+			remoteInfo = XPCKit;
+		};
+		654782B217EBD6F100F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
+			remoteInfo = XPCKit;
+		};
+		654782B417EBD6F400F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
+			remoteInfo = XPCKit;
+		};
+		654782B617EBD6FA00F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
+			remoteInfo = XPCKit;
+		};
 		65D10B13171C864F00ED5733 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -2277,6 +2354,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782A517EBD6C700F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.iPhoto;
 			productName = "iPhoto Parser XPC Service";
@@ -2314,6 +2392,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782AF17EBD6E900F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.GarageBand;
 			productName = "iPhoto Parser XPC Service";
@@ -2331,6 +2410,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782A717EBD6D000F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Aperture;
 			productName = "iPhoto Parser XPC Service";
@@ -2348,6 +2428,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782A917EBD6D600F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Lightroom;
 			productName = "iPhoto Parser XPC Service";
@@ -2365,6 +2446,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782AB17EBD6DD00F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Flickr;
 			productName = "iPhoto Parser XPC Service";
@@ -2382,6 +2464,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782B117EBD6ED00F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Safari;
 			productName = "iPhoto Parser XPC Service";
@@ -2399,6 +2482,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782B317EBD6F100F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Firefox;
 			productName = "iPhoto Parser XPC Service";
@@ -2416,6 +2500,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782B717EBD6FA00F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.FSEvents;
 			productName = "iPhoto Parser XPC Service";
@@ -2433,6 +2518,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782B517EBD6F400F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Chrome;
 			productName = "iPhoto Parser XPC Service";
@@ -2480,6 +2566,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				6547829F17EBD6BE00F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Folder;
 			productName = "iPhoto Parser XPC Service";
@@ -2497,6 +2584,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782AD17EBD6E400F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.iTunes;
 			productName = "iPhoto Parser XPC Service";
@@ -3082,6 +3170,61 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6547829F17EBD6BE00F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XPCKit;
+			targetProxy = 6547829E17EBD6BE00F34934 /* PBXContainerItemProxy */;
+		};
+		654782A517EBD6C700F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XPCKit;
+			targetProxy = 654782A417EBD6C700F34934 /* PBXContainerItemProxy */;
+		};
+		654782A717EBD6D000F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XPCKit;
+			targetProxy = 654782A617EBD6D000F34934 /* PBXContainerItemProxy */;
+		};
+		654782A917EBD6D600F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XPCKit;
+			targetProxy = 654782A817EBD6D600F34934 /* PBXContainerItemProxy */;
+		};
+		654782AB17EBD6DD00F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XPCKit;
+			targetProxy = 654782AA17EBD6DD00F34934 /* PBXContainerItemProxy */;
+		};
+		654782AD17EBD6E400F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XPCKit;
+			targetProxy = 654782AC17EBD6E400F34934 /* PBXContainerItemProxy */;
+		};
+		654782AF17EBD6E900F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XPCKit;
+			targetProxy = 654782AE17EBD6E900F34934 /* PBXContainerItemProxy */;
+		};
+		654782B117EBD6ED00F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XPCKit;
+			targetProxy = 654782B017EBD6ED00F34934 /* PBXContainerItemProxy */;
+		};
+		654782B317EBD6F100F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XPCKit;
+			targetProxy = 654782B217EBD6F100F34934 /* PBXContainerItemProxy */;
+		};
+		654782B517EBD6F400F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XPCKit;
+			targetProxy = 654782B417EBD6F400F34934 /* PBXContainerItemProxy */;
+		};
+		654782B717EBD6FA00F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XPCKit;
+			targetProxy = 654782B617EBD6FA00F34934 /* PBXContainerItemProxy */;
+		};
 		65D10B14171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D0E96CEE1518C9BF004F3EE7 /* im.edia.Folder */;
