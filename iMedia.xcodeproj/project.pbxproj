@@ -590,6 +590,83 @@
 			remoteGlobalIDString = 1EEDD0CE13DE9FAB00D5AEC3;
 			remoteInfo = XPCKit;
 		};
+		654782B817EBD78800F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
+		654782BA17EBD78F00F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
+		654782BC17EBD79300F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
+		654782BE17EBD79800F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
+		654782C017EBD79B00F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
+		654782C217EBD79E00F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
+		654782C417EBD7D700F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
+		654782C617EBD7DB00F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
+		654782C817EBD7DE00F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
+		654782CA17EBD7E400F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
+		654782CC17EBD7E800F34934 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
 		65D10B13171C864F00ED5733 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -2354,6 +2431,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782BB17EBD78F00F34934 /* PBXTargetDependency */,
 				654782A517EBD6C700F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.iPhoto;
@@ -2392,6 +2470,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782C517EBD7D700F34934 /* PBXTargetDependency */,
 				654782AF17EBD6E900F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.GarageBand;
@@ -2410,6 +2489,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782BD17EBD79300F34934 /* PBXTargetDependency */,
 				654782A717EBD6D000F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Aperture;
@@ -2428,6 +2508,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782BF17EBD79800F34934 /* PBXTargetDependency */,
 				654782A917EBD6D600F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Lightroom;
@@ -2446,6 +2527,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782C117EBD79B00F34934 /* PBXTargetDependency */,
 				654782AB17EBD6DD00F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Flickr;
@@ -2464,6 +2546,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782C717EBD7DB00F34934 /* PBXTargetDependency */,
 				654782B117EBD6ED00F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Safari;
@@ -2482,6 +2565,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782C917EBD7DE00F34934 /* PBXTargetDependency */,
 				654782B317EBD6F100F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Firefox;
@@ -2500,6 +2584,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782CD17EBD7E800F34934 /* PBXTargetDependency */,
 				654782B717EBD6FA00F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.FSEvents;
@@ -2518,6 +2603,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782CB17EBD7E400F34934 /* PBXTargetDependency */,
 				654782B517EBD6F400F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Chrome;
@@ -2566,6 +2652,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782B917EBD78800F34934 /* PBXTargetDependency */,
 				6547829F17EBD6BE00F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.Folder;
@@ -2584,6 +2671,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				654782C317EBD79E00F34934 /* PBXTargetDependency */,
 				654782AD17EBD6E400F34934 /* PBXTargetDependency */,
 			);
 			name = im.edia.iTunes;
@@ -3224,6 +3312,61 @@
 			isa = PBXTargetDependency;
 			name = XPCKit;
 			targetProxy = 654782B617EBD6FA00F34934 /* PBXContainerItemProxy */;
+		};
+		654782B917EBD78800F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 654782B817EBD78800F34934 /* PBXContainerItemProxy */;
+		};
+		654782BB17EBD78F00F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 654782BA17EBD78F00F34934 /* PBXContainerItemProxy */;
+		};
+		654782BD17EBD79300F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 654782BC17EBD79300F34934 /* PBXContainerItemProxy */;
+		};
+		654782BF17EBD79800F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 654782BE17EBD79800F34934 /* PBXContainerItemProxy */;
+		};
+		654782C117EBD79B00F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 654782C017EBD79B00F34934 /* PBXContainerItemProxy */;
+		};
+		654782C317EBD79E00F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 654782C217EBD79E00F34934 /* PBXContainerItemProxy */;
+		};
+		654782C517EBD7D700F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 654782C417EBD7D700F34934 /* PBXContainerItemProxy */;
+		};
+		654782C717EBD7DB00F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 654782C617EBD7DB00F34934 /* PBXContainerItemProxy */;
+		};
+		654782C917EBD7DE00F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 654782C817EBD7DE00F34934 /* PBXContainerItemProxy */;
+		};
+		654782CB17EBD7E400F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 654782CA17EBD7E400F34934 /* PBXContainerItemProxy */;
+		};
+		654782CD17EBD7E800F34934 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 654782CC17EBD7E800F34934 /* PBXContainerItemProxy */;
 		};
 		65D10B14171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
