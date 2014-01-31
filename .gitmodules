@@ -1,0 +1,3 @@
+[submodule "PhFacebook"]
+	path = PhFacebook
+	url = git@github.com:iMediaSandboxing/PhFacebook.git
