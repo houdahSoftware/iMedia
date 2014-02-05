@@ -547,20 +547,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		659D03EA189C3A0A00BA3B81 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 659D03E6189C3A0A00BA3B81 /* PhFacebook.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
-			remoteInfo = PhFacebook;
-		};
-		659D03F0189C3A2200BA3B81 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 659D03E6189C3A0A00BA3B81 /* PhFacebook.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = PhFacebook;
-		};
 		6547829E17EBD6BE00F34934 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
@@ -714,6 +700,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = iMedia;
+		};
+		659D03EA189C3A0A00BA3B81 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 659D03E6189C3A0A00BA3B81 /* PhFacebook.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = PhFacebook;
+		};
+		659D03F0189C3A2200BA3B81 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 659D03E6189C3A0A00BA3B81 /* PhFacebook.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = PhFacebook;
 		};
 		65D10B13171C864F00ED5733 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2836,17 +2836,17 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 				TargetAttributes = {
+					8DC2EF4F0486A6940098B216 = {
+						DevelopmentTeam = 493CVA9A35;
+					};
 					D09933541011B26E00C527B7 = {
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
 						};
-					};
-					8DC2EF4F0486A6940098B216 = {
-						DevelopmentTeam = 493CVA9A35;
 					};
 				};
 			};
@@ -3487,11 +3487,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		659D03F1189C3A2200BA3B81 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = PhFacebook;
-			targetProxy = 659D03F0189C3A2200BA3B81 /* PBXContainerItemProxy */;
-		};
 		6547829F17EBD6BE00F34934 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = XPCKit;
@@ -3601,6 +3596,11 @@
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
 			targetProxy = 654782CC17EBD7E800F34934 /* PBXContainerItemProxy */;
+		};
+		659D03F1189C3A2200BA3B81 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PhFacebook;
+			targetProxy = 659D03F0189C3A2200BA3B81 /* PBXContainerItemProxy */;
 		};
 		65D10B14171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3724,7 +3724,6 @@
 			baseConfigurationReference = D0CF005310C50908009EC68F /* IMBTargetDebug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -3742,7 +3741,6 @@
 			baseConfigurationReference = D0CF005410C50908009EC68F /* IMBTargetRelease.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -3799,7 +3797,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3831,7 +3828,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
