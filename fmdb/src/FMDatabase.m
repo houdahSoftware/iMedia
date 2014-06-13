@@ -250,7 +250,11 @@
 }
 
 - (id) executeQuery:(NSString *)sql withArgumentsInArray:(NSArray*)arrayArgs orVAList:(va_list)args {
-    
+
+	if (sql == nil) {
+		return nil;
+	}
+	
     if (inUse) {
         [self compainAboutInUse];
         return nil;
