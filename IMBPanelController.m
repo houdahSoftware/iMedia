@@ -512,8 +512,6 @@ static IMBPanelController* sSharedPanelController = nil;
 	[iButton setTarget:self];
 	[container addSubview:iButton];
 	
-	// get flipping window ready
-	[NSWindow flippingWindow];
 	[ibInfoTextView setDrawsBackground:NO];
 	//[ibInfoTextView setTextContainerInset:NSMakeSize(2,2)];
 	NSScrollView *scrollView = [ibInfoTextView enclosingScrollView];
