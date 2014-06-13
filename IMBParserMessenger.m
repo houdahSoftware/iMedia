@@ -44,7 +44,7 @@
 */
 
 
-// Author: Peter Baumgartner
+// Author: Peter Baumgartner, Jörg Jacobsen
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -63,6 +63,7 @@
 #import "NSFileManager+iMedia.h"
 #import "NSBundle+iMedia.h"
 #import "IMBAccessRightsController.h"
+#import "IMBAccessRightsViewController.h"
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -79,6 +80,9 @@
 
 #pragma mark
 
+@interface IMBParserMessenger ()
+@end
+
 @implementation IMBParserMessenger
 
 @synthesize mediaType = _mediaType;
@@ -88,6 +92,11 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
+// Use this switch in your subclass if you want to turn off XPC service usage for a particular service type
++ (BOOL) useXPCServiceWhenPresent
+{
+    return YES;
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -202,6 +211,10 @@
 
 - (id) connection
 {
+    if (![[self class] useXPCServiceWhenPresent])
+    {
+        return nil;
+    }
     NSString* identifier = [[self class] xpcServiceIdentifier];
     
 	if (_connection == nil && [[NSBundle mainBundle] supportsXPCServiceWithIdentifier:identifier])
@@ -559,6 +572,15 @@
 
 @implementation IMBParserMessenger (App)
 
+// Returns an access requesting view controller that will take care of
+// requesting access to a library associated with this parser messenger.
+// Default implementation returns shared IMBAccessRightsViewController.
+// Please override for different authorization scheme.
+
++ (id <IMBNodeAccessDelegate>) nodeAccessDelegate
+{
+    return [IMBAccessRightsViewController sharedViewController];
+}
 
 // These two methods can be overrridden by subclasses to add custom menu items...
 
@@ -628,6 +650,16 @@
 - (NSURL*) libraryRootURLForMediaSource:(NSURL*)inMediaSource
 {
     return inMediaSource;
+}
+
+#pragma mark
+#pragma mark Node Badges Support
+
+//
+//
+- (void) ejectNode:(IMBNode*)inNode
+{
+    
 }
 
 

@@ -121,8 +121,16 @@ extern NSString* kIMBDidCreateTopLevelNodeNotification;
 - (void) reload;
 
 - (void) createTopLevelNodesWithParserMessenger:(IMBParserMessenger*)inParserMessenger;
+- (void)populateNode:(IMBNode *)inNode errorHandler:(void(^)(NSError* error))inErrorHandler;
 - (void) populateNode:(IMBNode*)inNode;
+- (void)reloadNodeTree:(IMBNode *)inOldNode errorHandler:(void(^)(NSError* error))inErrorHandler;
 - (void) reloadNodeTree:(IMBNode*)inOldNode;
+
+// Try to reload any top-level nodes that do not have access rights and which might benefit from the newly
+// granted URL...
+
++ (void) reloadTopLevelNodesWithoutAccessRights;
+
 
 // Node accessors (must only be called on the main thread)...
 
@@ -184,6 +192,10 @@ extern NSString* kIMBDidCreateTopLevelNodeNotification;
 // handling behavior (downloading the files to standard loaction and opening in default app)...
 
 - (BOOL) libraryController:(IMBLibraryController*)inController didDoubleClickSelectedObjects:(NSArray*)inObjects inNode:(IMBNode*)inNode;
+
+// A less formal delegate method that is nonetheless checked for and dispatched from IMBNodeViewController. I'm
+// declaring it here to quiet warnings about an unrecognized @selector() constant.
+- (BOOL) allowsFolderDropForMediaType:(NSString*)inMediaType;
 
 @end
 

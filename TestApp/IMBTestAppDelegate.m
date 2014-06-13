@@ -464,7 +464,20 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 
-#pragma mark 
+#pragma mark
+#pragma mark IMBNodeViewControllerDelegate
+
+- (NSString *)facebookAppId
+{
+    // Return a valid Facebook app id here if you want to access Facebook from node view
+    return nil;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------
+
+
+#pragma mark
 #pragma mark IMBObjectViewControllerDelegate
 
 
@@ -685,8 +698,7 @@
             [self.usedObjects setObject:object forKey:object.persistentResourceIdentifier];
         }
 	}
-	IMBNodeViewController* controller = [[IMBPanelController sharedPanelController] currentNodeViewController];
-	[controller setObjectContainerViewNeedsDisplay:YES];
+	[[NSNotificationCenter defaultCenter] postNotificationName:kIMBObjectBadgesDidChangeNotification object:self];
 }
 
 
