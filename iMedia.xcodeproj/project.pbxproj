@@ -541,6 +541,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		307F969E183D090E004F87E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iMedia;
+		};
 		6547829E17EBD6BE00F34934 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */;
@@ -701,20 +708,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = PhFacebook;
-		};
-		659D03F0189C3A2200BA3B81 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 659D03E6189C3A0A00BA3B81 /* PhFacebook.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = PhFacebook;
-		};
-		307F969E183D090E004F87E0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = iMedia;
 		};
 		65D10B13171C864F00ED5733 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2673,7 +2666,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				659D03F1189C3A2200BA3B81 /* PBXTargetDependency */,
 				65E26F3C17135D1A000994C3 /* PBXTargetDependency */,
 			);
 			name = iMedia;
@@ -2908,13 +2900,13 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				TargetAttributes = {
-					8DC2EF4F0486A6940098B216 = {
-						DevelopmentTeam = 493CVA9A35;
-					};
 					307F9690183D090D004F87E0 = {
 						TestTargetID = 8DC2EF4F0486A6940098B216;
+					};
+					8DC2EF4F0486A6940098B216 = {
+						DevelopmentTeam = 493CVA9A35;
 					};
 					D09933541011B26E00C527B7 = {
 						SystemCapabilities = {
@@ -3573,6 +3565,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		307F969F183D090E004F87E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
+			targetProxy = 307F969E183D090E004F87E0 /* PBXContainerItemProxy */;
+		};
 		6547829F17EBD6BE00F34934 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = XPCKit;
@@ -3682,16 +3679,6 @@
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
 			targetProxy = 654782CC17EBD7E800F34934 /* PBXContainerItemProxy */;
-		};
-		659D03F1189C3A2200BA3B81 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = PhFacebook;
-			targetProxy = 659D03F0189C3A2200BA3B81 /* PBXContainerItemProxy */;
-		};
-		307F969F183D090E004F87E0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8DC2EF4F0486A6940098B216 /* iMedia */;
-			targetProxy = 307F969E183D090E004F87E0 /* PBXContainerItemProxy */;
 		};
 		65D10B14171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3856,9 +3843,9 @@
 			baseConfigurationReference = D0760AC210C5027100F2119C /* IMBProject.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -3877,9 +3864,9 @@
 			baseConfigurationReference = D0760AC210C5027100F2119C /* IMBProject.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
