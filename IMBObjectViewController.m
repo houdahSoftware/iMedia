@@ -175,6 +175,17 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
         _currentNode = [currentNode retain];
         
         [self resetSearchFilter];
+        
+        if (currentNode.objectCountFormatSingular != nil) {
+            self.objectCountFormatSingular = currentNode.objectCountFormatSingular;
+        } else {
+            self.objectCountFormatSingular = [[self class] objectCountFormatSingular];
+        }
+        if (currentNode.objectCountFormatPlural != nil) {
+            self.objectCountFormatPlural = currentNode.objectCountFormatPlural;
+        } else {
+            self.objectCountFormatPlural = [[self class] objectCountFormatPlural];
+        }
     }
 }
 
@@ -1673,12 +1684,12 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 // Don't add the download: menu item because the download: method was commented out in
 // commit c03e3effc3dd3c0d6fb044be4e8c765e64981760 ... need to figure out whether download
 // works or not, and add the menu back only then?
-//				title = NSLocalizedStringWithDefaultValue(
-//					@"IMBObjectViewController.menuItem.download",
-//					nil,IMBBundle(),
-//					@"Download",
-//					@"Menu item in context menu of IMBObjectViewController");
-//
+//                title = NSLocalizedStringWithDefaultValue(
+//                                                          @"IMBObjectViewController.menuItem.download",
+//                                                          nil,IMBBundle(),
+//                                                          @"Download",
+//                                                          @"Menu item in context menu of IMBObjectViewController");
+//                
 //				item = [[NSMenuItem alloc] initWithTitle:title action:@selector(download:) keyEquivalent:@""];
 //				[item setRepresentedObject:location];
 //				[item setTarget:self];
@@ -1955,7 +1966,10 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	while (index != NSNotFound)
 	{
 		IMBObject* object = [objects objectAtIndex:index];
-		if (object.isSelectable && object.accessibility == kIMBResourceIsAccessible) [indexes addIndex:index];
+		if (object.isSelectable && (object.accessibility == kIMBResourceIsAccessible ||
+                                    object.accessibility == kIMBResourceIsAccessibleSecurityScoped)) {
+            [indexes addIndex:index];
+        }
 		index = [inIndexes indexGreaterThanIndex:index];
 	}
 	
@@ -2052,7 +2066,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	
 	for (IMBObject* object in inObjects)
 	{
-		if (object.accessibility == kIMBResourceIsAccessible)
+		if (object.accessibility == kIMBResourceIsAccessible ||
+            object.accessibility == kIMBResourceIsAccessibleSecurityScoped)
 		{
 			[object requestBookmarkWithCompletionBlock:^(NSError* inError)
 			{
@@ -2129,7 +2144,10 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	
 	for (IMBObject* object in objects)
 	{
-		if (object.accessibility == kIMBResourceIsAccessible) [filteredObjects addObject:object];
+		if (object.accessibility == kIMBResourceIsAccessible ||
+            object.accessibility == kIMBResourceIsAccessibleSecurityScoped) {
+            [filteredObjects addObject:object];
+        }
 	}
 	
 	return (NSArray*)filteredObjects;

@@ -32,9 +32,9 @@
 #import <pwd.h>
 #import <XPCKit/XPCKit.h>
 
-
 //----------------------------------------------------------------------------------------------------------------------
 
+#define ALWAYS_COPY_OBJECTS_ON_PERFORM_SELECTOR_ASYNC 0
 
 #pragma mark
 #pragma mark Sandbox Check
@@ -282,14 +282,16 @@ void SBPerformSelectorAsync(id inConnection,id inTarget,SEL inSelector,id inObje
    
     else
     {
-		// Archiving/unarchiving within the process for some reason is dramatically more expensive than
-		// pushing the objects across the XPC connection. Perhaps it's not as simple as them being unarchived/
-		// re-archived? In particular the thumbnail image data seems to take a long time to transfer. I'm
-		// going to experiment with just making a simple copy instead
-		id targetCopy = [[inTarget copy] autorelease];
-		id objectCopy = [[inObject copy] autorelease];
-        //id targetCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:inTarget]];
-        //id objectCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:inObject]];
+#if ALWAYS_COPY_OBJECTS_ON_PERFORM_SELECTOR_ASYNC
+        id targetCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:inTarget]];
+        id objectCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:inObject]];
+#else
+        id targetCopy = inTarget;
+        id objectCopy = inObject;
+#endif
+//        NSLog(@"Asynchronous perform on target object %@", targetCopy);
+//        NSLog(@"Asynchronous perform with parameter object %@", objectCopy);
+        
         
         dispatch_retain(returnHandlerQueue);
 
@@ -312,8 +314,9 @@ void SBPerformSelectorAsync(id inConnection,id inTarget,SEL inSelector,id inObje
 			// This is extremely useful for debugging purposes, but leads to a performance hit in non-sandboxed
 			// host apps. For this reason the following line may be commented out once our code base is stable...
 			
-			//result = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:result]];
-			
+#if ALWAYS_COPY_OBJECTS_ON_PERFORM_SELECTOR_ASYNC
+			result = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:result]];
+#endif
 			dispatch_async(returnHandlerQueue,^()
 			{
 				inReturnHandler(result,error);

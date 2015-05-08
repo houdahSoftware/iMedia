@@ -55,6 +55,7 @@
 #import <iMedia/iMedia.h>
 #import "IMBTestAppDelegate.h"
 #import "SBUtilities.h"
+#import "IMBParserController.h"
 #import "IMBImageObjectViewController.h"
 #import <iMedia/IMBiPhotoEventObjectViewController.h>
 #import <iMedia/IMBFaceObjectViewController.h>
@@ -136,6 +137,7 @@
 	
 	[IMBConfig setShowsGroupNodes:YES];
 	[IMBConfig setUseGlobalViewType:NO];
+    [IMBConfig setClientAppCanHandleSecurityScopedBookmarks:YES];
 	
 	self.usedObjects = [NSMutableDictionary dictionary];
 
@@ -349,14 +351,33 @@
 	{
 		return YES;
 	}
-	else if ([inIdentifier isEqualToString:@"com.karelia.imedia.folder.UserPictures"])
-	{
-		return YES;
-	}
-	else if ([inIdentifier isEqualToString:@"com.karelia.imedia.folder.iChatIcons"])
-	{
-		return NO;
-	}
+    else if ([inIdentifier isEqualToString:@"com.karelia.imedia.folder.UserPictures"])
+    {
+        return YES;
+    }
+    else if ([inIdentifier isEqualToString:@"com.karelia.imedia.folder.iChatIcons"])
+    {
+        return YES;
+    }
+    else if (IMBRunningOnSnowLeopardOrNewer()) {
+        NSSet *unqualifiedParserMessengerIdentifiers =
+        [NSSet setWithObjects:
+//         @"com.apple.medialibrary.Photos.image",               /* Apple Photos (Apple Media Library) */
+//         @"com.apple.medialibrary.iPhoto.image",               /* iPhoto (Apple Media Library) */
+//         @"com.apple.medialibrary.iPhoto.movie",               /* iPhoto (Apple Media Library) */
+//         @"com.apple.medialibrary.Aperture.image",             /* Aperture (Apple Media Library) */
+//         @"com.apple.medialibrary.Aperture.movie",             /* Aperture (Apple Media Library) */
+//         @"com.karelia.imedia.iTunes.audio",
+//         @"com.karelia.imedia.iTunes.movie",
+         @"com.karelia.imedia.iPhoto.image",
+         @"com.karelia.imedia.iPhoto.movie",
+         @"com.karelia.imedia.Aperture.image",
+         @"com.karelia.imedia.Aperture.movie",
+         nil];
+        if ([unqualifiedParserMessengerIdentifiers containsObject:inIdentifier]) {
+            return NO;
+        }
+    }
 	
 	return YES;
 }
@@ -436,6 +457,48 @@
 
 }
 
+/**
+ How to change the standard (alphabetical) order of nodes to some other order.
+ */
+- (void)libraryController:(IMBLibraryController *)inController willReplaceNode:(IMBNode *)inOldNode withNode:(IMBNode *)inNewNode
+{
+    // Helper to remove trailing part of identifier, e.g. "image", "audio, ... for some identifiers to keep map small
+    static NSString *(^baseDomainName)(NSString *) = ^NSString *(NSString *identifier)
+    {
+        NSRange divider = [identifier rangeOfString:@"." options:NSBackwardsSearch];
+        
+        if (divider.location != NSNotFound) return [identifier substringToIndex:divider.location];
+        else return identifier;
+    };
+    static NSDictionary *topLevelNodeDisplayPriorityMap;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        topLevelNodeDisplayPriorityMap = [@{
+                                           @"com.apple.medialibrary.Photos" :   @(10),
+                                           @"com.apple.medialibrary.iPhoto" :   @(20),
+                                           @"com.apple.medialibrary.Aperture" : @(30),
+                                           @"com.karelia.imedia.Lightroom6" :   @(40),
+                                           @"com.karelia.imedia.Lightroom5" :   @(50),
+                                           @"com.karelia.imedia.Lightroom4" :   @(60),
+                                           @"com.karelia.imedia.Lightroom3" :   @(70),
+                                           @"com.karelia.imedia.Lightroom2" :   @(80),
+                                           @"com.karelia.imedia.Lightroom1" :   @(90),
+                                           } retain];
+    });
+    if (![inNewNode isTopLevelNode]) return;
+    
+    NSString *parserMessengerIdentifier = [[inNewNode.parserMessenger class] identifier];
+    
+    NSNumber *nodeDisplayPriority = topLevelNodeDisplayPriorityMap[parserMessengerIdentifier];
+    if (!nodeDisplayPriority) {
+        nodeDisplayPriority = topLevelNodeDisplayPriorityMap[baseDomainName(parserMessengerIdentifier)];
+    }
+    if (nodeDisplayPriority) {
+        inNewNode.displayPriority = [nodeDisplayPriority integerValue];
+        return;
+    }
+    inNewNode.displayPriority = 500;
+}
 
 - (void) libraryController:(IMBLibraryController*)inController didCreateNode:(IMBNode*)inNode withParserMessenger:(IMBParserMessenger*)inParserMessenger
 {
@@ -735,6 +798,16 @@
 	} 
 	
 	return nil;
+}
+
+#pragma mark -
+#pragma mark Debug Menu Actions
+
+- (IBAction)showParserMessengerIdentifiers:(id)sender
+{
+    [ibDebugInfoView setString:[[IMBParserController sharedParserController] parserMessengerIdentifiersDescription]];
+    [ibDebugInfoWindow setTitle:@"Parser Messenger Identifiers For Registered Parser Messengers"];
+    [ibDebugInfoWindow makeKeyAndOrderFront:nil];
 }
 
 @end

@@ -433,22 +433,20 @@ static NSMutableDictionary* sLibraryControllers = nil;
 
 	NSString* parentNodeIdentifier = inNode.parentNode.identifier;
 	IMBParserMessenger* messenger = inNode.parserMessenger;
-	if (messenger != nil)
-	{
-		SBPerformSelectorAsync(messenger.connection,
-    	                       messenger,
-        	                   @selector(populateNode:error:),
-            	               inNode,
-                	           dispatch_get_main_queue(),
+	SBPerformSelectorAsync(messenger.connection,
+                           messenger,
+                           @selector(populateNode:error:),
+                           inNode,
+                           dispatch_get_main_queue(),
 	
-			^(IMBNode* inNewNode,NSError* inError)
+		^(IMBNode* inNewNode,NSError* inError)
+		{
+			// Got a new node. Do some consistency checks (was it populated correctly)...
+			
+			if (inError == nil)
 			{
-				// Got a new node. Do some consistency checks (was it populated correctly)...
-				
-				if (inError == nil)
-				{
 				if (inNewNode != nil && !inNewNode.isPopulated)
-					{
+				{
 					NSString* title = @"Programmer Error";
 					NSString* description = [NSString stringWithFormat:
 						@"The node '%@' returned by the parser %@ was not populated correctly.\n\nEither subnodes or objects is still nil.",
@@ -461,44 +459,45 @@ static NSMutableDictionary* sLibraryControllers = nil;
 						nil];
 						
 					inError = [NSError errorWithDomain:kIMBErrorDomain code:kIMBErrorInvalidState userInfo:info];
-					}
 				}
-				
-				if (inError)
-        	    {
-        	        NSLog(@"%s ERROR:\n\n%@",__FUNCTION__,inError);
-        	    }
-				
-				// If populating was successful we got a new node. Set the parserMessenger, and then  
-				// replace the old with the new node...
-				
-				if (inNewNode)
+			}
+			
+			if (inError)
+            {
+                NSLog(@"%s ERROR:\n\n%@",__FUNCTION__,inError);
+            }
+			
+			// If populating was successful we got a new node. Set the parserMessenger, and then  
+			// replace the old with the new node...
+			
+			if (inNewNode)
+			{
+                inNewNode.isLoading = NO;
+                inNewNode.badgeTypeNormal = [inNode badgeTypeNormalNonLoading];
+				inNewNode.error = inError;
+				[self _setParserMessenger:messenger nodeTree:inNewNode];
+				[self _replaceNode:inNode withNode:inNewNode parentNodeIdentifier:parentNodeIdentifier];
+			
+				if (RESPONDS(_delegate,@selector(libraryController:didPopulateNode:)))
 				{
-					inNewNode.error = inError;
-					[self _setParserMessenger:messenger nodeTree:inNewNode];
-						[self _replaceNode:inNode withNode:inNewNode parentNodeIdentifier:parentNodeIdentifier];
-				
-					if (RESPONDS(_delegate,@selector(libraryController:didPopulateNode:)))
-						{
 					[_delegate libraryController:self didPopulateNode:inNewNode];
-					}
 				}
-				
-				// If populating failed, then we'll have to keep the old node, but we'll clear the loading 
-				// state and store an error instead (which is displayed as an alert badge)...
-	
-				else
-				{
-    	            inNode.isLoading = NO;
-					inNode.badgeTypeNormal = [inNode badgeTypeNormalNonLoading];
-					inNode.error = inError;
-    	            
-    	            if (inErrorHandler) {
-    	                inErrorHandler(inError);
-    	            }
-				}
-			});
-	}
+			}
+			
+			// If populating failed, then we'll have to keep the old node, but we'll clear the loading 
+			// state and store an error instead (which is displayed as an alert badge)...
+
+			else
+			{
+                inNode.isLoading = NO;
+				inNode.badgeTypeNormal = [inNode badgeTypeNormalNonLoading];
+				inNode.error = inError;
+                
+                if (inErrorHandler) {
+                    inErrorHandler(inError);
+                }
+			}
+		});		
 }
 
 
@@ -828,14 +827,14 @@ static NSMutableDictionary* sLibraryControllers = nil;
 	
 	if (inOldNode != nil && inOldNode.parentNode == nil)
 	{
-		// Special case for top level nodes that have a group type "none" ... they are not required
-		// to have a parent node in order to belong and warrant replacement. So we only bail
-		// out if the node does have a group type or is not a top level node.
-		if (([inOldNode groupType] != kIMBGroupTypeNone) || ([inOldNode isTopLevelNode] == NO))
-		{
-			NSLog(@"%s inOldNode has already been removed. This was problably a race condition...",__FUNCTION__);
-			return;
-		}
+		NSLog(@"%s inOldNode has already been removed. This was problably a race condition...",__FUNCTION__);
+		return;
+	}
+	
+	if (inOldNode != nil && inOldNode.parentNode == nil)
+	{
+		NSLog(@"%s inOldNode has already been removed. This was problably a race condition...",__FUNCTION__);
+		return;
 	}
 	
 	// Tell user interface that we are going to modify the data model...
@@ -848,6 +847,10 @@ static NSMutableDictionary* sLibraryControllers = nil;
 	
 	@try      
     {
+        if ([self.delegate respondsToSelector:@selector(libraryController:willReplaceNode:withNode:)]) {
+            [self.delegate libraryController:self willReplaceNode:inOldNode withNode:inNewNode];
+        }
+        
 		// Update file system observing...
 		
 		NSString* oldWatchedPath = inOldNode.watchedPath;
