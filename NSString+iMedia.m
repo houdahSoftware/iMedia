@@ -142,6 +142,12 @@
 
 @implementation NSString ( iMedia )
 
+
+- (BOOL)validIndex:(NSInteger)index
+{
+    return index < [self length] && index >= 0;
+}
+
 // Returns the longest common sub path of self with inPath.
 // Paths must be absolute paths.
 

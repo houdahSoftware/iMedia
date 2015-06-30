@@ -34,7 +34,10 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#define ALWAYS_COPY_OBJECTS_ON_PERFORM_SELECTOR_ASYNC 0
+/**
+ An experimental switch to boost performance but definitly not ready for prime time
+ */
+#define ALWAYS_COPY_OBJECTS_ON_PERFORM_SELECTOR_ASYNC 1
 
 #pragma mark
 #pragma mark Sandbox Check
@@ -245,7 +248,7 @@ void SBPerformSelectorAsync(id inConnection,id inTarget,SEL inSelector,id inObje
     
     if (inConnection && [inConnection respondsToSelector:@selector(sendSelector:withTarget:object:returnValueHandler:)])
     {
-		[inConnection setReplyDispatchQueue:returnHandlerQueue];	
+        [inConnection setReplyDispatchQueue:returnHandlerQueue];
         SBReturnValueHandler returnHandler = [inReturnHandler copy];
         
         [inConnection sendSelector:inSelector
@@ -269,7 +272,6 @@ void SBPerformSelectorAsync(id inConnection,id inTarget,SEL inSelector,id inObje
                  inError = [NSError errorWithDomain:kSandboxingKitErrorDomain
                                                code:kSandboxingKitErrorCouldNotComplete
                                            userInfo:info];
-					NSLog(@"Warning got XPC error %@ - %@", inError, info);
              }
              returnHandler(object, inError);
              [returnHandler release];
