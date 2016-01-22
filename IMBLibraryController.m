@@ -430,6 +430,7 @@ static NSMutableDictionary* sLibraryControllers = nil;
 			
 	inNode.isLoading = YES;
 	inNode.badgeTypeNormal = kIMBBadgeTypeLoading;
+	inNode.version++;
 
 	NSString* parentNodeIdentifier = inNode.parentNode.identifier;
 	IMBParserMessenger* messenger = inNode.parserMessenger;
@@ -493,7 +494,8 @@ static NSMutableDictionary* sLibraryControllers = nil;
 				inNode.badgeTypeNormal = [inNode badgeTypeNormalNonLoading];
 				inNode.error = inError;
                 
-                if (inErrorHandler) {
+                if (inErrorHandler)
+				{
                     inErrorHandler(inError);
                 }
 			}
@@ -539,7 +541,8 @@ static NSMutableDictionary* sLibraryControllers = nil;
 			
 	inOldNode.isLoading = YES;
 	inOldNode.badgeTypeNormal = kIMBBadgeTypeLoading;
-
+	[self _incrementVersionOfNodeTree:inOldNode];
+	
 	SBPerformSelectorAsync(messenger.connection,
                            messenger,
                            @selector(reloadNodeTree:error:),
@@ -584,7 +587,21 @@ static NSMutableDictionary* sLibraryControllers = nil;
 					}
 				}
 			}
-		});		
+		});
+}
+
+
+- (void) _incrementVersionOfNodeTree:(IMBNode*)inNode
+{
+	inNode.version++;
+
+	if (inNode.isPopulated)
+	{
+		for (IMBNode* subnode in inNode.subnodes)
+		{
+			[self _incrementVersionOfNodeTree:subnode];
+		}
+	}
 }
 
 
@@ -825,9 +842,13 @@ static NSMutableDictionary* sLibraryControllers = nil;
 	
 	// Log an error if we are supposed to remove an old node, but it already removed from the tree...
 		
-	if (inOldNode != nil && inOldNode.parentNode == nil)
+	if (inOldNode != nil && inNewNode != nil && inOldNode.version > inNewNode.version)
 	{
-		NSLog(@"%s inOldNode has already been removed. This was problably a race condition...",__FUNCTION__);
+//		NSLog(@"%s Version %d of inNewNode is obsolete, because version %d was already requested...",
+//			__FUNCTION__,
+//			(int)inNewNode.version,
+//			(int)inOldNode.version);
+		
 		return;
 	}
 	
@@ -841,7 +862,8 @@ static NSMutableDictionary* sLibraryControllers = nil;
 	
 	@try      
     {
-        if ([self.delegate respondsToSelector:@selector(libraryController:willReplaceNode:withNode:)]) {
+        if ([self.delegate respondsToSelector:@selector(libraryController:willReplaceNode:withNode:)])
+		{
             [self.delegate libraryController:self willReplaceNode:inOldNode withNode:inNewNode];
         }
         

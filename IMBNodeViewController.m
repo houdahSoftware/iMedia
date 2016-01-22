@@ -1458,7 +1458,7 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
 			selectedNodeIdentifier = identifier;
 		}
 	
-		if ([identifier isEqualToString:selectedNodeIdentifier])
+		if (selectedNodeIdentifier && [identifier isEqualToString:selectedNodeIdentifier])
 		{
 			[self selectNode:node];
 			found = YES;
@@ -1526,6 +1526,7 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
 	{
 		[ibNodeOutlineView selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
         [self installObjectViewForNode:nil];
+		[(IMBObjectViewController*)self.objectViewController setCurrentNode:nil];
 	}
 }
 
@@ -1729,15 +1730,21 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
 
 - (IBAction) reloadNode:(id)inSender
 {
-	IMBNode* node = [self selectedNode];
-    [self.libraryController reloadNodeTree:node errorHandler:^(NSError *error) {
-        if (error.code == kIMBResourceNoPermission) {
-            // Try again after requesting access (e.g. session may have expired).
+//	for (NSUInteger i=0; i<20; i++)		// Just for debugging purposes
+//	{
+		IMBNode* node = [self selectedNode];
+		
+		[self.libraryController reloadNodeTree:node errorHandler:^(NSError *error)
+		{
+			if (error.code == kIMBResourceNoPermission) {
+				// Try again after requesting access (e.g. session may have expired).
 
-            [self performSelector:@selector(reloadNodeTree:) withAccessRequestedToNode:node];
-        }
-    }];
-    [self.nodeOutlineView setNeedsDisplay];
+				[self performSelector:@selector(reloadNodeTree:) withAccessRequestedToNode:node];
+			}
+		}];
+		
+		[self.nodeOutlineView setNeedsDisplay];
+//	}
 }
 
 
