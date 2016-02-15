@@ -1,6 +1,6 @@
 [submodule "ObjectiveFlickr"]
 	path = ObjectiveFlickr
-	url = git://github.com/iMediaSandboxing/objectiveflickr.git
+	url = https://github.com/houdahSoftware/objectiveflickr.git
 	fetchRecurseSubmodules = true
 [submodule "XPCKit"]
 	path = XPCKit
