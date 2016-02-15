@@ -55,11 +55,11 @@
 		3010BE4416A85D2600798D2E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D02CD4CB1224F78E00C773A2 /* Localizable.strings */; };
 		3016792913B225B9000E57D2 /* badge_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 3016792813B225B9000E57D2 /* badge_checkbox.png */; };
 		3016792A13B225B9000E57D2 /* badge_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 3016792813B225B9000E57D2 /* badge_checkbox.png */; };
-		301C61ED1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61EB1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h */; };
+		301C61ED1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61EB1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		301C61EE1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61EC1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		301C61F21AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F01AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.h */; };
 		301C61F31AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F11AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		301C61F61AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F41AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h */; };
+		301C61F61AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F41AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		301C61F71AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F51AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		301C61FA1AAF45C200A0E15F /* IMBiTunesParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F81AAF45C200A0E15F /* IMBiTunesParserConfiguration.h */; };
 		301C61FB1AAF45C200A0E15F /* IMBiTunesParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F91AAF45C200A0E15F /* IMBiTunesParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -137,7 +137,7 @@
 		30B83AE11701B1C8000EC74E /* im.edia.Facebook.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30B83ADC1701AFDB000EC74E /* im.edia.Facebook.xpc */; };
 		30BA9D221A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D201A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30BA9D231A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BA9D211A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		30BA9D271A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D251A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h */; };
+		30BA9D271A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D251A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30BA9D281A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BA9D261A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		30D700B0177A2928003CB6FE /* missing-thumbnail.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 30D700AF177A2928003CB6FE /* missing-thumbnail.jpg */; };
 		30DA32421A8E29680039B07C /* IMBAppleMediaLibraryPropertySynchronizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 30DA32401A8E29680039B07C /* IMBAppleMediaLibraryPropertySynchronizer.h */; };
