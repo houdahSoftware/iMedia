@@ -664,7 +664,7 @@
 
 - (NSString *)iMedia2PersistentResourceIdentifierPrefix
 {
-	return @"IMBLightroomgParser";
+	return @"IMBLightroom6Parser";
 }
 
 @end
