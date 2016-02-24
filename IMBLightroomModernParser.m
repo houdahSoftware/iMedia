@@ -128,7 +128,7 @@
 		
 		for (NSString* libraryPath in libraryPaths) {
 			IMBLightroomModernParser* parser = [[[[self class] alloc] init] autorelease];
-			parser.identifier = [NSString stringWithFormat:@"%@:/%@",[[self class] identifier],libraryPath];
+			parser.identifier = [NSString stringWithFormat:@"%@:%@",[[self class] identifier],libraryPath];
 			parser.mediaSource = [NSURL fileURLWithPath:libraryPath];
 			parser.mediaType = inMediaType;
 			parser.shouldDisplayLibraryName = libraryPaths.count > 1;
