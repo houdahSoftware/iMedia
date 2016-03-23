@@ -202,9 +202,11 @@
 		else if (databaseVersionLong >= 400000) {
 			return NO;
 		}
+		
+		return YES;
 	}
 	
-	return YES;
+	return NO;
 }
 
 
