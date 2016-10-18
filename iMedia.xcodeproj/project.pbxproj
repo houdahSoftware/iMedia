@@ -159,6 +159,7 @@
 		30FD64671546AF6E0036BDE2 /* NSPasteboard+iMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FD64651546AF6E0036BDE2 /* NSPasteboard+iMedia.m */; };
 		30FD646B1546BAE90036BDE2 /* IMBApertureHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCA064112368388009072AE /* IMBApertureHeaderViewController.m */; };
 		30FFEBFE150A0AA70009C1D0 /* im.edia.iPhoto.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30FFEBEC150A08DB0009C1D0 /* im.edia.iPhoto.xpc */; };
+		6523FF231B0CE589004FD6D2 /* IMBItemizableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BC5C641AFF22BE002BF87F /* IMBItemizableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65D10B2F171C86BB00ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
 		65D10B30171C871500ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
 		65D10B31171C871A00ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
@@ -170,7 +171,6 @@
 		65D10B37171C875100ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
 		65D10B38171C875800ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
 		65D10B39171C875E00ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
-		6523FF231B0CE589004FD6D2 /* IMBItemizableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BC5C641AFF22BE002BF87F /* IMBItemizableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		8F47B39110C416050013ED25 /* IMBOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F47B38F10C416050013ED25 /* IMBOrderedDictionary.h */; };
 		8F47B39210C416050013ED25 /* IMBOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F47B39010C416050013ED25 /* IMBOrderedDictionary.m */; };
@@ -3029,7 +3029,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0810;
 				TargetAttributes = {
 					307F9690183D090D004F87E0 = {
 						TestTargetID = 8DC2EF4F0486A6940098B216;
