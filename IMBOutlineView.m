@@ -454,10 +454,13 @@ NSString* IMBIsDefaultAppearanceAttributeName = @"IMBIsDefaultAppearanceAttribut
 
 // If we do have an appearance set, then disable Yosemite style translucency, as it interferres too much...
 
+// DCJ: Disabling this because it causes poor drawing performance of progress indicator.
+// https://redsweater.fogbugz.com/f/cases/20255/iMedia-drawing-defect-perhaps-Yosemite-specific
+#if 0
 - (BOOL) allowsVibrancy
 {
 	return _appearance != nil ? NO : YES;
 }
-
+#endif
 
 @end
