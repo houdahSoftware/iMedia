@@ -28,3 +28,10 @@ GCC_GENERATE_DEBUGGING_SYMBOLS = YES
 DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
 
 CODE_SIGN_IDENTITY = Mac Developer
+
+// have to manually provide our own team ID here to quiet warnings from Xcode 8 about
+// needing a team identifier.
+DEVELOPMENT_TEAM = 493CVA9A35
+
+// Don't bother with nullability completeness warnings yet
+WARNING_CFLAGS = -Wno-nullability-completeness
