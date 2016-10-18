@@ -271,6 +271,8 @@ static NSMutableDictionary* sLibraryControllers = nil;
  */
 - (void) reloadFileSystemBasedOnly:(BOOL)fileSystemBasedOnly
 {
+	if ([IMBConfig suspendBackgroundTasks]) return;
+	
 	NSArray* messengers = [[IMBParserController sharedParserController] loadedParserMessengersForMediaType:self.mediaType];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kIMBNodesWillReloadNotification object:self];
@@ -318,6 +320,8 @@ static NSMutableDictionary* sLibraryControllers = nil;
 
 - (void) createTopLevelNodesWithParserMessenger:(IMBParserMessenger*)inParserMessenger
 {
+	if ([IMBConfig suspendBackgroundTasks]) return;
+
 	// Ask delegate whether we should create nodes with this IMBParserMessenger...
 	
 	if (RESPONDS(_delegate,@selector(libraryController:shouldCreateNodeWithParserMessenger:)))
@@ -400,6 +404,7 @@ static NSMutableDictionary* sLibraryControllers = nil;
 
 - (void)populateNode:(IMBNode *)inNode errorHandler:(void(^)(NSError* error))inErrorHandler
 {
+	if ([IMBConfig suspendBackgroundTasks]) return;
 	if ([inNode isGroupNode]) return;
 	if ([inNode isPopulated]) return;
 //	if ([inNode error]) return;
@@ -517,6 +522,7 @@ static NSMutableDictionary* sLibraryControllers = nil;
 
 - (void)reloadNodeTree:(IMBNode *)inOldNode errorHandler:(void(^)(NSError* error))inErrorHandler
 {
+	if ([IMBConfig suspendBackgroundTasks]) return;
 	if ([inOldNode isGroupNode]) return;
 
 	NSString* parentNodeIdentifier = inOldNode.parentNode.identifier;
@@ -698,6 +704,8 @@ static NSMutableDictionary* sLibraryControllers = nil;
 
 - (void) _reloadTopLevelNode:(IMBNode*)inNode
 {
+	if ([IMBConfig suspendBackgroundTasks]) return;
+
 	if (inNode.isTopLevelNode)
 	{
 		BOOL shouldReload = YES;
@@ -1252,10 +1260,15 @@ static NSMutableDictionary* sLibraryControllers = nil;
 				NSMutableAttributedString* title = [[[NSMutableAttributedString alloc] initWithString:name attributes:attributes] autorelease];
 				NSMutableAttributedString* space = [[[NSMutableAttributedString alloc] initWithString:@" " attributes:attributes] autorelease];
 				NSMutableAttributedString* warning = [[[NSMutableAttributedString alloc] initWithAttributedString:[icon attributedString]] autorelease];
-				[warning addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithFloat:-3.0] range:NSMakeRange(0,1)];
 				
 				[title appendAttributedString:space];
-				[title appendAttributedString:warning];
+
+				if (warning.length > 0)
+				{
+					[warning addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithFloat:-3.0] range:NSMakeRange(0,1)];
+					[title appendAttributedString:warning];
+				}
+				
 				[item setAttributedTitle:title];
 				
 				[icon release];
