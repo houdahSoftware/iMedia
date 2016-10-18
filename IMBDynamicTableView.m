@@ -64,8 +64,6 @@
 
 @implementation IMBDynamicTableView
 
-@dynamic delegate;
-
 - (id)initWithCoder:(NSCoder *)coder
 {
     self = [super initWithCoder:coder];
@@ -77,6 +75,19 @@
     [_viewsInVisibleRows release];
     _viewsInVisibleRows = nil;
     [super dealloc];
+}
+
+// Cover methods on -delegate to avoid clashing protocol types in 10.12 SDK. We just pass through
+// to the super setter/getter for delegate, since our protocol extension only adds new, optional
+// methods that we check for implementation of before calling.
+- (id<IMBDynamicTableViewDelegate>) dynamicDelegate
+{
+	return (id<IMBDynamicTableViewDelegate>)self.delegate;
+}
+
+- (void) setDynamicDelegate:(id<IMBDynamicTableViewDelegate>)dynamicDelegate
+{
+	self.delegate = (id<NSTableViewDelegate>)dynamicDelegate;
 }
 
 - (BOOL)wantsThumbnails;
@@ -105,9 +116,9 @@
 	{
         _visibleRows = newVisibleRows;
         // Give the delegate a chance to do any pre-loading or special work that it wants to do
-        if ([[self delegate] respondsToSelector:@selector(dynamicTableView:changedVisibleRowsFromRange:toRange:)])
+        if ([[self dynamicDelegate] respondsToSelector:@selector(dynamicTableView:changedVisibleRowsFromRange:toRange:)])
 		{
-            [[self delegate] dynamicTableView:self changedVisibleRowsFromRange:oldVisibleRows toRange:newVisibleRows];
+            [[self dynamicDelegate] dynamicTableView:self changedVisibleRowsFromRange:oldVisibleRows toRange:newVisibleRows];
         }
         // We always have to update our views if the visible area changed
         _viewsNeedUpdate = YES;
@@ -140,7 +151,7 @@
                 if (view == nil)
 				{
                     // We don't already have a view at that row
-                    view = [[self delegate] dynamicTableView:self viewForRow:row];
+                    view = [[self dynamicDelegate] dynamicTableView:self viewForRow:row];
                     if (view != nil)
 					{
                         [self addSubview:view];
