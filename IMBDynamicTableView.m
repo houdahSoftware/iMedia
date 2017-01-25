@@ -77,19 +77,6 @@
     [super dealloc];
 }
 
-// Cover methods on -delegate to avoid clashing protocol types in 10.12 SDK. We just pass through
-// to the super setter/getter for delegate, since our protocol extension only adds new, optional
-// methods that we check for implementation of before calling.
-- (id<IMBDynamicTableViewDelegate>) dynamicDelegate
-{
-	return (id<IMBDynamicTableViewDelegate>)self.delegate;
-}
-
-- (void) setDynamicDelegate:(id<IMBDynamicTableViewDelegate>)dynamicDelegate
-{
-	self.delegate = (id<NSTableViewDelegate>)dynamicDelegate;
-}
-
 - (BOOL)wantsThumbnails;
 {
 	return NO;		// subclass can override.
@@ -112,13 +99,15 @@
     NSRange newVisibleRows = [self rowsInRect:self.visibleRect];
     BOOL visibleRowsNeedsUpdate = !NSEqualRanges(newVisibleRows, _visibleRows);
     NSRange oldVisibleRows = _visibleRows;
+	id<IMBDynamicTableViewDelegate> delegate = (id<IMBDynamicTableViewDelegate>) self.delegate;
+	
     if (visibleRowsNeedsUpdate)
 	{
         _visibleRows = newVisibleRows;
         // Give the delegate a chance to do any pre-loading or special work that it wants to do
-        if ([[self dynamicDelegate] respondsToSelector:@selector(dynamicTableView:changedVisibleRowsFromRange:toRange:)])
+        if ([delegate respondsToSelector:@selector(dynamicTableView:changedVisibleRowsFromRange:toRange:)])
 		{
-            [[self dynamicDelegate] dynamicTableView:self changedVisibleRowsFromRange:oldVisibleRows toRange:newVisibleRows];
+            [delegate dynamicTableView:self changedVisibleRowsFromRange:oldVisibleRows toRange:newVisibleRows];
         }
         // We always have to update our views if the visible area changed
         _viewsNeedUpdate = YES;
@@ -128,7 +117,7 @@
 	{
         _viewsNeedUpdate = NO;
         // Update any views that the delegate wants to give us
-        if ([[self delegate] respondsToSelector:@selector(dynamicTableView:viewForRow:)])
+        if ([delegate respondsToSelector:@selector(dynamicTableView:viewForRow:)])
 		{
 			
             if (visibleRowsNeedsUpdate)
@@ -151,7 +140,7 @@
                 if (view == nil)
 				{
                     // We don't already have a view at that row
-                    view = [[self dynamicDelegate] dynamicTableView:self viewForRow:row];
+                    view = [delegate dynamicTableView:self viewForRow:row];
                     if (view != nil)
 					{
                         [self addSubview:view];
@@ -249,16 +238,6 @@
 		}
 		[self setNeedsDisplayInRect:dirtyRect];
 	}
-}
-
-- (void)setDelegate:(id <IMBDynamicTableViewDelegate>)delegate
-{
-    [super setDelegate:delegate];
-}
-
-- (id <IMBDynamicTableViewDelegate>)delegate
-{
-    return (id <IMBDynamicTableViewDelegate>)[super delegate];
 }
 
 // Method called after KVO detects a change, to reload the table row.
