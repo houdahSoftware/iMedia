@@ -110,8 +110,12 @@
 	return @"com.adobe.Lightroom6";
 }
 
-// ----------------------------------------------------------------------------------------------------------------------
++ (NSString *)lightroomAppVersion
+{
+    return @"6";
+}
 
+// ----------------------------------------------------------------------------------------------------------------------
 
 - (BOOL)checkDatabaseVersion
 {
@@ -126,8 +130,8 @@
 		else if (databaseVersionLong >= 700000) {
 			return NO;
 		}
-
-		return YES;
+        
+        return YES;
 	}
 
 	return NO;

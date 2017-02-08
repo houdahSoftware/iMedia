@@ -107,6 +107,10 @@
     return @"com.adobe.Lightroom3";
 }
 
++ (NSString *)lightroomAppVersion
+{
+    return @"3";
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -197,8 +201,8 @@
 		else if (databaseVersionLong >= 400000) {
 			return NO;
 		}
-
-		return YES;
+        
+        return YES;
 	}
 	
 	return NO;
