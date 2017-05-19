@@ -192,6 +192,18 @@ static NSString* kBookmarksPrefsKey = @"accessRightsBookmarks";
 	return nil;
 }
 
+- (void) removeBookmarks:(NSArray*)inBookmarks
+{
+    @synchronized(self)
+	{
+		for (NSData* bookmark in inBookmarks)
+		{
+			[self.bookmarks removeObject:bookmark];
+		}
+
+		[self saveToPrefs];
+	}
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -242,10 +254,7 @@ static NSString* kBookmarksPrefsKey = @"accessRightsBookmarks";
 		}
 	}
 
-	for (NSData* bookmark in bookmarksToRemove)
-	{
-		[self.bookmarks removeObject:bookmark];
-	}
+	[self removeBookmarks:bookmarksToRemove];
 }
 
 
@@ -366,7 +375,6 @@ static NSString* kBookmarksPrefsKey = @"accessRightsBookmarks";
 {
 	NSError* error = nil;
 	BOOL stale = NO;
-		
 	NSURL* url = [NSURL
 		URLByResolvingBookmarkData:inBookmark
 		options:NSURLBookmarkResolutionWithSecurityScope
