@@ -701,7 +701,7 @@ NSString* kIMBPasteboardTypeObjectsPromise = @"com.karelia.imedia.pasteboard.obj
 				
 				unsigned eventModifierFlags = [[NSApp currentEvent] modifierFlags];				
 				if ([fileManager fileExistsAtPath:localPath]
-					&& 0 == (eventModifierFlags & NSAlternateKeyMask))
+					&& 0 == (eventModifierFlags & NSEventModifierFlagOption))
 				{
 					downloadOp.localPath = localPath;	// Indicate already-ready local path, meaning that no download needs to actually happen
 					[self didFinish:downloadOp];

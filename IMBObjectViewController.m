@@ -1742,7 +1742,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 				@"Menu item in context menu of IMBObjectViewController");
 				
 			item = [[NSMenuItem alloc] initWithTitle:title action:@selector(quicklook:) keyEquivalent:@"y"];
-			[item setKeyEquivalentModifierMask:NSCommandKeyMask];
+			[item setKeyEquivalentModifierMask:NSEventModifierFlagCommand];
 			[item setRepresentedObject:inObject];
 			[item setTarget:self];
 			[menu addItem:item];
@@ -2216,7 +2216,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 {
 	NSView* view = [self selectedObjectView];
 	
-	if ([inEvent type] == NSKeyDown)
+	if ([inEvent type] == NSEventTypeKeyDown)
 	{
 		[view keyDown:inEvent];
 		return YES;

@@ -1061,7 +1061,7 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
         {
             NSMutableDictionary* effectiveTextAttributes = [NSMutableDictionary dictionaryWithDictionary:textAttributes];
             NSMutableParagraphStyle* paragraphStyle = [[[NSMutableParagraphStyle alloc] init] autorelease];
-            [paragraphStyle setAlignment:NSRightTextAlignment];
+            [paragraphStyle setAlignment:NSTextAlignmentRight];
             [effectiveTextAttributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
             
             // If we use default appearance don't mess with background style
@@ -1695,7 +1695,7 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
 
 	NSInteger result = [panel runModal];
 
-	if (result == NSFileHandlingPanelOKButton)
+	if (result == NSModalResponseOK)
 	{
 		NSArray* urls = [panel URLs];
 		for (NSURL* url in urls)

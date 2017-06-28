@@ -143,11 +143,11 @@
 		@"Drag additional folders here",
 		@"String that is displayed in the IMBOutlineView");
 
-	CGFloat size = [NSFont systemFontSizeForControlSize:NSSmallControlSize];
+	CGFloat size = [NSFont systemFontSizeForControlSize:NSControlSizeSmall];
 	NSFont* font = [NSFont boldSystemFontOfSize:size];
 	
 	self.textCell = [[[IMBTextFieldCell alloc] initTextCell:@""] autorelease];
-	[self.textCell setAlignment:NSCenterTextAlignment];
+	[self.textCell setAlignment:NSTextAlignmentCenter];
 	[self.textCell setVerticalAlignment:kIMBBottomTextAlignment];
 	[self.textCell setFont:font];
 	[self.textCell setTextColor:[NSColor grayColor]];
@@ -301,7 +301,7 @@
 					
 					[wheel setAutoresizingMask:NSViewNotSizable];
 					[wheel setStyle:NSProgressIndicatorSpinningStyle];
-					[wheel setControlSize:NSSmallControlSize];
+					[wheel setControlSize:NSControlSizeSmall];
 					[wheel setUsesThreadedAnimation:YES];
 					[wheel setIndeterminate:YES];
 					
