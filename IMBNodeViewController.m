@@ -706,6 +706,11 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
 					object:nil];
 
 				[self.libraryController addUserAddedNodeForFolder:url];
+
+				// Whenever a drag of a folder occurs, make sure our folders section is expanded
+				// so that the user doesn't get the impression there was no effect to their drag.
+				[ibNodeOutlineView expandItem:[self.libraryController nodeWithIdentifier:@"group://FOLDERS"]];
+
 				result = YES;
 			}
 		}	
