@@ -93,11 +93,16 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 
++ (NSString *)lightroomAppVersion
+{
+    [self imb_throwAbstractBaseClassExceptionForSelector:_cmd];
+}
+
 // Unique identifier for this parser...
 
 + (NSString*) identifier
 {
-	[[self class] imb_throwAbstractBaseClassExceptionForSelector:_cmd];
+	[self imb_throwAbstractBaseClassExceptionForSelector:_cmd];
 
 	return nil;
 }
@@ -138,13 +143,6 @@
                 parser.mediaType = inMediaType;
                 parser.shouldDisplayLibraryName = libraryPaths.count > 1;
                 
-                // Check catalog compatibility. Defer if we lack access rights
-                if (libraryAccessibility == kIMBResourceIsAccessible) {
-                    if (! [parser checkDatabaseVersion]) {
-                        continue;
-                    }
-                }
-            
                 [parserInstances addObject:parser];
             }
         }
@@ -197,9 +195,9 @@
             NSString *localizedErrorDescriptionFormat = NSLocalizedStringWithDefaultValue(
                                                                                           @"IMBLightroomParser.IncompatibleCatalogVersion",
                                                                                           nil, IMBBundle(),
-                                                                                          @"This catalog does not appear to be compatible with Lightroom %@",
+                                                                                          @"Catalog %@ is associated with Lightroom version %@ but has an incompatible version.\n\nYou may want to try to open it with Lightroom %@ first to update it. If successful please re-start the application.",
                                                                                           @"Warning when Lightroom database version check fails");
-            NSString *localizedErrorDescription = [NSString stringWithFormat:localizedErrorDescriptionFormat, lightroomVersion];
+            NSString *localizedErrorDescription = [NSString stringWithFormat:localizedErrorDescriptionFormat, [self.mediaSource path], lightroomVersion, lightroomVersion];
             
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                       localizedErrorDescription, NSLocalizedDescriptionKey, nil];
