@@ -178,6 +178,10 @@
 		8F39FC601CA29A5300BBFA3D /* FMResultSet+iMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F39FC5E1CA29A5300BBFA3D /* FMResultSet+iMedia.m */; };
 		8F47B39110C416050013ED25 /* IMBOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F47B38F10C416050013ED25 /* IMBOrderedDictionary.h */; };
 		8F47B39210C416050013ED25 /* IMBOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F47B39010C416050013ED25 /* IMBOrderedDictionary.m */; };
+		8F6148411FB4CBC600C3ABDF /* IMBLightroom7Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F61483D1FB4CBC600C3ABDF /* IMBLightroom7Parser.h */; };
+		8F6148421FB4CBC600C3ABDF /* IMBLightroom7Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F61483E1FB4CBC600C3ABDF /* IMBLightroom7Parser.m */; };
+		8F6148431FB4CBC600C3ABDF /* IMBLightroom7VideoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F61483F1FB4CBC600C3ABDF /* IMBLightroom7VideoParser.h */; };
+		8F6148441FB4CBC600C3ABDF /* IMBLightroom7VideoParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6148401FB4CBC600C3ABDF /* IMBLightroom7VideoParser.m */; };
 		8F6164E91AE6C0BF00F1259D /* IMBLightroom6Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F6164E51AE6C0BF00F1259D /* IMBLightroom6Parser.h */; };
 		8F6164EA1AE6C0BF00F1259D /* IMBLightroom6Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6164E61AE6C0BF00F1259D /* IMBLightroom6Parser.m */; };
 		8F6164EB1AE6C0BF00F1259D /* IMBLightroom6VideoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F6164E71AE6C0BF00F1259D /* IMBLightroom6VideoParser.h */; };
@@ -795,6 +799,10 @@
 		8F39FC5E1CA29A5300BBFA3D /* FMResultSet+iMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FMResultSet+iMedia.m"; path = "fmdb/src/fmdb/FMResultSet+iMedia.m"; sourceTree = "<group>"; };
 		8F47B38F10C416050013ED25 /* IMBOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBOrderedDictionary.h; sourceTree = "<group>"; };
 		8F47B39010C416050013ED25 /* IMBOrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBOrderedDictionary.m; sourceTree = "<group>"; };
+		8F61483D1FB4CBC600C3ABDF /* IMBLightroom7Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBLightroom7Parser.h; sourceTree = "<group>"; };
+		8F61483E1FB4CBC600C3ABDF /* IMBLightroom7Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBLightroom7Parser.m; sourceTree = "<group>"; };
+		8F61483F1FB4CBC600C3ABDF /* IMBLightroom7VideoParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBLightroom7VideoParser.h; sourceTree = "<group>"; };
+		8F6148401FB4CBC600C3ABDF /* IMBLightroom7VideoParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBLightroom7VideoParser.m; sourceTree = "<group>"; };
 		8F6164E51AE6C0BF00F1259D /* IMBLightroom6Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBLightroom6Parser.h; sourceTree = "<group>"; };
 		8F6164E61AE6C0BF00F1259D /* IMBLightroom6Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBLightroom6Parser.m; sourceTree = "<group>"; };
 		8F6164E71AE6C0BF00F1259D /* IMBLightroom6VideoParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBLightroom6VideoParser.h; sourceTree = "<group>"; };
@@ -1699,6 +1707,10 @@
 				8F6164E61AE6C0BF00F1259D /* IMBLightroom6Parser.m */,
 				8F6164E71AE6C0BF00F1259D /* IMBLightroom6VideoParser.h */,
 				8F6164E81AE6C0BF00F1259D /* IMBLightroom6VideoParser.m */,
+				8F61483D1FB4CBC600C3ABDF /* IMBLightroom7Parser.h */,
+				8F61483E1FB4CBC600C3ABDF /* IMBLightroom7Parser.m */,
+				8F61483F1FB4CBC600C3ABDF /* IMBLightroom7VideoParser.h */,
+				8F6148401FB4CBC600C3ABDF /* IMBLightroom7VideoParser.m */,
 				D006CFF61534084C00C53C23 /* IMBLightroomModernParser.h */,
 				D006CFF71534084C00C53C23 /* IMBLightroomModernParser.m */,
 				D0904E2F152DB58F003FDD08 /* IMBLightroomObject.h */,
@@ -2336,6 +2348,7 @@
 				D0C2DAF21024178E001B1198 /* IMBObjectViewController.h in Headers */,
 				300C8B1A1AF0CEB900F4EC41 /* IMBNavigationController.h in Headers */,
 				D0C2DD0F1025905A001B1198 /* IMBImageObjectViewController.h in Headers */,
+				8F6148431FB4CBC600C3ABDF /* IMBLightroom7VideoParser.h in Headers */,
 				D049EF5510346C1C003CC49C /* IMBNodeCell.h in Headers */,
 				D049F00A1034993E003CC49C /* NSImage+iMedia.h in Headers */,
 				D049F0421034A86B003CC49C /* IMBIconCache.h in Headers */,
@@ -2413,6 +2426,7 @@
 				301C61F61AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h in Headers */,
 				D0E69CD5151C5989002FE181 /* NSKeyedArchiver+iMedia.h in Headers */,
 				D0C911E5152195B2006655C9 /* IMBImageNodeViewController.h in Headers */,
+				8F6148411FB4CBC600C3ABDF /* IMBLightroom7Parser.h in Headers */,
 				D0C911E915219621006655C9 /* IMBMovieNodeViewController.h in Headers */,
 				D0C911ED1521965C006655C9 /* IMBAudioNodeViewController.h in Headers */,
 				3000AE011617288200EDC78E /* IMBComboTableViewAppearance.h in Headers */,
@@ -3159,6 +3173,7 @@
 				D0E96C36151324F6004F3EE7 /* IMBObject.m in Sources */,
 				D0E96C3715132B0C004F3EE7 /* IMBObjectFifoCache.m in Sources */,
 				300C8B1B1AF0CEB900F4EC41 /* IMBNavigationController.m in Sources */,
+				8F6148441FB4CBC600C3ABDF /* IMBLightroom7VideoParser.m in Sources */,
 				D0E96C3815133146004F3EE7 /* IMBSmartFolderObject.m in Sources */,
 				D0E96C3915133187004F3EE7 /* IMBNodeObject.m in Sources */,
 				D0E96C3A15139874004F3EE7 /* NSString+iMedia.m in Sources */,
@@ -3178,6 +3193,7 @@
 				D0B31375151CA58A003CB231 /* IMBFolderParser.m in Sources */,
 				D0B31376151CA58A003CB231 /* IMBImageFolderParser.m in Sources */,
 				D0B31377151CA58A003CB231 /* IMBAudioFolderParser.m in Sources */,
+				8F6148421FB4CBC600C3ABDF /* IMBLightroom7Parser.m in Sources */,
 				8F76F8631770D259007B56FC /* IMBLightroom5VideoParser.m in Sources */,
 				D0B31378151CA58A003CB231 /* IMBMovieFolderParser.m in Sources */,
 				D0B31379151CA594003CB231 /* IMBiPhotoParser.m in Sources */,

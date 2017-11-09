@@ -62,10 +62,12 @@
 #import "IMBLightroom4Parser.h"
 #import "IMBLightroom5Parser.h"
 #import "IMBLightroom6Parser.h"
+#import "IMBLightroom7Parser.h"
 #import "IMBLightroom3VideoParser.h"
 #import "IMBLightroom4VideoParser.h"
 #import "IMBLightroom5VideoParser.h"
 #import "IMBLightroom6VideoParser.h"
+#import "IMBLightroom7VideoParser.h"
 #import "IMBParserController.h"
 #import "NSFileManager+iMedia.h"
 #import "NSDictionary+iMedia.h"
@@ -113,6 +115,7 @@
 {
 	NSString* path = nil;
 	
+	if (path == nil) path = [IMBLightroom7Parser lightroomPath];
 	if (path == nil) path = [IMBLightroom6Parser lightroomPath];
 	if (path == nil) path = [IMBLightroom5Parser lightroomPath];
 	if (path == nil) path = [IMBLightroom4Parser lightroomPath];
@@ -176,6 +179,7 @@
 				[parsers addObjectsFromArray:[IMBLightroom4Parser concreteParserInstancesForMediaType:mediaType]];
 				[parsers addObjectsFromArray:[IMBLightroom5Parser concreteParserInstancesForMediaType:mediaType]];
 				[parsers addObjectsFromArray:[IMBLightroom6Parser concreteParserInstancesForMediaType:mediaType]];
+				[parsers addObjectsFromArray:[IMBLightroom7Parser concreteParserInstancesForMediaType:mediaType]];
 			}
 			else if ([mediaType isEqualTo:kIMBMediaTypeMovie])
 			{
@@ -183,6 +187,7 @@
 				[parsers addObjectsFromArray:[IMBLightroom4VideoParser concreteParserInstancesForMediaType:mediaType]];
 				[parsers addObjectsFromArray:[IMBLightroom5VideoParser concreteParserInstancesForMediaType:mediaType]];
 				[parsers addObjectsFromArray:[IMBLightroom6VideoParser concreteParserInstancesForMediaType:mediaType]];
+				[parsers addObjectsFromArray:[IMBLightroom7VideoParser concreteParserInstancesForMediaType:mediaType]];
 			}
 		}
 	});
@@ -253,7 +258,11 @@
 
 + (NSString*) identifier
 {
-	if ([IMBLightroom6Parser lightroomPath])
+	if ([IMBLightroom7Parser lightroomPath])
+	{
+		return [IMBLightroom7Parser identifier];
+	}
+	else if ([IMBLightroom6Parser lightroomPath])
 	{
 		return [IMBLightroom6Parser identifier];
 	}
@@ -283,7 +292,11 @@
 
 + (NSString*) parserClassName
 {
-	if ([IMBLightroom6Parser lightroomPath])
+	if ([IMBLightroom7Parser lightroomPath])
+	{
+		return @"IMBLightroom7Parser";
+	}
+	else if ([IMBLightroom6Parser lightroomPath])
 	{
 		return @"IMBLightroom6Parser";
 	}
@@ -362,7 +375,11 @@
 
 + (NSString*) identifier
 {
-	if ([IMBLightroom6VideoParser lightroomPath])
+	if ([IMBLightroom7VideoParser lightroomPath])
+	{
+		return [IMBLightroom7VideoParser identifier];
+	}
+	else if ([IMBLightroom6VideoParser lightroomPath])
 	{
 		return [IMBLightroom6VideoParser identifier];
 	}
@@ -384,7 +401,11 @@
 
 + (NSString*) parserClassName
 {
-	if ([IMBLightroom6Parser lightroomPath])
+	if ([IMBLightroom7Parser lightroomPath])
+	{
+		return @"IMBLightroom7VideoParser";
+	}
+	else if ([IMBLightroom6Parser lightroomPath])
 	{
 		return @"IMBLightroom6VideoParser";
 	}
