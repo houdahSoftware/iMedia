@@ -70,7 +70,8 @@
 
 - (void) imb_addStringValueAttributes:(NSDictionary *)inAttributes
 {
-    NSDictionary *currentAttributes = [[self attributedStringValue] attributesAtIndex:0 effectiveRange:NULL];
+    NSAttributedString *attributedStringValue = [self attributedStringValue];
+    NSDictionary *currentAttributes = ([attributedStringValue length] > 0) ? [attributedStringValue attributesAtIndex:0 effectiveRange:NULL] : nil;
     NSMutableDictionary *effectiveAttributes = [NSMutableDictionary dictionaryWithDictionary:currentAttributes];
     [effectiveAttributes addEntriesFromDictionary:inAttributes];
     
