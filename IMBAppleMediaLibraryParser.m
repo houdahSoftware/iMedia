@@ -572,6 +572,10 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
 
 - (NSString *)persistentResourceIdentifierForObject:(IMBObject *)inObject
 {
+	if ([inObject isKindOfClass:[IMBNodeObject class]]) {
+		return nil;
+	}
+
     return [[self mediaObjectForObject:inObject].URL absoluteString];
 }
 
