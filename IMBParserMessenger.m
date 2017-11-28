@@ -479,7 +479,12 @@
 		for (IMBObject* object in inNode.objects)
 		{
 			if (!object.identifier) object.identifier = [inParser identifierForObject:object];
-			object.persistentResourceIdentifier = [inParser persistentResourceIdentifierForObject:object];
+
+			if ([object isKindOfClass:[IMBNodeObject class]]) {
+				continue;
+			}
+
+			if (!object.persistentResourceIdentifier) object.persistentResourceIdentifier = [inParser persistentResourceIdentifierForObject:object];
 		}
 		
 		for (IMBNode* subnode in inNode.subnodes)
