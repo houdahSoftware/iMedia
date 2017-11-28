@@ -560,11 +560,13 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
  */
 - (NSString *)nameForMediaObject:(MLMediaObject *)mediaObject
 {
-    if (mediaObject.name) {
+    if ([mediaObject.name length] > 0) {
         return mediaObject.name;
-    } else {
-        return [[mediaObject.URL lastPathComponent] stringByDeletingPathExtension];
-    }
+	} else if (mediaObject.originalURL != nil) {
+		return [[mediaObject.originalURL lastPathComponent] stringByDeletingPathExtension];
+	} else {
+		return [[mediaObject.URL lastPathComponent] stringByDeletingPathExtension];
+	}
 }
 
 /**
