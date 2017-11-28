@@ -536,6 +536,13 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
     if ([object isKindOfClass:[IMBNodeObject class]]) {
         IMBNodeObject *nodeObject = (IMBNodeObject *)object;
         MLMediaGroup *mediaGroup = [self mediaGroupForNodeIdentifier:nodeObject.representedNodeIdentifier];
+
+		if (mediaGroup == nil) {
+			NSLog(@" +++ DEBUG: Failed to find media group with identifier %@ for node %@", nodeObject.representedNodeIdentifier, object);
+			NSLog(@" +++ DEBUG: Prelimiinary metadata %@", nodeObject.preliminaryMetadata);
+			NSLog(@" +++ DEBUG: Metadata %@", nodeObject.metadata);
+		}
+
         return [self.configuration keyMediaObjectForMediaGroup:mediaGroup];
     } else {
         return [self.AppleMediaSource mediaObjectForIdentifier:object.identifier];
