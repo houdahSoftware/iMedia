@@ -1063,12 +1063,12 @@ static NSArray* sSupportedUTIs = nil;
 			if ([self canOpenImageFileAtPath:path]) {
 				NSMutableDictionary* metadata = [NSMutableDictionary dictionary];
 				
-				[metadata setObject:path forKey:@"MasterPath"];
-				[metadata setObject:idLocal forKey:@"idLocal"];
-				[metadata setObject:path forKey:@"path"];
-				[metadata setObject:fileHeight forKey:@"height"];
-				[metadata setObject:fileWidth forKey:@"width"];
-				[metadata setObject:orientation forKey:@"orientation"];
+				[metadata setValue:path forKey:@"MasterPath"];
+				[metadata setValue:idLocal forKey:@"idLocal"];
+				[metadata setValue:path forKey:@"path"];
+				[metadata setValue:fileHeight forKey:@"height"];
+				[metadata setValue:fileWidth forKey:@"width"];
+				[metadata setValue:orientation forKey:@"orientation"];
 				
 				if (name) {
 					[metadata setObject:name forKey:@"name"];
@@ -1150,12 +1150,12 @@ static NSArray* sSupportedUTIs = nil;
 			if ([self canOpenImageFileAtPath:path]) {
 				NSMutableDictionary* metadata = [NSMutableDictionary dictionary];
 				
-				[metadata setObject:path forKey:@"MasterPath"];
-				[metadata setObject:idLocal forKey:@"idLocal"];
-				[metadata setObject:path forKey:@"path"];
-				[metadata setObject:fileHeight forKey:@"height"];
-				[metadata setObject:fileWidth forKey:@"width"];
-				[metadata setObject:orientation forKey:@"orientation"];
+				[metadata setValue:path forKey:@"MasterPath"];
+				[metadata setValue:idLocal forKey:@"idLocal"];
+				[metadata setValue:path forKey:@"path"];
+				[metadata setValue:fileHeight forKey:@"height"];
+				[metadata setValue:fileWidth forKey:@"width"];
+				[metadata setValue:orientation forKey:@"orientation"];
 				
 				if (name) {
 					[metadata setObject:name forKey:@"name"];
