@@ -186,9 +186,10 @@
     {
 		CGImageSourceStatus status = CGImageSourceGetStatus(source);
 
-		if (status == kCGImageStatusComplete)
+		if ((status == kCGImageStatusComplete) && (CGImageSourceGetCount(source)))
 		{
-			CFDictionaryRef propsCF = CGImageSourceCopyPropertiesAtIndex(source,  0,  NULL );
+			CFDictionaryRef propsCF =  CGImageSourceCopyPropertiesAtIndex(source,  0,  NULL );
+
 			if (propsCF)
 			{
 				NSDictionary *props = (NSDictionary *)propsCF;
