@@ -233,6 +233,12 @@ static NSArray* sSupportedImageUTIs = nil;
 	return nil;
 }
 
++ (NSString *)lightroomAppVersion
+{
+    [self imb_throwAbstractBaseClassExceptionForSelector:_cmd];
+    return nil;
+}
+
 
 // Helper method that converts single string into an array of paths...
 
@@ -336,7 +342,7 @@ static NSArray* sSupportedImageUTIs = nil;
 
 	IMBNode* node = [[[IMBNode alloc] initWithParser:self topLevel:YES] autorelease];
 	node.icon = icon;
-	node.name = @"Lightroom";
+	node.name = [NSString stringWithFormat:@"%@ %@", @"Lightroom", [self.class lightroomAppVersion]];
 	node.identifier = [self rootNodeIdentifier];
 	node.isLeafNode = NO;
 	node.groupType = kIMBGroupTypeLibrary;

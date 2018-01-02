@@ -1429,15 +1429,9 @@ static NSMutableDictionary* sLibraryControllers = nil;
 - (void) pathDidChange:(NSNotification*)inNotification 
 {
 	NSString* path = [inNotification object];
-	[self reloadFromFileSystemChangeWithPath:path];
+	[self _reloadNodesWithWatchedPath:path];
 }
 
-// Hook for subclasses to override automatic reload. E.g. suspend while making changes to the file system
-
-- (void) reloadFromFileSystemChangeWithPath:(NSString *)inPath
-{
-	[self _reloadNodesWithWatchedPath:inPath];
-}
 
 // Now look for all nodes that are interested in that path and reload them...
 
