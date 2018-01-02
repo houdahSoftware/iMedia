@@ -61,8 +61,6 @@
 	
 }
 
-+ (NSString *)lightroomAppVersion;
-
 - (NSNumber*) databaseVersion;
 
 + (NSData*) previewDataForLightroomObject:(IMBLightroomObject*)lightroomObject maximumSize:(NSNumber*)maximumSize;

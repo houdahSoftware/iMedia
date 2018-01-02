@@ -474,6 +474,7 @@
                                            @"com.apple.medialibrary.Photos" :   @(10),
                                            @"com.apple.medialibrary.iPhoto" :   @(20),
                                            @"com.apple.medialibrary.Aperture" : @(30),
+                                           @"com.karelia.imedia.Lightroom7" :   @(35),
                                            @"com.karelia.imedia.Lightroom6" :   @(40),
                                            @"com.karelia.imedia.Lightroom5" :   @(50),
                                            @"com.karelia.imedia.Lightroom4" :   @(60),
