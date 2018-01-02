@@ -156,7 +156,7 @@ IMBMLParserConfigurationFactory IMBMLPhotosParserConfigurationFactory =
         [IMBAppleMediaLibraryPropertySynchronizer mediaObjectsForMediaGroup:mediaGroup];
         
         if (mediaGroup.identifier) {
-//            mediaGroup = [self.mediaSource mediaGroupForIdentifier:mediaGroup.identifier];
+            mediaGroup = [self.mediaSource mediaGroupForIdentifier:mediaGroup.identifier];
             keyPhotoKey = mediaGroup.attributes[@"KeyPhotoKey"];
         }
     }
