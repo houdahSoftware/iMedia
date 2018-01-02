@@ -55,11 +55,11 @@
 		3010BE4416A85D2600798D2E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D02CD4CB1224F78E00C773A2 /* Localizable.strings */; };
 		3016792913B225B9000E57D2 /* badge_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 3016792813B225B9000E57D2 /* badge_checkbox.png */; };
 		3016792A13B225B9000E57D2 /* badge_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 3016792813B225B9000E57D2 /* badge_checkbox.png */; };
-		301C61ED1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61EB1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		301C61ED1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61EB1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h */; };
 		301C61EE1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61EC1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		301C61F21AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F01AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.h */; };
 		301C61F31AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F11AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		301C61F61AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F41AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		301C61F61AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F41AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h */; };
 		301C61F71AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F51AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		301C61FA1AAF45C200A0E15F /* IMBiTunesParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F81AAF45C200A0E15F /* IMBiTunesParserConfiguration.h */; };
 		301C61FB1AAF45C200A0E15F /* IMBiTunesParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F91AAF45C200A0E15F /* IMBiTunesParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -118,7 +118,7 @@
 		3091F6C015C9508E005019A1 /* IMBURLDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D052AFD110538B7B00988F53 /* IMBURLDownloadOperation.m */; };
 		3092C3191712F14100E52444 /* IMBFacebookAccessController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3092C3161712F14100E52444 /* IMBFacebookAccessController.h */; };
 		3092C31A1712F14100E52444 /* IMBFacebookAccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3092C3171712F14100E52444 /* IMBFacebookAccessController.m */; };
-		3094F7161715C0070016E810 /* PhFacebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3094F7151715C0070016E810 /* PhFacebook.framework */; };
+		3094F7161715C0070016E810 /* PhFacebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3094F7151715C0070016E810 /* PhFacebook.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3094F7171715C0980016E810 /* PhFacebook.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3094F7151715C0070016E810 /* PhFacebook.framework */; };
 		3099018E16637B93006C1212 /* NSBundle+iMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = 3099018C16637B93006C1212 /* NSBundle+iMedia.h */; };
 		3099018F16637B93006C1212 /* NSBundle+iMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 3099018D16637B93006C1212 /* NSBundle+iMedia.m */; };
@@ -135,9 +135,9 @@
 		30B83ADF1701B11F000EC74E /* im.edia.Facebook.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 30B83ADE1701B11F000EC74E /* im.edia.Facebook.entitlements */; };
 		30B83AE01701B11F000EC74E /* im.edia.Facebook.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 30B83ADE1701B11F000EC74E /* im.edia.Facebook.entitlements */; };
 		30B83AE11701B1C8000EC74E /* im.edia.Facebook.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30B83ADC1701AFDB000EC74E /* im.edia.Facebook.xpc */; };
-		30BA9D221A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D201A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30BA9D221A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D201A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h */; };
 		30BA9D231A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BA9D211A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		30BA9D271A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D251A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30BA9D271A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D251A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h */; };
 		30BA9D281A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BA9D261A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		30D700B0177A2928003CB6FE /* missing-thumbnail.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 30D700AF177A2928003CB6FE /* missing-thumbnail.jpg */; };
 		30DA32421A8E29680039B07C /* IMBAppleMediaLibraryPropertySynchronizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 30DA32401A8E29680039B07C /* IMBAppleMediaLibraryPropertySynchronizer.h */; };
@@ -172,7 +172,6 @@
 		30FFEBFE150A0AA70009C1D0 /* im.edia.iPhoto.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30FFEBEC150A08DB0009C1D0 /* im.edia.iPhoto.xpc */; };
 		6523FF231B0CE589004FD6D2 /* IMBItemizableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BC5C641AFF22BE002BF87F /* IMBItemizableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
-		8F31EA721B599A47002A07C4 /* IMBiPhotoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CB9174150F7753007716FA /* IMBiPhotoParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F39FC5B1CA2995F00BBFA3D /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F39FC591CA2995F00BBFA3D /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F39FC5C1CA2995F00BBFA3D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F39FC5A1CA2995F00BBFA3D /* FMDatabasePool.m */; };
 		8F39FC5F1CA29A5300BBFA3D /* FMResultSet+iMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F39FC5D1CA29A5300BBFA3D /* FMResultSet+iMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -262,13 +261,17 @@
 		D02D7912104BC89900309DC0 /* IMBComboViewTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D02D7911104BC89900309DC0 /* IMBComboViewTemplate.pdf */; };
 		D02E53C810A5563500B205BD /* NSData+SKExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D02E53C610A5563500B205BD /* NSData+SKExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D02E53C910A5563500B205BD /* NSData+SKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D02E53C710A5563500B205BD /* NSData+SKExtensions.m */; };
+		D0322BFC1FC18E8F00FCE0ED /* IMBLightroom7VideoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0322BF81FC18E8E00FCE0ED /* IMBLightroom7VideoParser.h */; };
+		D0322BFD1FC18E8F00FCE0ED /* IMBLightroom7Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0322BF91FC18E8E00FCE0ED /* IMBLightroom7Parser.h */; };
+		D0322BFE1FC18E8F00FCE0ED /* IMBLightroom7VideoParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D0322BFA1FC18E8E00FCE0ED /* IMBLightroom7VideoParser.m */; };
+		D0322BFF1FC18E8F00FCE0ED /* IMBLightroom7Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = D0322BFB1FC18E8E00FCE0ED /* IMBLightroom7Parser.m */; };
 		D032CE47109B301100D84782 /* IMBFlickrNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D032CE42109B301100D84782 /* IMBFlickrNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0363E7C11D3787800E0579F /* NSView+iMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = D0363E7A11D3787800E0579F /* NSView+iMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0403B5110918C03000F0AE1 /* IMBSafariParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0403B4F10918C03000F0AE1 /* IMBSafariParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D04083C81235490F005375FC /* IMBFlickrObject.h in Headers */ = {isa = PBXBuildFile; fileRef = D04083C61235490F005375FC /* IMBFlickrObject.h */; };
 		D0467BB0112C220F00C1AA4E /* IMBApertureAudioParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0467BAE112C220F00C1AA4E /* IMBApertureAudioParser.h */; };
 		D0467BB4112C223600C1AA4E /* IMBApertureVideoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0467BB2112C223600C1AA4E /* IMBApertureVideoParser.h */; };
-		D049C4E015947C29006EDA0C /* ObjectiveFlickr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C911C71521038F006655C9 /* ObjectiveFlickr.framework */; };
+		D049C4E015947C29006EDA0C /* ObjectiveFlickr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C911C71521038F006655C9 /* ObjectiveFlickr.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D049EF5510346C1C003CC49C /* IMBNodeCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D049EF5310346C1C003CC49C /* IMBNodeCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D049F00A1034993E003CC49C /* NSImage+iMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = D049F0081034993E003CC49C /* NSImage+iMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D049F0421034A86B003CC49C /* IMBIconCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D049F0401034A86B003CC49C /* IMBIconCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -907,6 +910,10 @@
 		D02D7911104BC89900309DC0 /* IMBComboViewTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = IMBComboViewTemplate.pdf; sourceTree = "<group>"; };
 		D02E53C610A5563500B205BD /* NSData+SKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SKExtensions.h"; sourceTree = "<group>"; };
 		D02E53C710A5563500B205BD /* NSData+SKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SKExtensions.m"; sourceTree = "<group>"; };
+		D0322BF81FC18E8E00FCE0ED /* IMBLightroom7VideoParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBLightroom7VideoParser.h; sourceTree = "<group>"; };
+		D0322BF91FC18E8E00FCE0ED /* IMBLightroom7Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBLightroom7Parser.h; sourceTree = "<group>"; };
+		D0322BFA1FC18E8E00FCE0ED /* IMBLightroom7VideoParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBLightroom7VideoParser.m; sourceTree = "<group>"; };
+		D0322BFB1FC18E8E00FCE0ED /* IMBLightroom7Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBLightroom7Parser.m; sourceTree = "<group>"; };
 		D032CB78109A2F4A00D84782 /* IMBMovieObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBMovieObject.h; sourceTree = "<group>"; };
 		D032CB79109A2F4A00D84782 /* IMBMovieObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBMovieObject.m; sourceTree = "<group>"; };
 		D032CE42109B301100D84782 /* IMBFlickrNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBFlickrNode.h; sourceTree = "<group>"; };
@@ -954,7 +961,7 @@
 		D05D3A1B152AD30500E30C43 /* im.edia.FSEvents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = im.edia.FSEvents.entitlements; sourceTree = "<group>"; };
 		D063A1EE1A28AC5500ED8BC3 /* ToolbarMovieFolderIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ToolbarMovieFolderIcon.icns; sourceTree = "<group>"; };
 		D065383515EFDC810081D8D3 /* IMBAccessRightsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IMBAccessRightsViewController.xib; sourceTree = "<group>"; };
-		D0760AC210C5027100F2119C /* IMBProject.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = IMBProject.xcconfig; sourceTree = SOURCE_ROOT; };
+		D0760AC210C5027100F2119C /* iMedia.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iMedia.xcconfig; sourceTree = SOURCE_ROOT; };
 		D08070BD10442CD700891137 /* IMBMovieObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBMovieObjectViewController.h; sourceTree = "<group>"; };
 		D08070BE10442CD700891137 /* IMBMovieObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBMovieObjectViewController.m; sourceTree = "<group>"; };
 		D08070C110442CE100891137 /* IMBAudioObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBAudioObjectViewController.h; sourceTree = "<group>"; };
@@ -1136,9 +1143,6 @@
 		D0CE6E1C11F6FA09005EE5B4 /* IMBMetadataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBMetadataTransformer.m; sourceTree = "<group>"; };
 		D0CE6E4111F6FD54005EE5B4 /* NSDictionary+iMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+iMedia.h"; sourceTree = "<group>"; };
 		D0CE6E4211F6FD54005EE5B4 /* NSDictionary+iMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+iMedia.m"; sourceTree = "<group>"; };
-		D0CF005310C50908009EC68F /* IMBTargetDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = IMBTargetDebug.xcconfig; sourceTree = SOURCE_ROOT; };
-		D0CF005410C50908009EC68F /* IMBTargetRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = IMBTargetRelease.xcconfig; sourceTree = SOURCE_ROOT; };
-		D0CF005510C50908009EC68F /* IMBTargetTest.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = IMBTargetTest.xcconfig; sourceTree = SOURCE_ROOT; };
 		D0D635E81035B4C500FF8631 /* IMBLightroomParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBLightroomParser.h; sourceTree = "<group>"; };
 		D0D635E91035B4C500FF8631 /* IMBLightroomParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBLightroomParser.m; sourceTree = "<group>"; };
 		D0D635EA1035B4C500FF8631 /* IMBApertureParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBApertureParser.h; sourceTree = "<group>"; };
@@ -1414,10 +1418,7 @@
 		0867D691FE84028FC02AAC07 /* iMedia */ = {
 			isa = PBXGroup;
 			children = (
-				D0760AC210C5027100F2119C /* IMBProject.xcconfig */,
-				D0CF005310C50908009EC68F /* IMBTargetDebug.xcconfig */,
-				D0CF005410C50908009EC68F /* IMBTargetRelease.xcconfig */,
-				D0CF005510C50908009EC68F /* IMBTargetTest.xcconfig */,
+				D0760AC210C5027100F2119C /* iMedia.xcconfig */,
 				32DBCF5E0370ADEE00C91783 /* iMedia.pch */,
 				08FB77AEFE84172EC02AAC07 /* iMedia Framework */,
 				307F968B183D0396004F87E0 /* iMediaTests */,
@@ -1706,6 +1707,10 @@
 				8F6164E61AE6C0BF00F1259D /* IMBLightroom6Parser.m */,
 				8F6164E71AE6C0BF00F1259D /* IMBLightroom6VideoParser.h */,
 				8F6164E81AE6C0BF00F1259D /* IMBLightroom6VideoParser.m */,
+				D0322BF91FC18E8E00FCE0ED /* IMBLightroom7Parser.h */,
+				D0322BFB1FC18E8E00FCE0ED /* IMBLightroom7Parser.m */,
+				D0322BF81FC18E8E00FCE0ED /* IMBLightroom7VideoParser.h */,
+				D0322BFA1FC18E8E00FCE0ED /* IMBLightroom7VideoParser.m */,
 				D006CFF61534084C00C53C23 /* IMBLightroomModernParser.h */,
 				D006CFF71534084C00C53C23 /* IMBLightroomModernParser.m */,
 				D0904E2F152DB58F003FDD08 /* IMBLightroomObject.h */,
@@ -2386,6 +2391,7 @@
 				D0467BB0112C220F00C1AA4E /* IMBApertureAudioParser.h in Headers */,
 				D0467BB4112C223600C1AA4E /* IMBApertureVideoParser.h in Headers */,
 				274DF618114EF0B200AC8C03 /* IMBImageItem.h in Headers */,
+				D0322BFD1FC18E8F00FCE0ED /* IMBLightroom7Parser.h in Headers */,
 				8FDAB509176D033700AD507B /* IMBLightroomRuleScanner.h in Headers */,
 				8FC2089D11C29E1C0083EAB3 /* IMBLightroom3VideoParser.h in Headers */,
 				D0363E7C11D3787800E0579F /* NSView+iMedia.h in Headers */,
@@ -2393,6 +2399,7 @@
 				D0CE6E1D11F6FA09005EE5B4 /* IMBMetadataTransformer.h in Headers */,
 				D00D0AAA12258E4A000924AE /* IMBFlickrHeaderViewController.h in Headers */,
 				D00D0D271226A813000924AE /* IMBPanel.h in Headers */,
+				D0322BFC1FC18E8F00FCE0ED /* IMBLightroom7VideoParser.h in Headers */,
 				D04083C81235490F005375FC /* IMBFlickrObject.h in Headers */,
 				8FCA064212368388009072AE /* IMBApertureHeaderViewController.h in Headers */,
 				CE3EC9A2124AAC0700D8435B /* NSURL+iMedia.h in Headers */,
@@ -2406,7 +2413,6 @@
 				30394AC812DC665000ACA531 /* IMBSkimmableObjectViewController.h in Headers */,
 				3025E5631306877700706DB2 /* IMBiPhotoEventObjectViewController.h in Headers */,
 				30E4D4FE130BCEAF00FDFBF2 /* IMBiPhotoEventNodeObject.h in Headers */,
-				8F31EA721B599A47002A07C4 /* IMBiPhotoParser.h in Headers */,
 				30F90B331358501A00D13233 /* IMBFaceObjectViewController.h in Headers */,
 				D09653BC150A280700B6C83D /* IMBParserMessenger.h in Headers */,
 				D0CB9169150F5A52007716FA /* IMBiPhotoParserMessenger.h in Headers */,
@@ -2751,14 +2757,59 @@
 				LastUpgradeCheck = 0460;
 				TargetAttributes = {
 					307F9690183D090D004F87E0 = {
+						DevelopmentTeam = 6372P8EH2J;
 						TestTargetID = 8DC2EF4F0486A6940098B216;
 					};
+					30B83ACE1701AFDB000EC74E = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					30FFEBEB150A08DB0009C1D0 = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					8DC2EF4F0486A6940098B216 = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					D02CD49E1224F22400C773A2 = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					D054AFEE152984FA00EBFA1C = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					D05D399D152ACD1300E30C43 = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					D05D39AE152ACD2400E30C43 = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					D05D39BF152ACD3300E30C43 = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					D05D39D0152ACD5E00E30C43 = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					D05D39E1152ACD6800E30C43 = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					D05D39F2152ACD8800E30C43 = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					D05D3A05152AD0D000E30C43 = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
 					D09933541011B26E00C527B7 = {
+						DevelopmentTeam = 6372P8EH2J;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
 						};
+					};
+					D0E96CEE1518C9BF004F3EE7 = {
+						DevelopmentTeam = 6372P8EH2J;
+					};
+					D0F2DDBC152485130059DF8D = {
+						DevelopmentTeam = 6372P8EH2J;
 					};
 				};
 			};
@@ -3156,6 +3207,7 @@
 				D09653C0150A2DA300B6C83D /* IMBParser.m in Sources */,
 				D09653D2150A748700B6C83D /* IMBParserController.m in Sources */,
 				D0CB9162150F58FE007716FA /* NSWorkspace+iMedia.m in Sources */,
+				D0322BFE1FC18E8F00FCE0ED /* IMBLightroom7VideoParser.m in Sources */,
 				8FC15E4D176A99EB007FF34F /* IMBLightroom5Parser.m in Sources */,
 				D0CB9164150F5903007716FA /* NSFileManager+iMedia.m in Sources */,
 				D0CB916A150F5A52007716FA /* IMBiPhotoParserMessenger.m in Sources */,
@@ -3206,6 +3258,7 @@
 				D08247B21521CD6400033850 /* IMBOperationQueue.m in Sources */,
 				D08247B31521CD6E00033850 /* IMBProgressWindowController.m in Sources */,
 				D08247B41521CD9A00033850 /* IMBObjectThumbnailLoadOperation.m in Sources */,
+				D0322BFF1FC18E8F00FCE0ED /* IMBLightroom7Parser.m in Sources */,
 				D08F7B72152309A800505395 /* IMBImageObjectViewController.m in Sources */,
 				D08F7B73152309A800505395 /* IMBAudioObjectViewController.m in Sources */,
 				D08F7B74152309A800505395 /* IMBMovieObjectViewController.m in Sources */,
@@ -3462,11 +3515,9 @@
 /* Begin XCBuildConfiguration section */
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0CF005310C50908009EC68F /* IMBTargetDebug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -3480,11 +3531,9 @@
 		};
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0CF005410C50908009EC68F /* IMBTargetRelease.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -3497,7 +3546,7 @@
 		};
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0760AC210C5027100F2119C /* IMBProject.xcconfig */;
+			baseConfigurationReference = D0760AC210C5027100F2119C /* iMedia.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -3512,18 +3561,16 @@
 		};
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0760AC210C5027100F2119C /* IMBProject.xcconfig */;
+			baseConfigurationReference = D0760AC210C5027100F2119C /* iMedia.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				PROVISIONING_PROFILE = "";
 				SYMROOT = "";
 			};
 			name = Release;
@@ -3610,7 +3657,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3643,7 +3689,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3670,7 +3715,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3703,7 +3747,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3750,7 +3793,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3783,7 +3825,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3810,7 +3851,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3843,7 +3883,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3870,7 +3909,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3903,7 +3941,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3930,7 +3967,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3963,7 +3999,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3990,7 +4025,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4023,7 +4057,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -4050,7 +4083,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4083,7 +4115,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -4110,7 +4141,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4143,7 +4173,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -4170,7 +4199,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4203,7 +4231,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -4226,10 +4253,8 @@
 		};
 		D09933581011B27000C527B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0CF005310C50908009EC68F /* IMBTargetDebug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TestApp/iMediaTester.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				INFOPLIST_FILE = "TestApp/TestApp-Info.plist";
@@ -4249,10 +4274,8 @@
 		};
 		D09933591011B27000C527B7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0CF005410C50908009EC68F /* IMBTargetRelease.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TestApp/iMediaTester.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				INFOPLIST_FILE = "TestApp/TestApp-Info.plist";
@@ -4276,7 +4299,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4310,7 +4332,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -4338,7 +4359,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4371,7 +4391,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "$(TARGET_NAME).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";

@@ -1,7 +1,7 @@
 /*
  iMedia Browser Framework <http://karelia.com/imedia/>
  
- Copyright (c) 2005-2013 by Karelia Software et al.
+ Copyright (c) 2005-2017 by Karelia Software et al.
  
  iMedia Browser is based on code originally developed by Jason Terhorst,
  further developed for Sandvox by Greg Hulands, Dan Wood, and Terrence Talbot.
@@ -55,19 +55,11 @@
 
 #pragma mark HEADERS
 
-#import "IMBLightroom4Parser.h"
-#import "IMBLightroomObject.h"
-#import "FMDatabase.h"
-#import "IMBNode.h"
-#import "IMBFolderObject.h"
+#import "IMBLightroom7VideoParser.h"
+#import "IMBParserController.h"
 #import "IMBObject.h"
-#import "NSData+SKExtensions.h"
-#import "NSFileManager+iMedia.h"
-#import "NSImage+iMedia.h"
-#import "NSWorkspace+iMedia.h"
-#import "SBUtilities.h"
-#import <Quartz/Quartz.h>
-#import <sqlite3.h>
+#import "NSDictionary+iMedia.h"
+#import "NSURL+iMedia.h"
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -75,89 +67,40 @@
 
 #pragma mark 
 
-@interface IMBLightroom4Parser ()
-
-@end
+@implementation IMBLightroom7VideoParser
 
 
 //----------------------------------------------------------------------------------------------------------------------
 
 
-#pragma mark 
+// Loaded lazily when actually needed for display. Here we combine the metadata we got from the Aperture XML file
+// (which was available immediately, but not enough information) with more information that we obtain via ImageIO.
+// This takes a little longer, but since it only done laziy for those object that are actually visible it's fine.
+// Please note that this method may be called on a background thread...
 
-@implementation IMBLightroom4Parser
+- (NSDictionary*) metadataForObject:(IMBObject*)inObject error:(NSError**)outError
+{
+	NSMutableDictionary* metadata = nil;
+	NSURL* videoURL = [inObject URL];
+	
+	if (videoURL)
+	{
+		metadata = [NSMutableDictionary dictionaryWithDictionary:inObject.preliminaryMetadata];
+		[metadata setObject:[videoURL path] forKey:@"path"];
+		[metadata addEntriesFromDictionary:[NSURL imb_metadataFromVideoAtURL:videoURL]];
+	}
+
+	if (outError) *outError = nil;
+	return metadata;
+}
 
 
 //----------------------------------------------------------------------------------------------------------------------
-
-
-// Unique identifier for this parser...
 
 + (NSString*) identifier
 {
-	return @"com.karelia.imedia.Lightroom4";
+	return @"com.karelia.imedia.Lightroom7.movie";
 }
-
-// The bundle identifier of the Lightroom app this parser is based upon
-
-+ (NSString*) lightroomAppBundleIdentifier
-{
-    return @"com.adobe.Lightroom4";
-}
-
-+ (NSString *)lightroomAppVersion
-{
-    return @"4";
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-- (BOOL) checkDatabaseVersion
-{
-	NSNumber *databaseVersion = [self databaseVersion];
-	
-	if (databaseVersion != nil) {
-		long databaseVersionLong = [databaseVersion longValue];
-		
-		if (databaseVersionLong < 400020) {
-			return NO;
-		}
-		else if (databaseVersionLong >= 500000) {
-			return NO;
-		}
-        
-        return YES;
-	}
-	
-	return NO;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-- (FMDatabasePool*) createLibraryDatabasePool
-{
-	NSString* databasePath = [self.mediaSource path];
-	FMDatabasePool* databasePool = [[FMDatabasePool alloc] initWithPath:databasePath flags:SQLITE_OPEN_READONLY vfs:@"unix-none"];
-
-	return [databasePool autorelease];
-}
-
-- (FMDatabasePool*) createThumbnailDatabasePool
-{
-	NSString* mainDatabasePath = [self.mediaSource path];
-	NSString* rootPath = [mainDatabasePath stringByDeletingPathExtension];
-	NSString* previewPackagePath = [[NSString stringWithFormat:@"%@ Previews", rootPath] stringByAppendingPathExtension:@"lrdata"];
-	NSString* previewDatabasePath = [[previewPackagePath stringByAppendingPathComponent:@"previews"] stringByAppendingPathExtension:@"db"];
-	FMDatabasePool* databasePool = [[FMDatabasePool alloc] initWithPath:previewDatabasePath flags:SQLITE_OPEN_READONLY vfs:@"unix-none"];
-
-	return [databasePool autorelease];
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
 
 // This method must return an appropriate prefix for IMBObject identifiers. Refer to the method
 // -[IMBParser iMedia2PersistentResourceIdentifierForObject:] to see how it is used. Historically we used class names as the prefix.
@@ -168,7 +111,7 @@
 
 - (NSString*) iMedia2PersistentResourceIdentifierPrefix
 {
-	return @"IMBLightroom3Parser";
+	return @"IMBLightroom7VideoParser";
 }
 
 @end
