@@ -55,11 +55,11 @@
 		3010BE4416A85D2600798D2E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D02CD4CB1224F78E00C773A2 /* Localizable.strings */; };
 		3016792913B225B9000E57D2 /* badge_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 3016792813B225B9000E57D2 /* badge_checkbox.png */; };
 		3016792A13B225B9000E57D2 /* badge_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 3016792813B225B9000E57D2 /* badge_checkbox.png */; };
-		301C61ED1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61EB1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h */; };
+		301C61ED1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61EB1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		301C61EE1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61EC1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		301C61F21AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F01AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.h */; };
 		301C61F31AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F11AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		301C61F61AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F41AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h */; };
+		301C61F61AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F41AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		301C61F71AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F51AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		301C61FA1AAF45C200A0E15F /* IMBiTunesParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F81AAF45C200A0E15F /* IMBiTunesParserConfiguration.h */; };
 		301C61FB1AAF45C200A0E15F /* IMBiTunesParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F91AAF45C200A0E15F /* IMBiTunesParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -135,9 +135,9 @@
 		30B83ADF1701B11F000EC74E /* im.edia.Facebook.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 30B83ADE1701B11F000EC74E /* im.edia.Facebook.entitlements */; };
 		30B83AE01701B11F000EC74E /* im.edia.Facebook.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 30B83ADE1701B11F000EC74E /* im.edia.Facebook.entitlements */; };
 		30B83AE11701B1C8000EC74E /* im.edia.Facebook.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30B83ADC1701AFDB000EC74E /* im.edia.Facebook.xpc */; };
-		30BA9D221A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D201A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h */; };
+		30BA9D221A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D201A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30BA9D231A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BA9D211A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		30BA9D271A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D251A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h */; };
+		30BA9D271A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D251A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30BA9D281A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BA9D261A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		30D700B0177A2928003CB6FE /* missing-thumbnail.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 30D700AF177A2928003CB6FE /* missing-thumbnail.jpg */; };
 		30DA32421A8E29680039B07C /* IMBAppleMediaLibraryPropertySynchronizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 30DA32401A8E29680039B07C /* IMBAppleMediaLibraryPropertySynchronizer.h */; };
@@ -182,6 +182,7 @@
 		8F6164EA1AE6C0BF00F1259D /* IMBLightroom6Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6164E61AE6C0BF00F1259D /* IMBLightroom6Parser.m */; };
 		8F6164EB1AE6C0BF00F1259D /* IMBLightroom6VideoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F6164E71AE6C0BF00F1259D /* IMBLightroom6VideoParser.h */; };
 		8F6164EC1AE6C0BF00F1259D /* IMBLightroom6VideoParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6164E81AE6C0BF00F1259D /* IMBLightroom6VideoParser.m */; };
+		8F71E6F51FFBAAAC00766AB4 /* IMBiPhotoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CB9174150F7753007716FA /* IMBiPhotoParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F7478D11CB3C15A0027E21F /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F7478CF1CB3C15A0027E21F /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F7478D21CB3C15A0027E21F /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7478D01CB3C15A0027E21F /* FMDatabaseQueue.m */; };
 		8F76F8621770D259007B56FC /* IMBLightroom5VideoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F76F8601770D259007B56FC /* IMBLightroom5VideoParser.h */; };
@@ -2427,6 +2428,9 @@
 				D0E69CD5151C5989002FE181 /* NSKeyedArchiver+iMedia.h in Headers */,
 				D0C911E5152195B2006655C9 /* IMBImageNodeViewController.h in Headers */,
 				D0C911E915219621006655C9 /* IMBMovieNodeViewController.h in Headers */,
+				30BA9D221A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h in Headers */,
+				301C61ED1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h in Headers */,
+				8F71E6F51FFBAAAC00766AB4 /* IMBiPhotoParser.h in Headers */,
 				D0C911ED1521965C006655C9 /* IMBAudioNodeViewController.h in Headers */,
 				3000AE011617288200EDC78E /* IMBComboTableViewAppearance.h in Headers */,
 				D0C911F1152196FE006655C9 /* IMBLinkNodeViewController.h in Headers */,
@@ -2470,13 +2474,11 @@
 				8F7478D11CB3C15A0027E21F /* FMDatabaseQueue.h in Headers */,
 				D0A00A9915F47A7100596789 /* IMBAccessRightsViewController.h in Headers */,
 				3000ADEC1612F6DA00EDC78E /* IMBTableViewAppearance+iMediaPrivate.h in Headers */,
-				30BA9D221A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h in Headers */,
 				3000ADF916159C2300EDC78E /* NSCell+iMedia.h in Headers */,
 				3000AE231618150D00EDC78E /* IMBViewAppearance+iMediaPrivate.h in Headers */,
 				3000AE26161816CD00EDC78E /* IMBOutlineView+iMediaPrivate.h in Headers */,
 				3000AE2B161A996000EDC78E /* IMBAppleMediaParser+iMediaPrivate.h in Headers */,
 				3099018E16637B93006C1212 /* NSBundle+iMedia.h in Headers */,
-				301C61ED1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h in Headers */,
 				306D987C16EF75C5004BE4EA /* IMBFacebookParser.h in Headers */,
 				306D988116EF7680004BE4EA /* IMBFacebookParserMessenger.h in Headers */,
 				3092C3191712F14100E52444 /* IMBFacebookAccessController.h in Headers */,
@@ -2767,7 +2769,7 @@
 						DevelopmentTeam = 6372P8EH2J;
 					};
 					8DC2EF4F0486A6940098B216 = {
-						DevelopmentTeam = 6372P8EH2J;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					D02CD49E1224F22400C773A2 = {
 						DevelopmentTeam = 6372P8EH2J;
@@ -3518,6 +3520,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -3525,6 +3529,7 @@
 				INSTALL_PATH = "@rpath";
 				"OTHER_LDFLAGS[arch=x86_64]" = "";
 				PRODUCT_NAME = iMedia;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -3534,12 +3539,15 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@rpath";
 				PRODUCT_NAME = iMedia;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;

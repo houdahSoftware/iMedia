@@ -126,13 +126,8 @@
 		else if (databaseVersionLong >= 500000) {
 			return NO;
 		}
-<<<<<<< HEAD
-		
-		return YES;
-=======
-        
+
         return YES;
->>>>>>> origin/development
 	}
 	
 	return NO;
