@@ -24,9 +24,9 @@ NSString *kIMBPhotosMediaGroupTypeIdentifierFolder = @"com.apple.Photos.Folder";
 NSString *kIMBPhotosMediaGroupTypeIdentifierAlbum =  @"com.apple.Photos.Album";
 NSString *kIMBPhotosMediaGroupTypeIdentifierFaces =  @"com.apple.Photos.FacesAlbum";    // Used for Faces and single face
 
-NSString *kIMBPhotosMediaGroupIdentifierMoments = @"com.apple.Photos.AllMomentsGroup";
-NSString *kIMBPhotosMediaGroupIdentifierCollections = @"com.apple.Photos.AllCollectionsGroup";
-NSString *kIMBPhotosMediaGroupIdentifierYears = @"com.apple.Photos.AllYearsGroup";
+NSString *kIMBPhotosMediaGroupIdentifierMoments = @"AllMomentsGroup";
+NSString *kIMBPhotosMediaGroupIdentifierCollections = @"AllCollectionsGroup";
+NSString *kIMBPhotosMediaGroupIdentifierYears = @"AllYearsGroup";
 NSString *kIMBPhotosMediaGroupIdentifierPlaces = @"allPlacedPhotosAlbum";
 NSString *kIMBPhotosMediaGroupIdentifierShared = @"com.apple.Photos.SharedGroup";
 NSString *kIMBPhotosMediaGroupIdentifierAlbums = @"TopLevelAlbums";
@@ -256,7 +256,7 @@ IMBMLParserConfigurationFactory IMBMLPhotosParserConfigurationFactory =
 - (NSImage *)thumbnailForMediaGroup:(MLMediaGroup *)mediaGroup baseThumbnail:(NSImage *)thumbnail
 {
     NSString *groupTypeIdentifier = mediaGroup.typeIdentifier;
-    CGFloat cornerRadius =  51;
+    CGFloat cornerRadius =  0;
     if ([groupTypeIdentifier isEqualToString:@"com.apple.Photos.FacesAlbum"]) {
         cornerRadius = 255.0;
     }

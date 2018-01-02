@@ -201,13 +201,8 @@
 		else if (databaseVersionLong >= 400000) {
 			return NO;
 		}
-<<<<<<< HEAD
-
-		return YES;
-=======
         
         return YES;
->>>>>>> 4d08a94ad95b52859e6f5afaf17c3e4d0d4192d2
 	}
 	
 	return NO;

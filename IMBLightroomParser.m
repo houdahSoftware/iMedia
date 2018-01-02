@@ -181,11 +181,7 @@ static NSArray* sSupportedImageUTIs = nil;
 	{
 		self.appPath = [[self class] lightroomPath];
 
-<<<<<<< HEAD
-		[self supportedUTIs];	// Init early and in the main thread!
-=======
 		[self supportedImageUTIs];	// Init early and in the main thread!
->>>>>>> 4d08a94ad95b52859e6f5afaf17c3e4d0d4192d2
 	}
 	
 	return self;
