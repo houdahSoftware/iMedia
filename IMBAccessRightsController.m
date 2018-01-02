@@ -192,6 +192,11 @@ static NSString* kBookmarksPrefsKey = @"accessRightsBookmarks";
 	return nil;
 }
 
+/**
+ Note that this method does not persist the removal of bookmarks. This is because a user
+ may temporarily have an external disk disconnected that she has already granted access to
+ and may later want to re-use it witin the app without having to grant access again.
+ */
 - (void) removeBookmarks:(NSArray*)inBookmarks
 {
     @synchronized(self)
@@ -200,8 +205,6 @@ static NSString* kBookmarksPrefsKey = @"accessRightsBookmarks";
 		{
 			[self.bookmarks removeObject:bookmark];
 		}
-
-		[self saveToPrefs];
 	}
 }
 
@@ -377,7 +380,7 @@ static NSString* kBookmarksPrefsKey = @"accessRightsBookmarks";
 	BOOL stale = NO;
 	NSURL* url = [NSURL
 		URLByResolvingBookmarkData:inBookmark
-		options:NSURLBookmarkResolutionWithSecurityScope
+		options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithSecurityScope
 		relativeToURL:nil
 		bookmarkDataIsStale:&stale
 		error:&error];

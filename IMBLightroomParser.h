@@ -101,6 +101,8 @@ IMBLightroomNodeType;
 
 + (NSString*) identifier;
 + (NSString*) lightroomPath;
++ (NSString*) lightroomAppVersion;
+
 
 // Return an array to Lightroom library files...
 + (NSArray*) libraryPaths;

@@ -1,7 +1,7 @@
 /*
  iMedia Browser Framework <http://karelia.com/imedia/>
  
- Copyright (c) 2005-2013 by Karelia Software et al.
+ Copyright (c) 2005-2017 by Karelia Software et al.
  
  iMedia Browser is based on code originally developed by Jason Terhorst,
  further developed for Sandvox by Greg Hulands, Dan Wood, and Terrence Talbot.
@@ -44,6 +44,9 @@
  */
 
 
+//----------------------------------------------------------------------------------------------------------------------
+
+
 // Author: Pierre Bernard
 
 
@@ -52,18 +55,16 @@
 
 #pragma mark HEADERS
 
-#import "IMBLightroomParser.h"
-#import "IMBLightroomObject.h"
+#import "IMBLightroomModernParser.h"
 
 
-@interface IMBLightroomModernParser : IMBLightroomParser <IMBLightroomParser>
+//----------------------------------------------------------------------------------------------------------------------
+
+
+@interface IMBLightroom7Parser : IMBLightroomModernParser
 {
 	
 }
-
-- (NSNumber*) databaseVersion;
-
-+ (NSData*) previewDataForLightroomObject:(IMBLightroomObject*)lightroomObject maximumSize:(NSNumber*)maximumSize;
 
 @end
 

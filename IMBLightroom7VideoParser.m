@@ -1,7 +1,7 @@
 /*
  iMedia Browser Framework <http://karelia.com/imedia/>
  
- Copyright (c) 2005-2013 by Karelia Software et al.
+ Copyright (c) 2005-2017 by Karelia Software et al.
  
  iMedia Browser is based on code originally developed by Jason Terhorst,
  further developed for Sandvox by Greg Hulands, Dan Wood, and Terrence Talbot.
@@ -44,6 +44,9 @@
  */
 
 
+//----------------------------------------------------------------------------------------------------------------------
+
+
 // Author: Pierre Bernard
 
 
@@ -52,20 +55,63 @@
 
 #pragma mark HEADERS
 
-#import "IMBLightroomParser.h"
-#import "IMBLightroomObject.h"
-
-
-@interface IMBLightroomModernParser : IMBLightroomParser <IMBLightroomParser>
-{
-	
-}
-
-- (NSNumber*) databaseVersion;
-
-+ (NSData*) previewDataForLightroomObject:(IMBLightroomObject*)lightroomObject maximumSize:(NSNumber*)maximumSize;
-
-@end
+#import "IMBLightroom7VideoParser.h"
+#import "IMBParserController.h"
+#import "IMBObject.h"
+#import "NSDictionary+iMedia.h"
+#import "NSURL+iMedia.h"
 
 
 //----------------------------------------------------------------------------------------------------------------------
+
+
+#pragma mark 
+
+@implementation IMBLightroom7VideoParser
+
+
+//----------------------------------------------------------------------------------------------------------------------
+
+
+// Loaded lazily when actually needed for display. Here we combine the metadata we got from the Aperture XML file
+// (which was available immediately, but not enough information) with more information that we obtain via ImageIO.
+// This takes a little longer, but since it only done laziy for those object that are actually visible it's fine.
+// Please note that this method may be called on a background thread...
+
+- (NSDictionary*) metadataForObject:(IMBObject*)inObject error:(NSError**)outError
+{
+	NSMutableDictionary* metadata = nil;
+	NSURL* videoURL = [inObject URL];
+	
+	if (videoURL)
+	{
+		metadata = [NSMutableDictionary dictionaryWithDictionary:inObject.preliminaryMetadata];
+		[metadata setObject:[videoURL path] forKey:@"path"];
+		[metadata addEntriesFromDictionary:[NSURL imb_metadataFromVideoAtURL:videoURL]];
+	}
+
+	if (outError) *outError = nil;
+	return metadata;
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------
+
++ (NSString*) identifier
+{
+	return @"com.karelia.imedia.Lightroom7.movie";
+}
+
+// This method must return an appropriate prefix for IMBObject identifiers. Refer to the method
+// -[IMBParser iMedia2PersistentResourceIdentifierForObject:] to see how it is used. Historically we used class names as the prefix.
+// However, during the evolution of iMedia class names can change and identifier string would thus also change.
+// This is undesirable, as things that depend of the immutability of identifier strings would break. One such
+// example are the object badges, which use object identifiers. To guarrantee backward compatibilty, a parser
+// class must override this method to return a prefix that matches the historic class name...
+
+- (NSString*) iMedia2PersistentResourceIdentifierPrefix
+{
+	return @"IMBLightroom7VideoParser";
+}
+
+@end
