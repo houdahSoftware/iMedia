@@ -84,7 +84,7 @@
 
 #pragma mark GLOBALS
 
-static NSArray* sSupportedUTIs = nil;
+static NSArray* sSupportedImageUTIs = nil;
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ static NSArray* sSupportedUTIs = nil;
 - (NSString*) libraryName;
 
 - (NSArray*) supportedUTIs;
-- (BOOL) canOpenImageFileAtPath:(NSString*)inPath;
+- (BOOL) canOpenFileAtPath:(NSString*)inPath;
 - (IMBObject*) objectWithPath:(NSString*)inPath
 					  idLocal:(NSNumber*)idLocal
 						 name:(NSString*)inName
@@ -181,7 +181,7 @@ static NSArray* sSupportedUTIs = nil;
 	{
 		self.appPath = [[self class] lightroomPath];
 
-		[self supportedUTIs];	// Init early and in the main thread!
+		[self supportedImageUTIs];	// Init early and in the main thread!
 	}
 	
 	return self;
@@ -368,8 +368,8 @@ static NSArray* sSupportedUTIs = nil;
 	// Create subnodes for the root node as needed...
 	
 	if ([inNode isTopLevelNode])
-	{
-		[self populateSubnodesForRootNode:inNode];
+    {
+        [self populateSubnodesForRootNode:inNode error:outError];
 	}
 	else {
 		NSDictionary* attributes = inNode.attributes;
@@ -457,6 +457,11 @@ static NSArray* sSupportedUTIs = nil;
 
 - (id) thumbnailForObject:(IMBObject*)inObject error:(NSError**)outError
 {
+	if ([self.mediaType isEqualToString:kIMBMediaTypeMovie])
+	{
+		return (id)[self thumbnailFromQuicklookForObject:inObject error:outError];
+	}
+
 	NSError* error = nil;
 	CGImageRef imageRepresentation = nil;
 	NSData *jpegData = [self previewDataForObject:inObject maximumSize:[NSNumber numberWithFloat:256.0]];
@@ -578,6 +583,11 @@ static NSArray* sSupportedUTIs = nil;
 
 - (NSData*) bookmarkForObject:(IMBObject*)inObject error:(NSError**)outError
 {
+	if ([self.mediaType isEqualToString:kIMBMediaTypeMovie])
+	{
+		return [self bookmarkForLocalFileObject:inObject error:outError];
+	}
+
 	NSData* jpegData = [self previewDataForObject:inObject maximumSize:nil];
 
 	if (jpegData != nil) {
@@ -676,7 +686,7 @@ static NSArray* sSupportedUTIs = nil;
 // This method creates the immediate subnodes of the "Lightroom" root node. The two subnodes are "Folders"  
 // and "Collections"...
 
-- (void) populateSubnodesForRootNode:(IMBNode*)inRootNode
+- (void) populateSubnodesForRootNode:(IMBNode*)inRootNode error:(NSError**)outError
 {
 	[self populateSubnodesForCollectionNode:inRootNode];
 }
@@ -1060,7 +1070,7 @@ static NSArray* sSupportedUTIs = nil;
 				pyramidPath = [self pyramidPathForImage:idLocal];
 			}
 			
-			if ([self canOpenImageFileAtPath:path]) {
+			if ([self canOpenFileAtPath:path]) {
 				NSMutableDictionary* metadata = [NSMutableDictionary dictionary];
 				
 				[metadata setValue:path forKey:@"MasterPath"];
@@ -1147,7 +1157,7 @@ static NSArray* sSupportedUTIs = nil;
 				pyramidPath = [self pyramidPathForImage:idLocal];
 			}
 			
-			if ([self canOpenImageFileAtPath:path]) {
+			if ([self canOpenFileAtPath:path]) {
 				NSMutableDictionary* metadata = [NSMutableDictionary dictionary];
 				
 				[metadata setValue:path forKey:@"MasterPath"];
@@ -1156,7 +1166,7 @@ static NSArray* sSupportedUTIs = nil;
 				[metadata setValue:fileHeight forKey:@"height"];
 				[metadata setValue:fileWidth forKey:@"width"];
 				[metadata setValue:orientation forKey:@"orientation"];
-				
+
 				if (name) {
 					[metadata setObject:name forKey:@"name"];
 				}
@@ -1198,7 +1208,7 @@ static NSArray* sSupportedUTIs = nil;
 
 // Check if we can open this image file...
 
-- (BOOL) canOpenImageFileAtPath:(NSString*)inPath
+- (BOOL) canOpenFileAtPath:(NSString*)inPath
 {
 	NSString* uti = [NSString imb_UTIForFileAtPath:inPath];
 	NSArray* supportedUTIs = [self supportedUTIs];
@@ -1216,14 +1226,38 @@ static NSArray* sSupportedUTIs = nil;
 
 - (NSArray*) supportedUTIs
 {
-	if (sSupportedUTIs == nil)
-	{
-		sSupportedUTIs = (NSArray*) CGImageSourceCopyTypeIdentifiers();
-	}	
-	
-	return sSupportedUTIs;
+	static NSMutableDictionary *supportedUTIsByMediaType;
+	static dispatch_once_t onceToken;
+
+	dispatch_once(&onceToken, ^{
+		NSArray *supportedImageUTIs = [self supportedImageUTIs];
+
+		if (supportedImageUTIs == nil) {
+			supportedImageUTIs = [NSArray arrayWithObjects:(NSString*)kUTTypeImage, nil];
+		}
+
+		supportedUTIsByMediaType = [[NSMutableDictionary alloc] init];
+
+		[supportedUTIsByMediaType setObject:supportedImageUTIs
+									 forKey:kIMBMediaTypeImage];
+		[supportedUTIsByMediaType setObject:[NSArray arrayWithObjects:(NSString*)kUTTypeMovie, nil]
+									 forKey:kIMBMediaTypeMovie];
+		[supportedUTIsByMediaType setObject:[NSArray arrayWithObjects:(NSString*)kUTTypeAudio, nil]
+									 forKey:kIMBMediaTypeAudio];
+	});
+
+	return [supportedUTIsByMediaType objectForKey:self.mediaType];
 }
 
+- (NSArray*) supportedImageUTIs
+{
+	if (sSupportedImageUTIs == nil)
+	{
+		sSupportedImageUTIs = (NSArray*) CGImageSourceCopyTypeIdentifiers();
+	}
+
+	return sSupportedImageUTIs;
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -1496,11 +1530,14 @@ static NSArray* sSupportedUTIs = nil;
 - (IMBResourceAccessibility) accessibilityForObject:(IMBObject*)inObject
 {
     IMBResourceAccessibility accessibility = kIMBResourceDoesNotExist;
+	
+    NSString* path = [self.mediaType isEqualToString:kIMBMediaTypeImage] ?
+		((IMBLightroomObject*)inObject).absolutePyramidPath :
+		inObject.location.path;
     
-    NSString* absolutePyramidPath = ((IMBLightroomObject*)inObject).absolutePyramidPath;
-    
-    if (absolutePyramidPath) {
-        accessibility = [[NSURL fileURLWithPath:absolutePyramidPath] imb_accessibility];
+    if (path)
+	{
+        accessibility = [[NSURL fileURLWithPath:path] imb_accessibility];
     }
 
     return accessibility;

@@ -110,6 +110,11 @@
 	return @"com.adobe.Lightroom5";
 }
 
++ (NSString *)lightroomAppVersion
+{
+    return @"5";
+}
+
 // ----------------------------------------------------------------------------------------------------------------------
 
 
@@ -126,8 +131,8 @@
 		else if (databaseVersionLong >= 600000) {
 			return NO;
 		}
-
-		return YES;
+        
+        return YES;
 	}
 
 	return NO;
@@ -247,7 +252,7 @@
 			pyramidPath = [self pyramidPathForImage:idLocal];
 		}
 
-		if ([self canOpenImageFileAtPath:path]) {
+		if ([self canOpenFileAtPath:path]) {
 			NSMutableDictionary *metadata	= [NSMutableDictionary dictionary];
 
 			[metadata setValue:path forKey:@"MasterPath"];

@@ -1,7 +1,7 @@
 /*
  *   iMedia Browser Framework <http://karelia.com/imedia/>
  *
- *   Copyright (c) 2005-2015 by Karelia Software et al.
+ *   Copyright (c) 2005-2017 by Karelia Software et al.
  *
  *   iMedia Browser is based on code originally developed by Jason Terhorst,
  *   further developed for Sandvox by Greg Hulands, Dan Wood, and Terrence Talbot.
@@ -58,7 +58,7 @@
 #import "FMDatabase.h"
 #import "FMResultSet+iMedia.h"
 #import "IMBFolderObject.h"
-#import "IMBLightroom6Parser.h"
+#import "IMBLightroom7Parser.h"
 #import "IMBLightroomObject.h"
 #import "IMBLightroomRuleScanner.h"
 #import "IMBNode.h"
@@ -80,7 +80,7 @@
 
 #pragma mark
 
-@interface IMBLightroom6Parser ()
+@interface IMBLightroom7Parser ()
 
 @end
 
@@ -90,7 +90,7 @@
 
 #pragma mark
 
-@implementation IMBLightroom6Parser
+@implementation IMBLightroom7Parser
 
 
 // ----------------------------------------------------------------------------------------------------------------------
@@ -100,19 +100,19 @@
 
 + (NSString *)identifier
 {
-	return @"com.karelia.imedia.Lightroom6";
+	return @"com.karelia.imedia.Lightroom7";
 }
 
 // The bundle identifier of the Lightroom app this parser is based upon
 
 + (NSString *)lightroomAppBundleIdentifier
 {
-	return @"com.adobe.Lightroom6";
+	return @"com.adobe.LightroomClassicCC7";
 }
 
 + (NSString *)lightroomAppVersion
 {
-    return @"6";
+    return @"7";
 }
 
 // ----------------------------------------------------------------------------------------------------------------------
@@ -124,10 +124,10 @@
 	if (databaseVersion != nil) {
 		long databaseVersionLong = [databaseVersion longValue];
 
-		if (databaseVersionLong < 600007) {
+		if (databaseVersionLong < 700003) {
 			return NO;
 		}
-		else if (databaseVersionLong >= 700000) {
+		else if (databaseVersionLong >= 800000) {
 			return NO;
 		}
         
@@ -667,7 +667,7 @@
 
 - (NSString *)iMedia2PersistentResourceIdentifierPrefix
 {
-	return @"IMBLightroom6Parser";
+	return @"IMBLightroom7Parser";
 }
 
 @end

@@ -158,7 +158,7 @@ IMBLightroomNodeType;
 
 @interface IMBLightroomParser (Subclassers)
 
-- (void) populateSubnodesForRootNode:(IMBNode*)inRootNode;
+- (void) populateSubnodesForRootNode:(IMBNode*)inRootNode error:(NSError**)outError;
 - (void) populateSubnodesForRootFoldersNode:(IMBNode*)inFoldersNode;
 - (void) populateSubnodesForFolderNode:(IMBNode*)inParentNode;
 - (void) populateSubnodesForCollectionNode:(IMBNode*)inRootNode;
@@ -172,7 +172,7 @@ IMBLightroomNodeType;
 + (NSImage*) largeFolderIcon;
 
 - (NSNumber*) idLocalFromAttributes:(NSDictionary*)inAttributes;
-- (BOOL) canOpenImageFileAtPath:(NSString*)inPath;
+- (BOOL) canOpenFileAtPath:(NSString*)inPath;
 - (IMBObject*) objectWithPath:(NSString*)inPath
 					  idLocal:(NSNumber*)idLocal
 						 name:(NSString*)inName

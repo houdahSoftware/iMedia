@@ -105,6 +105,10 @@
     return @"com.adobe.Lightroom4";
 }
 
++ (NSString *)lightroomAppVersion
+{
+    return @"4";
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -122,8 +126,13 @@
 		else if (databaseVersionLong >= 500000) {
 			return NO;
 		}
+<<<<<<< HEAD
 		
 		return YES;
+=======
+        
+        return YES;
+>>>>>>> origin/development
 	}
 	
 	return NO;

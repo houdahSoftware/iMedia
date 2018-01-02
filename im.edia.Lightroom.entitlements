@@ -18,6 +18,7 @@
 		<string>com.adobe.Lightroom4</string>
 		<string>com.adobe.Lightroom5</string>
 		<string>com.adobe.Lightroom6</string>
+		<string>com.adobe.LightroomClassicCC7</string>
 	</array>
 </dict>
 </plist>

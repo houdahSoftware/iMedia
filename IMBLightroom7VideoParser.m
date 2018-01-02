@@ -1,7 +1,7 @@
 /*
  iMedia Browser Framework <http://karelia.com/imedia/>
  
- Copyright (c) 2005-2015 by Karelia Software et al.
+ Copyright (c) 2005-2017 by Karelia Software et al.
  
  iMedia Browser is based on code originally developed by Jason Terhorst,
  further developed for Sandvox by Greg Hulands, Dan Wood, and Terrence Talbot.
@@ -55,7 +55,7 @@
 
 #pragma mark HEADERS
 
-#import "IMBLightroom6VideoParser.h"
+#import "IMBLightroom7VideoParser.h"
 #import "IMBParserController.h"
 #import "IMBObject.h"
 #import "NSDictionary+iMedia.h"
@@ -67,7 +67,7 @@
 
 #pragma mark 
 
-@implementation IMBLightroom6VideoParser
+@implementation IMBLightroom7VideoParser
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -99,7 +99,7 @@
 
 + (NSString*) identifier
 {
-	return @"com.karelia.imedia.Lightroom6.movie";
+	return @"com.karelia.imedia.Lightroom7.movie";
 }
 
 // This method must return an appropriate prefix for IMBObject identifiers. Refer to the method
@@ -111,7 +111,7 @@
 
 - (NSString*) iMedia2PersistentResourceIdentifierPrefix
 {
-	return @"IMBLightroom6VideoParser";
+	return @"IMBLightroom7VideoParser";
 }
 
 @end
