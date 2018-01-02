@@ -1432,6 +1432,7 @@ static NSMutableDictionary* sLibraryControllers = nil;
 	[self _reloadNodesWithWatchedPath:path];
 }
 
+
 // Now look for all nodes that are interested in that path and reload them...
 
 - (void) _reloadNodesWithWatchedPath:(NSString*)inPath

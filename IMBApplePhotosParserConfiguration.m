@@ -256,7 +256,7 @@ IMBMLParserConfigurationFactory IMBMLPhotosParserConfigurationFactory =
 - (NSImage *)thumbnailForMediaGroup:(MLMediaGroup *)mediaGroup baseThumbnail:(NSImage *)thumbnail
 {
     NSString *groupTypeIdentifier = mediaGroup.typeIdentifier;
-    CGFloat cornerRadius =  0;
+    CGFloat cornerRadius = 0;
     if ([groupTypeIdentifier isEqualToString:@"com.apple.Photos.FacesAlbum"]) {
         cornerRadius = 255.0;
     }

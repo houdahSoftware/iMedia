@@ -126,8 +126,6 @@ extern NSString* kIMBDidCreateTopLevelNodeNotification;
 - (void)reloadNodeTree:(IMBNode *)inOldNode errorHandler:(void(^)(NSError* error))inErrorHandler;
 - (void) reloadNodeTree:(IMBNode*)inOldNode;
 
-- (void) reloadFromFileSystemChangeWithPath:(NSString *)inPath;
-
 // Try to reload any top-level nodes that do not have access rights and which might benefit from the newly
 // granted URL...
 
