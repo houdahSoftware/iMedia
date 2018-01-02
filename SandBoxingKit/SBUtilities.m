@@ -385,6 +385,7 @@ void SBPerformSelectorAsync(id inConnection,id inTarget,SEL inSelector,id inObje
                     
 #if ALWAYS_COPY_OBJECTS_ON_PERFORM_SELECTOR_ASYNC
                     result = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:result]];
+					error = [error copy];
 #endif
                     dispatch_async(returnHandlerQueue,^()
                                    {
