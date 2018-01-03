@@ -84,10 +84,15 @@ IMBMLParserConfigurationFactory IMBMLPhotosParserConfigurationFactory =
  */
 - (BOOL)shouldUseMediaGroup:(MLMediaGroup *)mediaGroup
 {
+#if EXCLUDE_MOMENTS_AND_COLLECTIONS
     NSSet *unqualifiedGroupIdentifiers = [NSSet setWithObjects:
                                           kIMBPhotosMediaGroupIdentifierMoments,
                                           kIMBPhotosMediaGroupIdentifierCollections,
                                           nil];
+#else
+	NSSet *unqualifiedGroupIdentifiers = [NSSet set];
+#endif
+
     switch (self.mediaType) {
         case MLMediaTypeImage:
             unqualifiedGroupIdentifiers = [unqualifiedGroupIdentifiers
