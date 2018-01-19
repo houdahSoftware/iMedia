@@ -1514,6 +1514,14 @@ static NSArray* sSupportedImageUTIs = nil;
 	return _thumbnailDatabasePool;
 }
 
+- (void) resetDatabasePools
+{
+	@synchronized (self) {
+		[_libraryDatabasePool release], _libraryDatabasePool = nil;
+		[_thumbnailDatabasePool release], _thumbnailDatabasePool = nil;
+	}
+}
+
 - (FMDatabasePool*) createLibraryDatabasePool
 {
 	NSString* databasePath = [self.mediaSource path];

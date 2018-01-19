@@ -635,61 +635,155 @@
 
 // ----------------------------------------------------------------------------------------------------------------------
 
-#pragma mark - Database Access
-
-- (void)inLibraryDatabase:(void (^)(FMDatabase *db))block
+- (void) populateSubnodesForRootNode:(IMBNode*)inRootNode error:(NSError**)outError
 {
-    FMDatabase *libraryDatabase = [self createLibraryDatabase];
-    block(libraryDatabase);
-    [libraryDatabase close];
-}
+	// On reload, we may need to create a fres clone of the catalog database
+	[self resetDatabasePools];
 
-- (void)inThumbnailDatabase:(void (^)(FMDatabase *db))block {
-    FMDatabase *database = [self createThumbnailDatabase];
-    block(database);
-    [database close];
-}
-
-
-- (FMDatabase *) createLibraryDatabase
-{
-    FMDatabase *db = [FMDatabase databaseWithPath:[self.mediaSource path]];
-#if SQLITE_VERSION_NUMBER >= 3005000
-    BOOL success = [db openWithFlags:SQLITE_OPEN_READONLY vfs:@"unix-none"];
-#else
-    BOOL success = [db open];
-#endif
-    return success ? db : nil;
-}
-
-- (FMDatabase *) createThumbnailDatabase
-{
-    NSString* mainDatabasePath = [self.mediaSource path];
-    NSString* rootPath = [mainDatabasePath stringByDeletingPathExtension];
-    NSString* previewPackagePath = [[NSString stringWithFormat:@"%@ Previews", rootPath] stringByAppendingPathExtension:@"lrdata"];
-    NSString* previewDatabasePath = [[previewPackagePath stringByAppendingPathComponent:@"previews"] stringByAppendingPathExtension:@"db"];
-    
-    FMDatabase *db = [FMDatabase databaseWithPath:previewDatabasePath];
-#if SQLITE_VERSION_NUMBER >= 3005000
-    BOOL success = [db openWithFlags:SQLITE_OPEN_READONLY vfs:@"unix-none"];
-#else
-    BOOL success = [db open];
-#endif
-    return success ? db : nil;
+	[super populateSubnodesForRootNode:inRootNode error:outError];
 }
 
 - (FMDatabasePool*) createLibraryDatabasePool
 {
-    NSAssert(NO, @"Database pool not supported for Lightroom 7. May corrupt catalog locked by Lightroom.");
-    return nil;
+	NSString* databasePath = [self.mediaSource path];
+	NSString* cloneDatabasePath = [[self class] cloneDatabase:databasePath];
+	FMDatabasePool* databasePool = [[FMDatabasePool alloc] initWithPath:cloneDatabasePath flags:SQLITE_OPEN_READONLY vfs:@"unix-none"];
+
+	return [databasePool autorelease];
 }
 
 - (FMDatabasePool*) createThumbnailDatabasePool
 {
-    NSAssert(NO, @"Database pool not supported for Lightroom 7. May corrupt catalog locked by Lightroom.");
-    return nil;
+	NSString* mainDatabasePath = [self.mediaSource path];
+	NSString* rootPath = [mainDatabasePath stringByDeletingPathExtension];
+	NSString* previewPackagePath = [[NSString stringWithFormat:@"%@ Previews", rootPath] stringByAppendingPathExtension:@"lrdata"];
+	NSString* previewDatabasePath = [[previewPackagePath stringByAppendingPathComponent:@"previews"] stringByAppendingPathExtension:@"db"];
+	FMDatabasePool* databasePool = [[FMDatabasePool alloc] initWithPath:previewDatabasePath flags:SQLITE_OPEN_READONLY vfs:@"unix-none"];
+
+	return [databasePool autorelease];
 }
 
++ (NSString *)cloneDatabase:(NSString*)databasePath
+{
+	// BEGIN ugly hack to work around Lightroom 7 locking its database
+	// The Lightroom 7 catalog uses WAL mode. This make it impossible to open it in read-only mode
+	// In read-write mode we can corrupt the database when used simultaneously with the Lightroom application
+
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+
+	if (! [fileManager isReadableFileAtPath:databasePath]) {
+		return nil;
+	}
+
+	NSString *basePath = [databasePath stringByDeletingPathExtension];
+	NSString *pathExtension = [databasePath pathExtension];
+	NSString *shmPath = [basePath stringByAppendingPathExtension:[pathExtension stringByAppendingString:@"-shm"]];
+	NSString *walPath = [basePath stringByAppendingPathExtension:[pathExtension stringByAppendingString:@"-wal"]];
+
+	NSString *temporaryDirectory = NSTemporaryDirectory();
+	NSString *cloneDirectoryPath = [temporaryDirectory stringByAppendingPathComponent:[databasePath stringByDeletingLastPathComponent]];
+	NSError *createCloneDirectoryError = nil;
+
+	if (![fileManager createDirectoryAtPath:cloneDirectoryPath
+				withIntermediateDirectories:YES
+								 attributes:NULL
+									  error:&createCloneDirectoryError]) {
+		NSLog(@"Failed to create catalog clone directory. Error: %@", createCloneDirectoryError.localizedDescription);
+
+		return nil;
+	}
+
+	NSString *cloneBasePath = [cloneDirectoryPath stringByAppendingString:[basePath lastPathComponent]];
+	NSString *cloneDatabasePath = [cloneBasePath stringByAppendingPathExtension:pathExtension];
+	NSString *cloneShmPath = [cloneBasePath stringByAppendingPathExtension:[pathExtension stringByAppendingString:@"-shm"]];
+	NSString *cloneWalPath = [cloneBasePath stringByAppendingPathExtension:[pathExtension stringByAppendingString:@"-wal"]];
+
+	BOOL needToCopyFile = NO;
+
+	NSArray *originalFilePaths = @[ databasePath, shmPath, walPath ];
+	NSArray *cloneFilePaths = @[ cloneDatabasePath, cloneShmPath, cloneWalPath ];
+	NSDictionary *filePathPairs = [NSDictionary dictionaryWithObjects:cloneFilePaths forKeys:originalFilePaths];
+
+	for (NSString *originalPath in originalFilePaths) {
+		NSString *clonePath = [filePathPairs objectForKey:originalPath];
+
+		if ([fileManager fileExistsAtPath:originalPath]) {
+			if ([fileManager fileExistsAtPath:clonePath]) {
+				NSURL *cloneFileURL = [NSURL fileURLWithPath:clonePath isDirectory:NO];
+				NSDate *modDateOfClone = nil;
+				NSError *modDateOfCloneError = nil;
+
+				if (! [cloneFileURL getResourceValue:&modDateOfClone forKey:NSURLContentModificationDateKey error:&modDateOfCloneError]) {
+					NSLog(@"Unable to fetch modification date from %@: %@", clonePath, modDateOfCloneError.localizedDescription);
+				}
+
+				NSURL *originalFileURL = [NSURL fileURLWithPath:originalPath isDirectory:NO];
+				NSDate *modDateOfOrig = nil;
+				NSError *modDateOfOrigError = nil;
+
+				if (! [originalFileURL getResourceValue:&modDateOfOrig forKey:NSURLContentModificationDateKey error:&modDateOfOrigError]) {
+					NSLog(@"Unable to fetch modification date from %@: %@", originalPath, modDateOfOrigError.localizedDescription);
+				}
+
+				if ((modDateOfClone == nil) || (modDateOfOrig == nil) || ([modDateOfClone compare:modDateOfOrig] != NSOrderedDescending)) {
+					needToCopyFile = YES;
+					break;
+				}
+			}
+			else if ([originalPath isEqualToString:databasePath]){
+				needToCopyFile = YES;
+				break;
+			}
+		}
+	}
+
+	if (needToCopyFile) {
+		for (NSString *originalPath in originalFilePaths) {
+			NSString *clonePath = [filePathPairs objectForKey:originalPath];
+
+			BOOL cloneExists = [fileManager fileExistsAtPath:clonePath];
+
+			if (cloneExists) {
+				NSError *removeItemAtPathError = nil;
+				BOOL removed = [fileManager removeItemAtPath:clonePath error:&removeItemAtPathError];
+
+				if (removed) {
+					cloneExists = NO;
+				}
+				else {
+					NSLog(@"Unable to remove catalog clone file at %@: %@", clonePath, removeItemAtPathError.localizedDescription);
+				}
+			}
+
+			if (!cloneExists) {
+				BOOL originalExists = [fileManager fileExistsAtPath:originalPath];
+
+				if (originalExists) {
+					NSError *cloneItemAtPathError = nil;
+					BOOL copied = [fileManager copyItemAtPath:originalPath toPath:clonePath error:&cloneItemAtPathError];
+
+					if (!copied) {
+						NSLog(@"Unable to copy catalog file at %@: %@", originalPath, cloneItemAtPathError.localizedDescription);
+					}
+				}
+			}
+		}
+
+		// Disable WAL journal on clone to allow read-only use
+		FMDatabase *database = [[FMDatabase alloc] initWithPath:cloneDatabasePath];
+
+		if ([database open]) {
+			FMResultSet *resultSet = [database executeQuery:@"pragma journal_mode = delete"];
+
+			[resultSet next];
+			[resultSet close];
+
+			[database close];
+		}
+	}
+
+	return cloneDatabasePath;
+}
 
 // ----------------------------------------------------------------------------------------------------------------------
 

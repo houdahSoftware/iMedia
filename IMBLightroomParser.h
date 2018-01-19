@@ -123,6 +123,8 @@ IMBLightroomNodeType;
 - (FMDatabasePool*) libraryDatabasePool;
 - (FMDatabasePool*) thumbnailDatabasePool;
 
+- (void) resetDatabasePools;
+
 // Unconditionally creates an autoreleased FMDatabasePool instance
 // Used by the above caching accessors. May be overridden by subclasses
 - (FMDatabasePool*) createLibraryDatabasePool;
