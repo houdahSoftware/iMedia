@@ -65,6 +65,7 @@
 #pragma mark CLASSES
 
 @class FMDatabasePool;
+@class FMDatabase;
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -126,6 +127,9 @@ IMBLightroomNodeType;
 // Used by the above caching accessors. May be overridden by subclasses
 - (FMDatabasePool*) createLibraryDatabasePool;
 - (FMDatabasePool*) createThumbnailDatabasePool;
+
+- (void)inLibraryDatabase:(void (^)(FMDatabase *db))block;
+- (void)inThumbnailDatabase:(void (^)(FMDatabase *db))block;
 
 - (NSString*)pyramidPathForImage:(NSNumber*)idLocal;
 - (NSData*)previewDataForObject:(IMBObject*)inObject maximumSize:(NSNumber*)maximumSize;

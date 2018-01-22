@@ -1761,8 +1761,10 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
 
 				[self performSelector:@selector(reloadNodeTree:) withAccessRequestedToNode:node];
 			}
+            [self.nodeOutlineView reloadItem:node];
+            [self.nodeOutlineView setNeedsDisplay];
 		}];
-		
+        [self.nodeOutlineView reloadItem:node];
 		[self.nodeOutlineView setNeedsDisplay];
 //	}
 }

@@ -371,6 +371,14 @@ static NSArray* sSupportedImageUTIs = nil;
 
 - (BOOL) populateNode:(IMBNode*)inNode error:(NSError**)outError
 {
+    if (![self hasDatabaseAccessWithError:outError]) {
+        // Use empty array for subnodes and objects. This prevents further attempts on populating the node
+        [inNode mutableArrayForPopulatingSubnodes];
+        inNode.objects = [NSArray array];
+        
+        return;
+    }
+    
 	// Create subnodes for the root node as needed...
 	
 	if ([inNode isTopLevelNode])
@@ -717,9 +725,7 @@ static NSArray* sSupportedImageUTIs = nil;
 	
 	// Query the database for the root folders and create a node for each one we find...
 	
-	FMDatabasePool *libraryDatabasePool = [self libraryDatabasePool];
-
-	[libraryDatabasePool inDatabase:^(FMDatabase *libraryDatabase) {
+    [self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
 		if (libraryDatabase == nil) {
 			return;
 		}
@@ -819,9 +825,7 @@ static NSArray* sSupportedImageUTIs = nil;
 	
 	// Query the database for subfolder and add a node for each one we find...
 	
-	FMDatabasePool *libraryDatabasePool = [self libraryDatabasePool];
-
-	[libraryDatabasePool inDatabase:^(FMDatabase *libraryDatabase) {
+	[self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
 		if (libraryDatabase == nil) {
 			return;
 		}
@@ -916,9 +920,7 @@ static NSArray* sSupportedImageUTIs = nil;
 	
 	// Now query the database for subnodes to the specified parent node...
 	
-	FMDatabasePool *libraryDatabasePool = [self libraryDatabasePool];
-
-	[libraryDatabasePool inDatabase:^(FMDatabase *libraryDatabase) {
+	[self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
 		if (libraryDatabase == nil) {
 			return;
 		}
@@ -1067,9 +1069,7 @@ static NSArray* sSupportedImageUTIs = nil;
 	
 	// Query the database for image files for the specified node. Add an IMBObject for each one we find...
 	
-	FMDatabasePool *libraryDatabasePool = [self libraryDatabasePool];
-
-	[libraryDatabasePool inDatabase:^(FMDatabase *libraryDatabase) {
+	[self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
 		if (libraryDatabase == nil) {
 			return;
 		}
@@ -1158,9 +1158,7 @@ static NSArray* sSupportedImageUTIs = nil;
 	
 	// Query the database for image files for the specified node. Add an IMBObject for each one we find...
 	
-	FMDatabasePool *libraryDatabasePool = [self libraryDatabasePool];
-
-	[libraryDatabasePool inDatabase:^(FMDatabase *libraryDatabase) {
+	[self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
 		if (libraryDatabase == nil) {
 			return;
 		}
@@ -1411,9 +1409,7 @@ static NSArray* sSupportedImageUTIs = nil;
 {
 	__block NSString *pyramidPath = nil;
 
-	FMDatabasePool *thumbnailDatabasePool = [self thumbnailDatabasePool];
-
-	[thumbnailDatabasePool inDatabase:^(FMDatabase *thumbnailDatabase) {
+	[self inThumbnailDatabase:^(FMDatabase *thumbnailDatabase) {
 		if (thumbnailDatabase == nil) {
 			return;
 		}
@@ -1445,9 +1441,7 @@ static NSArray* sSupportedImageUTIs = nil;
 	__block NSData* jpegData = nil;
 	
 	if (absolutePyramidPath != nil) {
-		FMDatabasePool *thumbnailDatabasePool = [self thumbnailDatabasePool];
-
-		[thumbnailDatabasePool inDatabase:^(FMDatabase *thumbnailDatabase) {
+		[self inThumbnailDatabase:^(FMDatabase *thumbnailDatabase) {
 			if (thumbnailDatabase == nil) {
 				return;
 			}
@@ -1527,6 +1521,11 @@ static NSArray* sSupportedImageUTIs = nil;
 	return _libraryDatabasePool;
 }
 
+- (BOOL)hasDatabaseAccessWithError:(NSError **)pError
+{
+    return YES;
+}
+
 - (FMDatabasePool*) thumbnailDatabasePool
 {
 	@synchronized (self) {
@@ -1572,6 +1571,22 @@ static NSArray* sSupportedImageUTIs = nil;
     return accessibility;
 }
 
+- (void)inLibraryDatabase:(void (^)(FMDatabase *db))block {
+    FMDatabasePool *libraryDatabasePool = [self libraryDatabasePool];
+    
+    [libraryDatabasePool inDatabase:^(FMDatabase *libraryDatabase) {
+        block(libraryDatabase);
+    }];
+}
+
+- (void)inThumbnailDatabase:(void (^)(FMDatabase *db))block
+{
+    FMDatabasePool *databasePool = [self thumbnailDatabasePool];
+    
+    [databasePool inDatabase:^(FMDatabase *database) {
+        block(database);
+    }];
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 

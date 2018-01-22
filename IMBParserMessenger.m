@@ -437,6 +437,7 @@
 		[self _setParserIdentifierWithParser:parser onNodeTree:node];
 		[self _setObjectIdentifierWithParser:parser onNodeTree:node];
 		node.version = inNode.version;
+        node.error = error;
 	}
 	
 	if (outError) *outError = error;
