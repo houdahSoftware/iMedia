@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11761" systemVersion="16C48b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="17C89" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11761"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="11761"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <development version="7000" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <plugIn identifier="com.apple.imagekit.ibplugin" version="12121"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IMBLinkObjectViewController">
@@ -43,7 +43,7 @@
             <rect key="frame" x="0.0" y="0.0" width="408" height="509"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchField wantsLayer="YES" verticalHuggingPriority="750" id="516">
+                <searchField wantsLayer="YES" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" id="516">
                     <rect key="frame" x="278" y="8" width="118" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" bezelStyle="round" id="517">
@@ -55,7 +55,7 @@
                         <action selector="search:" target="465" id="767"/>
                     </connections>
                 </searchField>
-                <textField verticalHuggingPriority="750" id="493">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" id="493">
                     <rect key="frame" x="105" y="10" width="168" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Object Count" id="494">
@@ -104,7 +104,7 @@
                                         <rect key="frame" x="-1" y="0.0" width="409" height="474"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" copiesOnScroll="NO" id="5Rj-Ap-FDu">
-                                            <rect key="frame" x="1" y="1" width="392" height="472"/>
+                                            <rect key="frame" x="1" y="1" width="407" height="472"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <ikImageBrowserView autoresizesSubviews="NO" zoomValue="0.4985358715057373" constrainsToOriginalSize="YES" id="694" customClass="IMBImageBrowserView">
@@ -127,7 +127,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="692">
-                                            <rect key="frame" x="393" y="1" width="15" height="472"/>
+                                            <rect key="frame" x="392" y="1" width="16" height="472"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -143,11 +143,11 @@
                                         <rect key="frame" x="-1" y="0.0" width="409" height="474"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="2Hj-pA-25e">
-                                            <rect key="frame" x="1" y="1" width="392" height="472"/>
+                                            <rect key="frame" x="1" y="1" width="391" height="472"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" autosaveColumns="NO" id="699" customClass="IMBTableView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="392" height="472"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="391" height="472"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -170,7 +170,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn identifier="name" editable="NO" width="366" minWidth="2" maxWidth="1000" id="701">
+                                                        <tableColumn identifier="name" editable="NO" width="365" minWidth="2" maxWidth="1000" id="701">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -206,7 +206,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="697">
-                                            <rect key="frame" x="393" y="1" width="15" height="472"/>
+                                            <rect key="frame" x="392" y="1" width="16" height="472"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -222,17 +222,17 @@
                                         <rect key="frame" x="0.0" y="0.0" width="408" height="474"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="y71-Cl-kMT">
-                                            <rect key="frame" x="1" y="1" width="391" height="472"/>
+                                            <rect key="frame" x="1" y="1" width="390" height="472"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="80" id="706" customClass="IMBComboTableView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="391" height="472"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="390" height="472"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="388" minWidth="40" maxWidth="1000" id="709">
+                                                        <tableColumn identifier="" width="387" minWidth="40" maxWidth="1000" id="709">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -268,7 +268,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="708">
-                                            <rect key="frame" x="392" y="1" width="15" height="472"/>
+                                            <rect key="frame" x="391" y="1" width="16" height="472"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
