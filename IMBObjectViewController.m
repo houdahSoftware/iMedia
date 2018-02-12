@@ -2275,7 +2275,11 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		// the first Retina Macs didn't run 10.6, we can safely assume that where competent
 		// calculation of Retina-based frame is required, we will have the benefit of the
 		// new convenience method on NSWindow.
-#define USE_OLD_CONVERT_METHOD (!defined(MAC_OS_X_VERSION_10_7) || (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_7))
+#if (!defined(MAC_OS_X_VERSION_10_7) || (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_7))
+#define USE_OLD_CONVERT_METHOD 1
+#else
+#define USE_OLD_CONVERT_METHOD 0
+#endif
 #if USE_OLD_CONVERT_METHOD
 		if (IMBRunningOnLionOrNewer() == NO)
 		{
