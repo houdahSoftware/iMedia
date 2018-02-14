@@ -69,5 +69,6 @@
 - (NSString *) imb_generateUniqueFileNameAtPath:(NSString *)path base:(NSString *)basename extension:(NSString *)extension;
 - (NSInteger) imb_modeForPath:(NSString *)inPath;
 - (BOOL) imb_isVolumeMounted:(NSString*)inVolumeName;
+- (NSString*) imb_tempFolderForPath:(NSString *)inAbsolutePath;
 
 @end

@@ -73,6 +73,7 @@
 
 
 #define LOAD_SMART_COLLECTIONS 0
+#define USE_HARD_LINK_FOR_CLONE 1
 
 
 // ----------------------------------------------------------------------------------------------------------------------
@@ -647,7 +648,11 @@
 {
 	NSString* databasePath = [self.mediaSource path];
 	NSString* cloneDatabasePath = [[self class] cloneDatabase:databasePath];
+#if USE_HARD_LINK_FOR_CLONE
+	FMDatabasePool* databasePool = [[FMDatabasePool alloc] initWithPath:cloneDatabasePath];
+#else
 	FMDatabasePool* databasePool = [[FMDatabasePool alloc] initWithPath:cloneDatabasePath flags:SQLITE_OPEN_READONLY vfs:@"unix-none"];
+#endif
 
 	return [databasePool autorelease];
 }
@@ -658,7 +663,11 @@
 	NSString* rootPath = [mainDatabasePath stringByDeletingPathExtension];
 	NSString* previewPackagePath = [[NSString stringWithFormat:@"%@ Previews", rootPath] stringByAppendingPathExtension:@"lrdata"];
 	NSString* previewDatabasePath = [[previewPackagePath stringByAppendingPathComponent:@"previews"] stringByAppendingPathExtension:@"db"];
+#if USE_HARD_LINK_FOR_CLONE
+	FMDatabasePool* databasePool = [[FMDatabasePool alloc] initWithPath:previewDatabasePath];
+#else
 	FMDatabasePool* databasePool = [[FMDatabasePool alloc] initWithPath:previewDatabasePath flags:SQLITE_OPEN_READONLY vfs:@"unix-none"];
+#endif
 
 	return [databasePool autorelease];
 }
@@ -675,12 +684,21 @@
 		return nil;
 	}
 
+	NSString *temporaryDirectory = nil;
+
+#if USE_HARD_LINK_FOR_CLONE
+	temporaryDirectory = [fileManager imb_tempFolderForPath:databasePath];
+#endif
+
+	if ([temporaryDirectory length] == 0) {
+		temporaryDirectory = [fileManager imb_sharedTemporaryFolder:nil];
+	}
+
 	NSString *basePath = [databasePath stringByDeletingPathExtension];
 	NSString *pathExtension = [databasePath pathExtension];
 	NSString *shmPath = [basePath stringByAppendingPathExtension:[pathExtension stringByAppendingString:@"-shm"]];
 	NSString *walPath = [basePath stringByAppendingPathExtension:[pathExtension stringByAppendingString:@"-wal"]];
 
-	NSString *temporaryDirectory = NSTemporaryDirectory();
 	NSString *cloneDirectoryPath = [temporaryDirectory stringByAppendingPathComponent:[databasePath stringByDeletingLastPathComponent]];
 	NSError *createCloneDirectoryError = nil;
 
@@ -693,7 +711,7 @@
 		return nil;
 	}
 
-	NSString *cloneBasePath = [cloneDirectoryPath stringByAppendingString:[basePath lastPathComponent]];
+	NSString *cloneBasePath = [cloneDirectoryPath stringByAppendingPathComponent:[basePath lastPathComponent]];
 	NSString *cloneDatabasePath = [cloneBasePath stringByAppendingPathExtension:pathExtension];
 	NSString *cloneShmPath = [cloneBasePath stringByAppendingPathExtension:[pathExtension stringByAppendingString:@"-shm"]];
 	NSString *cloneWalPath = [cloneBasePath stringByAppendingPathExtension:[pathExtension stringByAppendingString:@"-wal"]];
@@ -725,7 +743,7 @@
 					NSLog(@"Unable to fetch modification date from %@: %@", originalPath, modDateOfOrigError.localizedDescription);
 				}
 
-				if ((modDateOfClone == nil) || (modDateOfOrig == nil) || ([modDateOfClone compare:modDateOfOrig] != NSOrderedDescending)) {
+				if ((modDateOfClone == nil) || (modDateOfOrig == nil) || ([modDateOfClone compare:modDateOfOrig] == NSOrderedAscending)) {
 					needToCopyFile = YES;
 					break;
 				}
@@ -759,16 +777,43 @@
 				BOOL originalExists = [fileManager fileExistsAtPath:originalPath];
 
 				if (originalExists) {
-					NSError *cloneItemAtPathError = nil;
-					BOOL copied = [fileManager copyItemAtPath:originalPath toPath:clonePath error:&cloneItemAtPathError];
+					BOOL copied = NO;
 
-					if (!copied) {
-						NSLog(@"Unable to copy catalog file at %@: %@", originalPath, cloneItemAtPathError.localizedDescription);
+#if USE_HARD_LINK_FOR_CLONE
+					if ([originalPath isEqualToString:databasePath]) {
+						NSError *linkItemAtPathError = nil;
+
+						copied = [fileManager linkItemAtPath:originalPath toPath:clonePath error:&linkItemAtPathError];
+
+						if (copied) {
+							NSDictionary *attributes = @{ NSFilePosixPermissions: @0400 };
+
+							[fileManager setAttributes:attributes ofItemAtPath:clonePath error:NULL];
+						}
+						else {
+							NSLog(@"Unable to hard link catalog file at %@: %@", originalPath, linkItemAtPathError.localizedDescription);
+						}
+					}
+#endif
+
+					// TODO: check setAttributes
+					// TODO: allow delete
+					// TODO: check tryAccess
+
+					if (! copied) {
+						NSError *copyItemAtPathError = nil;
+
+						copied = [fileManager copyItemAtPath:originalPath toPath:clonePath error:&copyItemAtPathError];
+
+						if (!copied) {
+							NSLog(@"Unable to copy catalog file at %@: %@", originalPath, copyItemAtPathError.localizedDescription);
+						}
 					}
 				}
 			}
 		}
 
+#if !USE_HARD_LINK_FOR_CLONE
 		// Disable WAL journal on clone to allow read-only use
 		FMDatabase *database = [[FMDatabase alloc] initWithPath:cloneDatabasePath];
 
@@ -780,6 +825,7 @@
 
 			[database close];
 		}
+#endif
 	}
 
 	return cloneDatabasePath;

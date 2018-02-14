@@ -327,5 +327,71 @@
 	return exists && directory;
 }
 
++ (FSVolumeRefNum) imb_volumeForPath:(NSString *)inAbsolutePath
+{
+	OSStatus err = noErr;
+
+	FSRef ref = {};
+	FSVolumeRefNum volumeRefNum = 0;
+
+	// Remove last path component until the path exists. You can't create FSRefs
+	// from paths that don't exist...
+
+	while (![[NSFileManager defaultManager] fileExistsAtPath:inAbsolutePath])
+	{
+		inAbsolutePath = [inAbsolutePath stringByDeletingLastPathComponent];
+	}
+
+	// Convert the path to an FSRef...
+
+	err = FSPathMakeRef((const UInt8 *)[inAbsolutePath UTF8String],&ref,NULL);
+
+
+	// Get volume reference number with catalog info...
+
+	if (err == noErr)
+	{
+		FSCatalogInfo catalogInfo = {};
+		err = FSGetCatalogInfo ( &ref, kFSCatInfoVolume, &catalogInfo, NULL, NULL, NULL);
+		if (err == noErr) volumeRefNum = catalogInfo.volume;
+	}
+
+	return volumeRefNum;
+}
+
+- (NSString*) imb_tempFolderForPath:(NSString *)inAbsolutePath
+{
+	OSStatus err = noErr;
+
+	FSVolumeRefNum volumeRefNum = 0;
+	FSRef folder = {};
+	UInt8 buffer[PATH_MAX+1] = {};
+	NSString *path = nil;
+
+	// Get the volume reference number from the POSIX path
+
+	volumeRefNum = [NSFileManager imb_volumeForPath:inAbsolutePath];
+
+	// Find temp folder of the volume...
+
+	if (err == noErr)
+	{
+		err = FSFindFolder(volumeRefNum,kTemporaryFolderType,kCreateFolder,&folder);
+	}
+
+	// Convert the FSRef of temp folder to path...
+
+	if (err == noErr)
+	{
+		err = FSRefMakePath(&folder,buffer,PATH_MAX);
+	}
+
+	if (err == noErr)
+	{
+		path = [NSString stringWithUTF8String:(const char*)buffer];
+	}
+
+	return path;
+}
 
 @end
