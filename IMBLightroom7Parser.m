@@ -112,7 +112,7 @@
 
 + (NSString *)lightroomAppVersion
 {
-    return @"7";
+    return @"Classic CC";
 }
 
 // ----------------------------------------------------------------------------------------------------------------------
@@ -635,28 +635,65 @@
 
 // ----------------------------------------------------------------------------------------------------------------------
 
+#pragma mark - Database Access
+
+- (void)inLibraryDatabase:(void (^)(FMDatabase *db))block
+{
+    FMDatabase *libraryDatabase = [self createLibraryDatabase];
+    block(libraryDatabase);
+    [libraryDatabase close];
+}
+
+- (void)inThumbnailDatabase:(void (^)(FMDatabase *db))block {
+    FMDatabase *database = [self createThumbnailDatabase];
+    block(database);
+    [database close];
+}
+
+
+- (FMDatabase *) createLibraryDatabase
+{
+    FMDatabase *db = [FMDatabase databaseWithPath:[self.mediaSource path]];
+#if SQLITE_VERSION_NUMBER >= 3005000
+    BOOL success = [db openWithFlags:SQLITE_OPEN_READONLY vfs:@"unix-none"];
+#else
+    BOOL success = [db open];
+#endif
+    return success ? db : nil;
+}
+
+- (FMDatabase *) createThumbnailDatabase
+{
+    NSString* mainDatabasePath = [self.mediaSource path];
+    NSString* rootPath = [mainDatabasePath stringByDeletingPathExtension];
+    NSString* previewPackagePath = [[NSString stringWithFormat:@"%@ Previews", rootPath] stringByAppendingPathExtension:@"lrdata"];
+    NSString* previewDatabasePath = [[previewPackagePath stringByAppendingPathComponent:@"previews"] stringByAppendingPathExtension:@"db"];
+    
+    FMDatabase *db = [FMDatabase databaseWithPath:previewDatabasePath];
+#if SQLITE_VERSION_NUMBER >= 3005000
+    BOOL success = [db openWithFlags:SQLITE_OPEN_READONLY vfs:@"unix-none"];
+#else
+    BOOL success = [db open];
+#endif
+    return success ? db : nil;
+}
+
 - (FMDatabasePool*) createLibraryDatabasePool
 {
-	NSString* databasePath = [self.mediaSource path];
-	FMDatabasePool* databasePool = [[FMDatabasePool alloc] initWithPath:databasePath flags:SQLITE_OPEN_READWRITE vfs:@"unix-none"];
-
-	return [databasePool autorelease];
+    NSAssert(NO, @"Database pool not supported for Lightroom 7. May corrupt catalog locked by Lightroom.");
+    return nil;
 }
 
 - (FMDatabasePool*) createThumbnailDatabasePool
 {
-	NSString* mainDatabasePath = [self.mediaSource path];
-	NSString* rootPath = [mainDatabasePath stringByDeletingPathExtension];
-	NSString* previewPackagePath = [[NSString stringWithFormat:@"%@ Previews", rootPath] stringByAppendingPathExtension:@"lrdata"];
-	NSString* previewDatabasePath = [[previewPackagePath stringByAppendingPathComponent:@"previews"] stringByAppendingPathExtension:@"db"];
-	FMDatabasePool* databasePool = [[FMDatabasePool alloc] initWithPath:previewDatabasePath flags:SQLITE_OPEN_READWRITE vfs:@"unix-none"];
-
-	return [databasePool autorelease];
+    NSAssert(NO, @"Database pool not supported for Lightroom 7. May corrupt catalog locked by Lightroom.");
+    return nil;
 }
 
 
 // ----------------------------------------------------------------------------------------------------------------------
 
+#pragma mark -
 
 // This method must return an appropriate prefix for IMBObject identifiers. Refer to the method
 // -[IMBParser iMedia2PersistentResourceIdentifierForObject:] to see how it is used. Historically we used class names as the prefix.

@@ -155,9 +155,7 @@
 {
 	__block NSNumber *databaseVersion = nil;
 
-	FMDatabasePool		*libraryDatabasePool	= [self libraryDatabasePool];
-
-	[libraryDatabasePool inDatabase:^(FMDatabase *libraryDatabase) {
+	[self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
 		if (libraryDatabase == nil) {
 			return;
 		}
@@ -169,7 +167,10 @@
 
 		FMResultSet* results = [libraryDatabase executeQuery:query, @"Adobe_DBVersion"];
 
-		if ([results next]) {
+        if ([libraryDatabase hadError]) {
+            NSLog(@"DB Error %d: %@", [libraryDatabase lastErrorCode], [libraryDatabase lastErrorMessage]);
+        }
+        if ([results next]) {
 			databaseVersion = [NSNumber numberWithLong:[results longForColumn:@"value"]];
 		}
 
@@ -289,9 +290,7 @@
 	__block NSString *uuid = nil;
 	__block NSString *digest = nil;
 
-	FMDatabasePool		*libraryDatabasePool	= [self libraryDatabasePool];
-
-	[libraryDatabasePool inDatabase:^(FMDatabase *libraryDatabase) {
+	[self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
 		if (libraryDatabase == nil) {
 			return;
 		}
@@ -637,6 +636,63 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
+
+- (BOOL)hasDatabaseAccessWithError:(NSError **)pError
+{
+    __block BOOL hasAccess = NO;
+    
+    [self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
+        if (libraryDatabase == nil) {
+            return;
+        }
+        
+        // Check for catalog access by simply trying to query the database version
+        
+        NSString* query =    @" SELECT value"
+        @" FROM Adobe_variablesTable avt"
+        @" WHERE avt.name = ?"
+        @" LIMIT 1";
+        
+        FMResultSet* results = [libraryDatabase executeQuery:query, @"Adobe_DBVersion"];
+        
+        if (![libraryDatabase hadError]) {
+            hasAccess = YES;
+        } else {
+            hasAccess = NO;
+            
+            if (pError) {
+                NSInteger sqliteErrorCode = [libraryDatabase lastErrorCode];
+                switch (sqliteErrorCode) {
+                    case 14: {
+                        NSString *localizedErrorDescriptionFormat =
+                        NSLocalizedStringWithDefaultValue(@"IMBLightroomParser.MustRunLightroom",
+                                                          nil, IMBBundle(),
+                                                          @"Please run Lightroom %@ to gain access to its catalog. Then hit \"Reload\" from the context menu.",
+                                                          @"Warning when catalog can't be opened");
+                        NSString *localizedErrorDescription = [NSString stringWithFormat:localizedErrorDescriptionFormat,
+                                                               [self.class lightroomAppVersion]];
+                        
+                        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                  localizedErrorDescription, NSLocalizedDescriptionKey, nil];
+                        
+                        *pError = [NSError errorWithDomain:kIMBErrorDomain code:sqliteErrorCode userInfo:userInfo];
+                        break;
+                    }
+                        
+                        
+                    default:
+                        break;
+                }
+            }
+            
+            NSLog(@"DB Error %d: %@", [libraryDatabase lastErrorCode], [libraryDatabase lastErrorMessage]);
+        }
+        
+        [results close];
+    }];
+    
+    return hasAccess;
+}
 
 - (FMDatabasePool*) createLibraryDatabasePool;
 {

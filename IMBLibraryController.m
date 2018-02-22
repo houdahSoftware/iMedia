@@ -471,6 +471,7 @@ static NSMutableDictionary* sLibraryControllers = nil;
 			if (inError)
             {
                 NSLog(@"%s ERROR:\n\n%@",__FUNCTION__,inError);
+                inNode.error = inError;
             }
 			
 			// If populating was successful we got a new node. Set the parserMessenger, and then  
