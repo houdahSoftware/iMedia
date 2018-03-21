@@ -443,9 +443,13 @@ static IMBPanelController* sSharedPanelController = nil;
 			[self tabView:ibTabView willSelectTabViewItem:tabViewItem];
 			[self tabView:ibTabView didSelectTabViewItem:tabViewItem];
 		}
-		else
+		else if ([ibTabView indexOfTabViewItemWithIdentifier:mediaType] != NSNotFound)
 		{
 			[ibTabView selectTabViewItemWithIdentifier:mediaType];
+		}
+		else
+		{
+			[ibTabView selectFirstTabViewItem:nil];
 		}
 	}
 }
