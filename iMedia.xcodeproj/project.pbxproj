@@ -3069,6 +3069,7 @@
 					};
 					8DC2EF4F0486A6940098B216 = {
 						DevelopmentTeam = 493CVA9A35;
+						ProvisioningStyle = Manual;
 					};
 					D02CD49E1224F22400C773A2 = {
 						DevelopmentTeam = 493CVA9A35;
@@ -4023,6 +4024,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 493CVA9A35;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -4031,6 +4035,7 @@
 				"OTHER_LDFLAGS[arch=x86_64]" = "";
 				PRODUCT_NAME = iMedia;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -4040,6 +4045,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 493CVA9A35;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -4047,6 +4055,7 @@
 				INSTALL_PATH = "@rpath";
 				PRODUCT_NAME = iMedia;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
