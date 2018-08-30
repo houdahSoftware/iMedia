@@ -1,2 +1,11 @@
 language: objective-c
-script: xctool -workspace iMedia.xcworkspace -scheme iMedia CODE_SIGN_IDENTITY=""
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode9.3
+    - os: osx
+      osx_image: xcode9.2
+    - os: osx
+      osx_image: xcode8.3
+script: xcodebuild build -workspace iMedia.xcworkspace -scheme iMedia CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM="" CODE_SIGNING_REQUIRED=NO

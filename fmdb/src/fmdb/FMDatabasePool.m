@@ -78,7 +78,8 @@
     FMDBRelease(_path);
     FMDBRelease(_databaseInPool);
     FMDBRelease(_databaseOutPool);
-    
+    FMDBRelease(_vfsName);
+
     if (_lockQueue) {
         FMDBDispatchQueueRelease(_lockQueue);
         _lockQueue = 0x00;

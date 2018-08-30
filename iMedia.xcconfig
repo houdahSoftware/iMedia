@@ -1,7 +1,7 @@
 // Use latest SDK and set minimum deployment platform
 
 SDKROOT = macosx
-ARCHS = i386 x86_64
+VALID_ARCHS = x86_64
 MACOSX_DEPLOYMENT_TARGET = 10.6
 
 // Precompiled header & defines

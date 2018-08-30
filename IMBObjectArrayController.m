@@ -246,8 +246,16 @@ const NSString* kSearchStringContext = @"searchString";
 			// Give the delegate a chance to enhance an object or totally replace it with a proxy object.
 			// This way an object can be customized or made more rich...
 			
-			id proxy = hasProxyForObject ? [_delegate proxyForObject:object] : object;
-			
+			id proxy = object;
+			if (hasProxyForObject)
+			{
+				id delegateProxy = [_delegate proxyForObject:object];
+				if (delegateProxy != nil)
+				{
+					proxy = delegateProxy;
+				}
+			}
+
 			// If the object has just been created, add it unconditionally...
 			
 			if (object == _newObject)

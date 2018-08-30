@@ -91,7 +91,7 @@
 
 
 #pragma mark
-#pragma mark Proeprties
+#pragma mark Properties
 
 @synthesize nodeIdentifier = _nodeIdentifier;
 
