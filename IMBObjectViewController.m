@@ -358,7 +358,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 	// Remove ourself from the QuickLook preview panel...
 	
-	QLPreviewPanel* panel = [QLPreviewPanel sharedPreviewPanel];
+	QLPreviewPanel* panel = [QLPreviewPanel sharedPreviewPanelExists] ? [QLPreviewPanel sharedPreviewPanel] : nil;
 	if (panel.delegate == (id)self) panel.delegate = nil;
 	if (panel.dataSource == (id)self) panel.dataSource = nil;
 	
@@ -1075,7 +1075,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 {
 	// Notify the Quicklook panel of the selection change...
 	
-	QLPreviewPanel* panel = [QLPreviewPanel sharedPreviewPanel];
+	QLPreviewPanel* panel = [QLPreviewPanel sharedPreviewPanelExists] ? [QLPreviewPanel sharedPreviewPanel] : nil;
 	
 	if (panel.dataSource == (id)self)
 	{
