@@ -478,7 +478,7 @@ static NSArray* sSupportedImageUTIs = nil;
 
 	NSError* error = nil;
 	CGImageRef imageRepresentation = nil;
-	NSData *jpegData = [self previewDataForObject:inObject maximumSize:[NSNumber numberWithFloat:256.0]];
+	NSData *jpegData = [self previewDataForObject:inObject maximumSize:[NSNumber numberWithFloat:kIMBMaxThumbnailSize]];
 
 	if (jpegData != nil) {
 		CGImageSourceRef source = CGImageSourceCreateWithData((CFDataRef)jpegData, nil);
