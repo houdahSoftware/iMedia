@@ -1773,15 +1773,30 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
     {
         NSString* title = [[inNode.error userInfo] objectForKey:@"title"];
         NSString* description = [[inNode.error userInfo] objectForKey:NSLocalizedDescriptionKey];
-        NSString* ok = @"   OK   ";
 
         IMBAlertPopover* alert = [IMBAlertPopover warningPopoverWithHeader:title body:description footer:nil];
 
-        [alert addButtonWithTitle:ok block:^()
-        {
-            [alert close];
-        }];
+		NSDictionary *recoveryURLs = [[inNode.error userInfo] objectForKey:@"recoveryURLs"];
 
+		if ([recoveryURLs count] != 0) {
+			for (NSString *recoveryURLLabel in [recoveryURLs allKeys]) {
+				NSURL *recoveryURL = [recoveryURLs objectForKey:recoveryURLLabel];
+
+				[alert addButtonWithTitle:recoveryURLLabel block:^()
+				 {
+					 [[NSWorkspace sharedWorkspace] openURL:recoveryURL];
+				 }];
+			}
+		}
+		else {
+			NSString* ok = @"   OK   ";
+
+			[alert addButtonWithTitle:ok block:^()
+			 {
+				 [alert close];
+			 }];
+		}
+		
         [alert showRelativeToRect:inRect ofView:self.view preferredEdge:NSMaxYEdge];
     }
     else

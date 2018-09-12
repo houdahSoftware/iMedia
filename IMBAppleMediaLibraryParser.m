@@ -14,6 +14,7 @@
 #import "IMBNodeObject.h"
 #import "IMBAppleMediaLibraryParser.h"
 #import "IMBAppleMediaLibraryPropertySynchronizer.h"
+#import "SBUtilities.h"
 
 #define USE_PARSER_ANNOTATED_LIBRARY_NAME 0
 
@@ -39,11 +40,19 @@ NSString *kIMBMLMediaGroupTypeFolder = @"Folder";
 NSString *kIMBMLMediaGroupTypeEventsFolder = @"EventsFolder";
 NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
 
+@interface IMBAppleMediaLibraryParser ()
+
+@property (assign) BOOL needsMojavePhotoAccessAuthorization;
+
+@end
+
+
 @implementation IMBAppleMediaLibraryParser
 
 @synthesize AppleMediaLibrary = _AppleMediaLibrary;
 @synthesize AppleMediaSource = _AppleMediaSource;
 @synthesize configuration = _configuration;
+@synthesize needsMojavePhotoAccessAuthorization = _needsMojavePhotoAccessAuthorization;
 
 #pragma mark - Configuration
 
@@ -115,7 +124,47 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
     
     // Is there a matching media source?
     
-    if (!self.AppleMediaSource) return nil;
+	if (!self.AppleMediaSource) {
+		// On macOS Mojave the media source may be missing because the user has denied access to the Photos library
+		if ([MLMediaSourcePhotosIdentifier isEqualToString:[self.configuration mediaSourceIdentifier]] && IMBRunningOnMojaveOrNewer()) {
+			BOOL photosLibraryExists = NO;
+
+			CFDataRef systemLibraryURLBookmark = SBPreferencesCopyAppValue((CFStringRef)@"IPXDefaultLibraryURLBookmark",
+																		   (CFStringRef)@"com.apple.Photos");
+
+
+			if (systemLibraryURLBookmark != NULL) {
+				if (CFDataGetTypeID() == CFGetTypeID(systemLibraryURLBookmark)) {
+					CFErrorRef resolveError = nil;
+					CFURLRef systemLibraryURL = CFURLCreateByResolvingBookmarkData(kCFAllocatorDefault,
+																				   systemLibraryURLBookmark,
+																				   kCFURLBookmarkResolutionWithoutUIMask,
+																				   NULL, NULL, NULL,
+																				   &resolveError);
+
+					if (systemLibraryURL != NULL) {
+						if ([[NSFileManager defaultManager] fileExistsAtPath:[(__bridge NSURL *) systemLibraryURL path]]) {
+							photosLibraryExists = YES;
+						}
+
+						CFRelease(systemLibraryURL);
+					}
+					else {
+						NSString *resolveErrorString = (NSString*)CFBridgingRelease(CFErrorCopyDescription(resolveError));
+
+						NSLog(@"Could not decode IPXDefaultLibraryURLBookmark value in com.apple.Photos. Error: %@", resolveErrorString);
+					}
+				}
+
+				self.needsMojavePhotoAccessAuthorization = photosLibraryExists;
+
+				CFRelease(systemLibraryURLBookmark);
+			}
+		}
+		else {
+			return nil;
+		}
+	}
 
     //  create an empty root node (unpopulated and without subnodes)
     IMBNode *node = [[IMBNode alloc] initWithParser:self topLevel:YES];
@@ -132,10 +181,45 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
     if ([self mediaSourceAccessibility] == kIMBResourceIsAccessible) {
         node.watchedPath = [self.mediaSource path];
     }
+
+	if (self.needsMojavePhotoAccessAuthorization) {
+		node.accessibility = kIMBResourceNoPermission;
+	}
+
     if (outError) {
         *outError = error;
     }
     return node;
+}
+
+- (IMBResourceAccessibility) mediaSourceAccessibility
+{
+	if ([self needsMojavePhotoAccessAuthorization]) {
+		return kIMBResourceNoPermission;
+	}
+
+	return [super mediaSourceAccessibility];
+}
+
+- (NSError *)mediaSourceAccessibilityError
+{
+	if ([self needsMojavePhotoAccessAuthorization]) {
+		NSString *errorString = NSLocalizedStringWithDefaultValue(@"IMBAppleMediaLibraryParser.Photos.privacyError.placeholderMessage", nil, IMBBundle(), @"IMBAppleMediaLibraryParser.Photos.privacyError.placeholderMessage", nil);
+
+		NSString *recoveryURLLabel = NSLocalizedStringWithDefaultValue(@"IMBAppleMediaLibraryParser.Photos.privacyError.recoveryURLLabel", nil, IMBBundle(), @"IMBAppleMediaLibraryParser.Photos.privacyError.recoveryURLLabel", nil);
+
+		NSURL *recoveryURL = [NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_Photos"];
+
+		NSDictionary *recoveryURLs = [NSDictionary dictionaryWithObjectsAndKeys:
+										 recoveryURL, recoveryURLLabel, nil];
+
+		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+								  errorString, NSLocalizedDescriptionKey, recoveryURLs, @"recoveryURLs", nil];
+
+		return [NSError errorWithDomain:kIMBErrorDomain code:-1 userInfo:userInfo];
+	}
+
+	return [super mediaSourceAccessibilityError];
 }
 
 /**
