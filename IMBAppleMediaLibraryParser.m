@@ -11,6 +11,7 @@
 #import "NSURL+iMedia.h"
 #import "NSString+iMedia.h"
 #import "IMBConfig.h"
+#import "IMBIconCache.h"
 #import "IMBNodeObject.h"
 #import "IMBAppleMediaLibraryParser.h"
 #import "IMBAppleMediaLibraryPropertySynchronizer.h"
@@ -451,6 +452,47 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
     }
     if (icon == nil) {
         icon = [IMBAppleMediaLibraryPropertySynchronizer iconImageForMediaGroup:mediaGroup];
+
+		// Hack: Photos group icons often fail to load on High Sierra
+		if ((icon == nil) && [MLMediaSourcePhotosIdentifier isEqualToString:[self.configuration mediaSourceIdentifier]]) {
+			NSString *typeIdentifier = mediaGroup.typeIdentifier;
+
+			static const IMBIconTypeMappingEntry kIconTypeMappingEntries[] =
+			{
+				// Icon Type,								Application Icon Name,		Fallback Icon Name, 	Alternate Icon Name, 	Alternate Bundle Path
+				{@"com.apple.Photos.Album",					@"SidebarAlbum",			nil,					nil,					nil},
+				{@"com.apple.Photos.AlbumsGroup",			@"SidebarAlbum",			nil,					nil,					nil},
+				{@"com.apple.Photos.AllCollectionsGroup",	@"SidebarAlbum",			nil,					nil,					nil},
+				{@"com.apple.Photos.AllMomentsGroup",		@"SidebarAlbum",			nil,					nil,					nil},
+				{@"com.apple.Photos.AllYearsGroup",			@"SidebarAlbum",			nil,					nil,					nil},
+				{@"com.apple.Photos.CollectionGroup",		@"SidebarAlbum",			nil,					nil,					nil},
+				{@"com.apple.Photos.FrontCameraGroup",		@"SidebarSelfies",			nil,					nil,					nil},
+				{@"com.apple.Photos.MomentGroup",			@"SidebarAlbum",			nil,					nil,					nil},
+				{@"com.apple.Photos.MyPhotoStream",			@"SidebariCloud",			nil,					nil,					nil},
+				{@"com.apple.Photos.PlacesAlbum",			@"SidebarAlbum",			nil,					nil,					nil},
+				{@"com.apple.Photos.ScreenshotGroup",		@"SidebarScreenshots",		nil,					nil,					nil},
+				{@"com.apple.Photos.SharedGroup",			@"SidebariCloud",			nil,					nil,					nil},
+				{@"com.apple.Photos.YearGroup",				@"SidebarAlbum",			nil,					nil,					nil},
+
+			};
+
+			static const IMBIconTypeMapping kIconTypeMapping =
+			{
+				sizeof(kIconTypeMappingEntries) / sizeof(kIconTypeMappingEntries[0]),
+				kIconTypeMappingEntries,
+				nil
+			};
+
+			icon = [[IMBIconCache sharedIconCache] iconForType:typeIdentifier
+												  fromBundleID:@"com.apple.Photos"
+											  withMappingTable:&kIconTypeMapping
+													 highlight:NO
+								  considerGenericFallbackImage:NO];
+
+			if (icon == nil) {
+				NSLog(@"%@", typeIdentifier);
+			}
+		}
     }
     node.icon = icon;
     node.highlightIcon = highlightIcon;
