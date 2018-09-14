@@ -488,12 +488,9 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
 											  withMappingTable:&kIconTypeMapping
 													 highlight:NO
 								  considerGenericFallbackImage:NO];
-
-			if (icon == nil) {
-				NSLog(@"%@", typeIdentifier);
-			}
 		}
     }
+	
     node.icon = icon;
     node.highlightIcon = highlightIcon;
     node.name = [self localizedNameForMediaGroup:mediaGroup];
