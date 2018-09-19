@@ -733,6 +733,9 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	{
 		[ibIconView setBackgroundLayer:[self iconViewBackgroundLayer]];
 	}
+
+	// Set the background color to text background so it adapts to dark mode
+	[ibIconView setValue:[NSColor textBackgroundColor] forKey:IKImageBrowserBackgroundColorKey];
 }
 
 

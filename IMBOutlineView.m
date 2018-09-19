@@ -150,7 +150,7 @@
 	[self.textCell setAlignment:NSTextAlignmentCenter];
 	[self.textCell setVerticalAlignment:kIMBBottomTextAlignment];
 	[self.textCell setFont:font];
-	[self.textCell setTextColor:[NSColor grayColor]];
+	[self.textCell setTextColor:[NSColor secondaryLabelColor]];
 
 	// We need to save preferences before tha app quits...
 	
@@ -430,7 +430,7 @@ NSString* IMBIsDefaultAppearanceAttributeName = @"IMBIsDefaultAppearanceAttribut
     IMBTableViewAppearance* appearance = [[[IMBTableViewAppearance alloc] initWithView:self] autorelease];
     
     NSShadow* shadow = [[[NSShadow alloc] init] autorelease];
-    [shadow setShadowColor:[NSColor whiteColor]];
+    [shadow setShadowColor:[NSColor textBackgroundColor]];
     [shadow setShadowOffset:NSMakeSize(0.0, -1.0)];
     
     appearance.sectionHeaderTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:

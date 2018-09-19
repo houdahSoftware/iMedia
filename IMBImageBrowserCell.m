@@ -217,7 +217,7 @@ extern NSString *const IKImageBrowserCellPlaceHolderLayer __attribute__((weak_im
 	}
 	else
 	{
-		[attributes1 setObject:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
+		[attributes1 setObject:[NSColor textColor] forKey:NSForegroundColorAttributeName];
 		[attributes2 setObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName];
 	}
 
