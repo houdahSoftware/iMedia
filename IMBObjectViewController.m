@@ -1771,7 +1771,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		item = [[NSMenuItem alloc] initWithTitle:title action:@selector(showFiltered:) keyEquivalent:@""];
 		[item setTag:kIMBObjectFilterAll];
 		[item setTarget:self];
-        [item setState: _objectFilter == kIMBObjectFilterAll ? NSOnState : NSOffState];
+        [item setState: _objectFilter == kIMBObjectFilterAll ? NSControlStateValueOn : NSControlStateValueOff];
 		[menu addItem:item];
 		[item release];
 
@@ -1784,7 +1784,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		item = [[NSMenuItem alloc] initWithTitle:title action:@selector(showFiltered:) keyEquivalent:@""];
 		[item setTag:kIMBObjectFilterBadge];
 		[item setTarget:self];
-        [item setState: _objectFilter == kIMBObjectFilterBadge ? NSOnState : NSOffState];
+        [item setState: _objectFilter == kIMBObjectFilterBadge ? NSControlStateValueOn : NSControlStateValueOff];
 		[menu addItem:item];
 		[item release];
 
@@ -1797,7 +1797,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		item = [[NSMenuItem alloc] initWithTitle:title action:@selector(showFiltered:) keyEquivalent:@""];
 		[item setTag:kIMBObjectFilterNoBadge];
 		[item setTarget:self];
-        [item setState: _objectFilter == kIMBObjectFilterNoBadge ? NSOnState : NSOffState];
+        [item setState: _objectFilter == kIMBObjectFilterNoBadge ? NSControlStateValueOn : NSControlStateValueOff];
 		[menu addItem:item];
 		[item release];
 	}
@@ -1977,7 +1977,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 - (IBAction) showFiltered:(id)inSender
 {
 	_objectFilter = (IMBObjectFilter)[inSender tag];
-	[inSender setState:NSOnState];
+	[inSender setState:NSControlStateValueOn];
 	[[self objectArrayController] rearrangeObjects];
 	[self.view setNeedsDisplay:YES];
 }
