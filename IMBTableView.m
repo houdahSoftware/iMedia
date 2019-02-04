@@ -213,7 +213,8 @@ enum IMBMouseOperation
 	
 	NSPoint mouse = [self convertPoint:[inEvent locationInWindow] fromView:nil];
     _clickedObjectIndex = [self rowAtPoint:mouse];
-
+	self.clickedObject = nil;
+	
 	if (_clickedObjectIndex != -1)
 	{
 		NSArrayController* arrayController = nil;
@@ -341,9 +342,8 @@ enum IMBMouseOperation
 	return [objectViewController menuForObject:object];
 }
 
-			
-//----------------------------------------------------------------------------------------------------------------------
 
+#pragma mark - NSDraggingSource
 
 // Once a drag has finished, release the global array of IMBObjects, so that we don't leak anything...
 
@@ -353,11 +353,7 @@ enum IMBMouseOperation
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------
-
-
-#pragma mark
-#pragma mark IMBItemizableView Protocol
+#pragma mark - IMBItemizableView Protocol
 
 /**
  Returns NSNotFound if receiver contains no items.
@@ -376,6 +372,11 @@ enum IMBMouseOperation
 - (void)scrollIndexToVisible:(NSInteger)index
 {
     [self scrollRowToVisible:index];
+}
+
+- (CGRect)draggingFrameForItemAtIndex:(NSUInteger)idx
+{
+    return [self frameOfCellAtColumn:0 row:idx];
 }
 
 //----------------------------------------------------------------------------------------------------------------------

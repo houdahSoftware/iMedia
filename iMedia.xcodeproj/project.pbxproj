@@ -4835,7 +4835,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TestApp/iMediaTester.entitlements;
-				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				INFOPLIST_FILE = "TestApp/TestApp-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -4856,7 +4855,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TestApp/iMediaTester.entitlements;
-				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				INFOPLIST_FILE = "TestApp/TestApp-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";

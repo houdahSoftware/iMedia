@@ -232,11 +232,16 @@ typedef void (^IMBCompletionBlock)(id inResult,NSError* inError);
 #define NSAppKitVersionNumber10_9 1265
 #endif
 
+#ifndef NSAppKitVersionNumber10_13
+#define NSAppKitVersionNumber10_13 1561
+#endif
+
 #define IMBRunningOnSnowLeopardOrNewer()	(NSAppKitVersionNumber >= NSAppKitVersionNumber10_6)
 #define IMBRunningOnLionOrNewer()			(NSAppKitVersionNumber >= NSAppKitVersionNumber10_7)
 #define IMBRunningOnLion1073OrNewer()		(NSAppKitVersionNumber > NSAppKitVersionNumber10_7_2)
 #define IMBRunningOnMavericksOrNewer()		(NSAppKitVersionNumber >= NSAppKitVersionNumber10_9)
 #define IMBRunningOnYosemite10103OrNewer()  ([[NSProcessInfo processInfo] respondsToSelector:@selector(isOperatingSystemAtLeastVersion:)] && [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,10,3}])
+#define IMBRunningOnMojaveOrNewer()			(NSAppKitVersionNumber >= NSAppKitVersionNumber10_13)
 
 #if defined(MAC_OS_X_VERSION_10_7)
 #define IMB_COMPILING_WITH_LION_OR_NEWER_SDK 1

@@ -110,6 +110,8 @@ static const void * const kDispatchQueueSpecificKey = &kDispatchQueueSpecificKey
     FMDBRelease(_path);
     FMDBRelease(_vfsName);
 
+	FMDBRelease(_vfsName);
+
     if (_queue) {
         FMDBDispatchQueueRelease(_queue);
         _queue = 0x00;

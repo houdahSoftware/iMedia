@@ -326,6 +326,7 @@ enum IMBMouseOperation
 	
 	NSPoint mouse = [self convertPoint:[inEvent locationInWindow] fromView:nil];
 	_clickedObjectIndex = [self indexOfItemAtPoint:mouse];	
+	self.clickedObject = nil;
 	
 	if (_clickedObjectIndex != NSNotFound && [self.dataSource respondsToSelector:@selector(imageBrowser:itemAtIndex:)])
 	{
@@ -384,7 +385,11 @@ enum IMBMouseOperation
 		if ([_clickedObject isDraggable])
 		{
             _mouseOperation = kMouseOperationDragSelection;
-			[super mouseDragged:inEvent];
+            
+            if ([self.delegate respondsToSelector:@selector(beginDraggingSessionWithEvent:withinView:forItemsAtIndexes:)])
+            {
+                [self.delegate beginDraggingSessionWithEvent:inEvent withinView:self forItemsAtIndexes:self.selectionIndexes];
+            }
 			return;
 		}
 	}
@@ -446,11 +451,7 @@ enum IMBMouseOperation
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------
-
-
-#pragma mark
-#pragma mark IMBItemizableView Protocol
+#pragma mark - IMBItemizableView Protocol
 
 /**
  Returns NSNotFound if receiver contains no items.
@@ -460,11 +461,17 @@ enum IMBMouseOperation
     return [[self visibleItemIndexes] firstIndex];
 }
 
-//----------------------------------------------------------------------------------------------------------------------
+- (CGRect)draggingFrameForItemAtIndex:(NSUInteger)idx
+{
+    IKImageBrowserCell *cell = [self cellForItemAtIndex:idx];
+    if (cell) {
+        return [cell imageFrame];
+    }
+    return CGRectMake(0, 0, 0, 0);
+}
 
 
-#pragma mark
-#pragma mark Drawing
+#pragma - mark Drawing
 
 // override draw rect and force the background layer to redraw if the view did resize or did scroll
 

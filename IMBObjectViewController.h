@@ -71,10 +71,10 @@
 
 #pragma mark HEADERS
 
-#import "IMBCommon.h"
-#import "IMBQLPreviewPanel.h"
-#import "IMBObjectArrayController.h"
-#import "IMBItemizableView.h"
+#import <iMedia/IMBCommon.h>
+#import <iMedia/IMBQLPreviewPanel.h>
+#import <iMedia/IMBObjectArrayController.h>
+#import <iMedia/IMBItemizableView.h>
 #import <Quartz/Quartz.h>
 
 
@@ -82,6 +82,8 @@
 
 
 #pragma mark CONSTANTS
+
+#define MAX_NUM_DRAGGING_ITEMS 2000
 
 enum
 {
@@ -226,7 +228,6 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 
 - (NSMenu*) menuForObject:(IMBObject*)inObject;
 - (NSIndexSet*) filteredDraggingIndexes:(NSIndexSet*)inIndexes;
-- (NSUInteger) writeItemsAtIndexes:(NSIndexSet*)inIndexes toPasteboard:(NSPasteboard*)inPasteboard;
 
 //@property (retain) IMBProgressWindowController* progressWindowController;
 
@@ -275,6 +276,8 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 extern NSString* const IMBObjectViewControllerSegmentedControlKey;		/* Segmented control for object view selection */
 
 - (void) objectViewController:(IMBObjectViewController*)inController didLoadViews:(NSDictionary*)inViews;
+
+- (void)beginDraggingSessionWithEvent:(NSEvent *)event withinView:(NSView *)sourceView forItemsAtIndexes:(NSIndexSet*)inIndexes;
 
 @end
 

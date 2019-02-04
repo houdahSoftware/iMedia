@@ -75,6 +75,7 @@
 #import "IMBOperationQueue.h"
 #import "IMBObjectThumbnailLoadOperation.h"
 #import "IMBButtonObject.h"
+#import "IMBImageBrowserView.h"
 #import "IMBComboTableView.h"
 #import "IMBComboTextCell.h"
 #import "IMBImageBrowserCell.h"
@@ -358,7 +359,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 	// Remove ourself from the QuickLook preview panel...
 	
-	QLPreviewPanel* panel = [QLPreviewPanel sharedPreviewPanel];
+	QLPreviewPanel* panel = [QLPreviewPanel sharedPreviewPanelExists] ? [QLPreviewPanel sharedPreviewPanel] : nil;
 	if (panel.delegate == (id)self) panel.delegate = nil;
 	if (panel.dataSource == (id)self) panel.dataSource = nil;
 	
@@ -1078,7 +1079,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 {
 	// Notify the Quicklook panel of the selection change...
 	
-	QLPreviewPanel* panel = [QLPreviewPanel sharedPreviewPanel];
+	QLPreviewPanel* panel = [QLPreviewPanel sharedPreviewPanelExists] ? [QLPreviewPanel sharedPreviewPanel] : nil;
 	
 	if (panel.dataSource == (id)self)
 	{
@@ -1161,22 +1162,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 {
 	IMBObject* object = [[ibObjectArrayController arrangedObjects] objectAtIndex:inIndex];
 	return object;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-// IKImageBrowserDataSource method. Calls down to our support method also used by list and combo view...
-
-- (NSUInteger) imageBrowser:(IKImageBrowserView*)inView writeItemsAtIndexes:(NSIndexSet*)inIndexes toPasteboard:(NSPasteboard*)inPasteboard
-{
-	if ([self.clickedObject isDraggable])
-	{
-		return [self writeItemsAtIndexes:inIndexes toPasteboard:inPasteboard];
-	}	
-	
-	return 0;
 }
 
 
@@ -1380,25 +1365,55 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------
+#pragma mark - NSTableViewDataSource
 
-
-// Encapsulate all dragged objects iny a promise, archive it and put it on the pasteboard. The client can then
-// start loading the objects in the promise and iterate over the resulting files...
-
-- (BOOL) tableView:(NSTableView*)inTableView writeRowsWithIndexes:(NSIndexSet*)inIndexes toPasteboard:(NSPasteboard*)inPasteboard 
+- (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forRowIndexes:(NSIndexSet *)rowIndexes
 {
-	if ([self.clickedObject isDraggable])
-	{
-		return ([self writeItemsAtIndexes:inIndexes toPasteboard:inPasteboard] > 0);
-	}
-	
-	return NO;
+    session.animatesToStartingPositionsOnCancelOrFail = YES;
+    session.draggingFormation = NSDraggingFormationDefault;
+    
+    // Provide the IMBObjects to a static variable of Pasteboard, which is the fast path shortcut for
+    // intra application drags. These objects are released again in draggingSession:endedAtPoint:operation:
+    // of our object views...
+    
+    NSIndexSet *indexes = [self filteredDraggingIndexes:rowIndexes];
+    NSArray<IMBObject *> *draggedObjects = [[ibObjectArrayController arrangedObjects] objectsAtIndexes:indexes];
+    IMBParserMessenger *parserMessenger = draggedObjects.lastObject.parserMessenger;
+    
+    [NSPasteboard imb_setIMBObjects:draggedObjects];
+    [NSPasteboard imb_setParserMessenger:parserMessenger];
+    
+    [session enumerateDraggingItemsWithOptions:0 forView:self.view classes:[NSArray arrayWithObject:[NSURL class]] searchOptions:@{} usingBlock:^(NSDraggingItem * _Nonnull draggingItem, NSInteger idx, BOOL * _Nonnull stop) {
+        // Not sure whether we could do some useful stuff here. Maybe, adjust starting frame of
+        // dragging item in case of a single item drag? (It may currently be a little off the cursor position)
+        //NSLog(@"Hello, world!");
+    }];
+}
+
+/**
+ This is crucial for correct multi-item drag. With this the NSTableView will ensure that
+ each PasteboardItem is wrapped into a DraggingItem (as enforced with Xcode 10 and macOS 10.14).
+ */
+- (id<NSPasteboardWriting>)tableView:(NSTableView *)tableView pasteboardWriterForRow:(NSInteger)row
+{
+    IMBObject* object = [[ibObjectArrayController arrangedObjects] objectAtIndex:row];
+
+    if (object.isSelectable && (object.accessibility == kIMBResourceIsAccessible ||
+                                object.accessibility == kIMBResourceIsAccessibleSecurityScoped))
+    {
+        NSArray* types = @[kIMBObjectPasteboardType,(NSString*)kUTTypeFileURL];
+        
+        NSPasteboardItem* item = [[NSPasteboardItem alloc] init];
+        [item setDataProvider:object forTypes:types];
+        
+        return item;
+    }
+    
+    return nil;
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------
-
+#pragma mark -
 
 // We pre-load the images in batches. Assumes that we only have one client table view.  If we were to add another 
 // IMBDynamicTableView client, we would need to deal with this architecture a bit since we have ivars here about 
@@ -2012,53 +2027,94 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	return indexes;
 }
 
-
-// This method is used for both the IKImageBrowserView (icon view) and the NSTableView (list and combo view).
-// Encapsulate all objects in IMBPasteboardItem and promise the kUTTypeFileURL type...
-
-- (NSUInteger) writeItemsAtIndexes:(NSIndexSet*)inIndexes toPasteboard:(NSPasteboard*)inPasteboard
+/**
+ This method may be used for the IKImageBrowserView (icon view) and (theoretically) for
+ the NSTableView (list and combo view). "Theoretically" because NSTableView currently (as of macOS 10.14)
+ will not easily give up on rolling its own dragging regime (we hook with tableView:pasteboardWriterForRow: instead).
+ 
+ Encapsulate all objects in IMBPasteboardItem and promise the kUTTypeFileURL type and wrap each item
+ within an NSDraggingItem and begin an NSDraggingSession...
+ */
+- (void)beginDraggingSessionWithEvent:(NSEvent *)event withinView:(NSView<NSDraggingSource, IMBItemizableView> *)sourceView forItemsAtIndexes:(NSIndexSet *)inIndexes;
 {
-	NSIndexSet* indexes = [self filteredDraggingIndexes:inIndexes]; 
-	NSArray* objects = [[ibObjectArrayController arrangedObjects] objectsAtIndexes:indexes];
-	NSMutableArray* pasteboardItems = [NSMutableArray arrayWithCapacity:objects.count];
-	NSArray* types = [NSArray arrayWithObjects:kIMBObjectPasteboardType,(NSString*)kUTTypeFileURL,nil];
-	IMBParserMessenger* parserMessenger = nil;
-	
-	for (IMBObject* object in objects)
-	{
-		parserMessenger = object.parserMessenger;
-		
-		NSPasteboardItem* item = [[NSPasteboardItem alloc] init];
-		[item setDataProvider:object forTypes:types];
-		[pasteboardItems addObject:item];
-		[item release];
-	}
-	
-	[inPasteboard clearContents];
-	[inPasteboard writeObjects:pasteboardItems];
-	[inPasteboard imb_setParserMessenger:parserMessenger];
+    NSIndexSet *indexes = [self filteredDraggingIndexes:inIndexes];
+    NSMutableArray *draggedObjects = [NSMutableArray array];
+    NSMutableArray *draggingItems = [NSMutableArray array];
+    NSArray *types = @[kIMBObjectPasteboardType,(NSString*)kUTTypeFileURL];
+    __block IMBParserMessenger *parserMessenger = nil;
 
-	// Also set the objects in a global array, which is the fast path shortcut for intra application drags. These
-	// objects are released again in draggingSession:endedAtPoint:operation: of our object views...
-	
-	[NSPasteboard imb_setIMBObjects:objects];
-	
-    // Let the parser messenger know its objects are writing to the pasteboard, so for iPhoto objects,
-    // can add additional data mimicking iPhoto
-    // NOTE: This mimicking only works with the "old" pasteboard api because the associated item type is not UTI-compliant
+    NSArray *allObjects = [ibObjectArrayController arrangedObjects];
     
-    parserMessenger = [self.currentNode parserMessenger];
-    [parserMessenger didWriteObjects:objects toPasteboard:inPasteboard];
+    CGRect prototypeDraggingFrame = [sourceView draggingFrameForItemAtIndex:sourceView.firstVisibleItemIndex];
+    CGFloat maxDim = MAX(prototypeDraggingFrame.size.width, prototypeDraggingFrame.size.height);
     
-    return pasteboardItems.count;
+    [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop)
+    {
+        CGRect imageFrame = [sourceView draggingFrameForItemAtIndex:idx];
+        
+        IMBObject *object = allObjects[idx];
+        
+        parserMessenger = object.parserMessenger;
+        
+        NSPasteboardItem* pasteBoardItem = [[NSPasteboardItem alloc] init];
+        [pasteBoardItem setDataProvider:object forTypes:types];
+        
+        NSDraggingItem *draggingItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteBoardItem];
+        
+        CGPoint draggingOrigin = [sourceView convertPoint:imageFrame.origin toView:self.view];
+        NSImage *thumbnail = object.thumbnail;
+        CGSize draggingSize;
+        if (imageFrame.size.width != 0 && imageFrame.size.height != 0) {
+            if (!thumbnail) {
+                draggingSize = imageFrame.size;
+            } else {
+                CGFloat maxThumbnailDim = MAX(thumbnail.size.width, thumbnail.size.height);
+                CGFloat scale = maxThumbnailDim != 0 ? maxDim / maxThumbnailDim : 1;
+                draggingSize.width = thumbnail.size.width * scale;
+                draggingSize.height = thumbnail.size.height * scale;
+            }
+        } else {
+            draggingSize = prototypeDraggingFrame.size;
+        }
+        CGRect draggingFrame = CGRectMake(draggingOrigin.x, draggingOrigin.y, draggingSize.width, draggingSize.height);
+        
+        // Dragging item will crash app when setting a frame of size (0,0) onto it. Safeguard.
+        if (draggingFrame.size.width != 0 && draggingFrame.size.height != 0) {
+            [draggingItem setDraggingFrame:draggingFrame];
+            if (thumbnail) {
+                draggingItem.imageComponentsProvider = ^NSArray<NSDraggingImageComponent *> * _Nonnull{
+                    NSDraggingImageComponent *imageComponent = [[NSDraggingImageComponent alloc] initWithKey:NSDraggingImageComponentIconKey];
+                    imageComponent.contents = thumbnail;
+                    imageComponent.frame = CGRectMake(0,0,draggingFrame.size.width, draggingFrame.size.height);
+                    return @[imageComponent];
+                };
+            }
+            [draggingItems addObject:draggingItem];
+            [draggedObjects addObject:object];
+        }
+        
+        [pasteBoardItem release];
+        [draggingItem release];
+        
+        if (draggedObjects.count >= MAX_NUM_DRAGGING_ITEMS) {
+            *stop = YES;
+        }
+    }];
+    
+    NSDraggingSession *draggingSession = [self.view beginDraggingSessionWithItems:draggingItems event:event source:sourceView];
+    draggingSession.animatesToStartingPositionsOnCancelOrFail = YES;
+    draggingSession.draggingFormation = NSDraggingFormationPile;
+    
+    // Provide the IMBObjects to a static variable of Pasteboard, which is the fast path shortcut for
+    // intra application drags. These objects are released again in draggingSession:endedAtPoint:operation:
+    // of our object views...
+
+    [NSPasteboard imb_setIMBObjects:draggedObjects];
+    [NSPasteboard imb_setParserMessenger:parserMessenger];
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------
-
-
-#pragma mark 
-#pragma mark Open Media Files
+#pragma mark - Open Media Files
 
 // Double-clicking and IMBNodeObject (folder icon) in the object view expands and selects the represented node. 
 // The result is that we are drilling into that "folder"...

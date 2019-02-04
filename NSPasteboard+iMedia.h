@@ -55,7 +55,7 @@
 
 #pragma mark HEADERS
 
-#import "IMBParserMessenger.h"
+#import <iMedia/IMBParserMessenger.h>
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@
 
 @interface NSPasteboard (iMediaInternal)
 
-- (void) imb_setParserMessenger:(IMBParserMessenger*)inParserMessenger;
++ (void) imb_setParserMessenger:(IMBParserMessenger*)inParserMessenger;
 + (void) imb_setIMBObjects:(NSArray*)inObjects;
 
 @end

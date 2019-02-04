@@ -79,7 +79,7 @@ static NSArray* sDraggingIMBObjects = nil;
 // encoded by IMBObject, we need to keep this info around separately, so that we can assign the property 
 // again when the IMBObjects are pulled from the pasteboard (see imb_IMBObjects method)...
 
-- (void) imb_setParserMessenger:(IMBParserMessenger*)inParserMessenger
++ (void) imb_setParserMessenger:(IMBParserMessenger*)inParserMessenger
 {
 	sDraggingParserMessenger = inParserMessenger;
 }

@@ -204,7 +204,7 @@
 	
 	[inPasteboard clearContents];
 	[inPasteboard writeObjects:pasteboardItems];
-	[inPasteboard imb_setParserMessenger:parserMessenger];
+	[NSPasteboard imb_setParserMessenger:parserMessenger];
 
 	return pasteboardItems.count;
 }
