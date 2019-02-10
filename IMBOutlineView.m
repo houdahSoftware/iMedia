@@ -140,7 +140,7 @@
 	self.draggingPrompt = NSLocalizedStringWithDefaultValue(
 		@"IMBOutlineView.draggingPrompt",
 		nil,IMBBundle(),
-		@"Drag additional folders here",
+		@"Drag additional folders here to add them to the media browser.",
 		@"String that is displayed in the IMBOutlineView");
 
 	CGFloat size = [NSFont systemFontSizeForControlSize:NSControlSizeSmall];
