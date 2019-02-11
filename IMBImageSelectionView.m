@@ -1,0 +1,44 @@
+//
+//  IMBImageSelectionView.m
+//  iMedia
+//
+//  Created by Daniel Jalkut on 2/11/19.
+//
+
+#import "IMBImageSelectionView.h"
+
+@implementation IMBImageSelectionView
+
+- (void) setSelected:(BOOL)selected
+{
+	_selected = selected;
+
+	[self setNeedsDisplay:YES];
+}
+
+- (void)setHighlightState:(NSCollectionViewItemHighlightState)highlightState
+{
+	_highlightState = highlightState;
+
+	[self setNeedsDisplay:YES];
+}
+
+- (void)drawRect:(NSRect)dirtyRect {
+    [super drawRect:dirtyRect];
+
+	[[NSColor clearColor] set];
+	NSRectFill(dirtyRect);
+
+	// We just draw a single style of highlighting whether we're selected or proposed to be selected
+	BOOL drawsHighlighted = ([self isSelected] || ([self highlightState] != NSCollectionViewItemHighlightNone));
+	if (drawsHighlighted)
+	{
+		NSColor* selectionColor = [[NSColor lightGrayColor] colorWithAlphaComponent:0.5];
+		[selectionColor set];
+
+		NSBezierPath* selectionPath = [NSBezierPath bezierPathWithRoundedRect:[self bounds] xRadius:10.0 yRadius:10.0];
+		[selectionPath fill];
+	}
+}
+
+@end
