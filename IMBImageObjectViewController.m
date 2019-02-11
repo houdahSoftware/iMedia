@@ -160,6 +160,32 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
+// Override icon size setting to convey as a size configuration on the collection view
+- (void) setIconSize:(double)inIconSize
+{
+	[super setIconSize:inIconSize];
+
+	// From IKImageBrowserView, where we initially supported this value:
+	// This value should be greater or equal to zero and less or equal than one. A zoom value of zero corresponds
+	// to the minimum size (40x40 pixels), A zoom value of one means images fit the browser bounds. Other values are interpolated.
+	CGFloat minWidth = 40.0;
+
+	// Despite the description above, it seems in practice iMedia previously maxed out at around 300.0, not the full width of the view.
+	CGFloat maxWidth = fmin(self.view.bounds.size.width, 300.0);
+	CGFloat newMinWidth = minWidth;
+	if (inIconSize > 0)
+	{
+		CGFloat widthSpread = maxWidth - minWidth;
+		newMinWidth = minWidth + (widthSpread * inIconSize);
+	}
+
+	// Add to the interpolated width whatever the delta is for our non-image based view elements.
+	CGFloat newMinHeight = newMinWidth + 40.0;
+	NSSize newItemSize = NSMakeSize(newMinWidth, newMinHeight);
+	NSCollectionViewFlowLayout* gridLayout = (NSCollectionViewFlowLayout*)[ibIconView collectionViewLayout];
+	gridLayout.itemSize = newItemSize;
+}
+
 // NSCollectionViewDataSource
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
