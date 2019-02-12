@@ -79,6 +79,7 @@
 #import "IMBComboTableView.h"
 #import "IMBComboTextCell.h"
 #import "IMBImageBrowserCell.h"
+#import "IMBImageCollectionView.h"
 
 
 //----------------------------------------------------------------------------------------------------------------------

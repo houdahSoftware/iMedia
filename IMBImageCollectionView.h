@@ -11,6 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IMBImageCollectionView : NSCollectionView
 
+// If we are a skimmable view then we use this to track mouse movements
+@property (nonatomic, strong) NSTrackingArea* skimmingTrackingArea;
+
+- (void) enableSkimming;
+
 @end
 
 NS_ASSUME_NONNULL_END

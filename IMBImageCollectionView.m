@@ -63,4 +63,54 @@
 
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
+
+#pragma mark
+#pragma mark Skimming
+
+// Add tracking area of size of my own bounds (make this view skimmable)
+
+- (void) updateTrackingArea
+{
+	NSTrackingAreaOptions trackingOptions = NSTrackingMouseEnteredAndExited |
+	NSTrackingMouseMoved |
+	NSTrackingActiveInActiveApp;
+
+	NSTrackingArea* newTrackingArea = [[[NSTrackingArea alloc] initWithRect:[self bounds]
+																 options: trackingOptions
+																   owner:[self delegate]
+																userInfo:nil] autorelease];
+	if (newTrackingArea != nil)
+	{
+		if (self.skimmingTrackingArea != nil)
+		{
+			[self removeTrackingArea:self.skimmingTrackingArea];
+		}
+		self.skimmingTrackingArea = newTrackingArea;
+		[self addTrackingArea:newTrackingArea];
+
+		//NSLog(@"Created new tracking area for %@", self);
+	}
+}
+
+// Skimming is enabled by simply creating a suitable tracking area for the view
+
+- (void) enableSkimming
+{
+	[self updateTrackingArea];
+}
+
+// Keep mouse move tracking area in sync with view bounds.
+// (Callback from Cocoa whenever view bounds change
+// (will be called regardless whether this instance has any tracking areas or not))
+
+- (void) updateTrackingAreas
+{
+	if (self.skimmingTrackingArea && !NSEqualRects([self.skimmingTrackingArea rect], [self bounds]))
+	{
+		[self updateTrackingArea];
+	}
+}
+
 @end

@@ -576,7 +576,13 @@
 		
 		return backgroundLayer;
 	}
-	
+
+#if REVEAL_COLLECTION_VIEW_SHORTCOMINGS
+	// Background layer not supported intrinsically with NSCollectionView
+	IMBTestFacesBackgroundLayer* backgroundLayer = [[[IMBTestFacesBackgroundLayer alloc] init] autorelease];
+	[[inController iconView] setBackgroundLayer:backgroundLayer];
+	[backgroundLayer setOwner:[inController iconView]];
+
 	if ([inController isKindOfClass:[IMBFaceObjectViewController class]])
 	{
 		IMBTestFacesBackgroundLayer* backgroundLayer = [[[IMBTestFacesBackgroundLayer alloc] init] autorelease];
@@ -585,6 +591,7 @@
 		
 		return backgroundLayer;
 	}
+#endif
 	return nil;
 }
 
@@ -610,7 +617,10 @@
 			NSSegmentedControl* segmentedControl = [inViews objectForKey:IMBObjectViewControllerSegmentedControlKey];
 			[segmentedControl setHidden:YES];
 		}
-	} else if ([inController isKindOfClass:[IMBFaceObjectViewController class]])
+	}
+// Not implemented for NSCollectionView based solution
+#if REVEAL_COLLECTION_VIEW_SHORTCOMINGS
+	else if ([inController isKindOfClass:[IMBFaceObjectViewController class]])
 	{
 		IKImageBrowserView* iconView = [inController iconView];
 		
@@ -618,7 +628,8 @@
 		
 		[iconView setValue:[IMBTestFaceBrowserCell titleAttributes] forKey:IKImageBrowserCellsTitleAttributesKey];
 	}
-    
+#endif
+
 #if CUSTOM_USER_INTERFACE
     
     IMBObjectViewController* ovc = inController;
