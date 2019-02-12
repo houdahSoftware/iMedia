@@ -176,8 +176,8 @@
 		657C066622133E7100A2DB7F /* IMBImageCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 657C066422133E7100A2DB7F /* IMBImageCollectionView.m */; };
 		65E4AF2B2211B424000B9BD9 /* IMBImageSelectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */; };
 		65E4AF2C2211B424000B9BD9 /* IMBImageSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */; };
-		65E4AF2F2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */; };
-		65E4AF302211B4A4000B9BD9 /* IMBImageBrowserViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E4AF2E2211B4A4000B9BD9 /* IMBImageBrowserViewItem.m */; };
+		65E4AF2F2211B4A4000B9BD9 /* IMBImageCollectionViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF2D2211B4A4000B9BD9 /* IMBImageCollectionViewItem.h */; };
+		65E4AF302211B4A4000B9BD9 /* IMBImageCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E4AF2E2211B4A4000B9BD9 /* IMBImageCollectionViewItem.m */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		8F39FC5B1CA2995F00BBFA3D /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F39FC591CA2995F00BBFA3D /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F39FC5C1CA2995F00BBFA3D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F39FC5A1CA2995F00BBFA3D /* FMDatabasePool.m */; };
@@ -803,8 +803,8 @@
 		657C066422133E7100A2DB7F /* IMBImageCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBImageCollectionView.m; sourceTree = "<group>"; };
 		65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageSelectionView.h; sourceTree = "<group>"; };
 		65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBImageSelectionView.m; sourceTree = "<group>"; };
-		65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageBrowserViewItem.h; sourceTree = "<group>"; };
-		65E4AF2E2211B4A4000B9BD9 /* IMBImageBrowserViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBImageBrowserViewItem.m; sourceTree = "<group>"; };
+		65E4AF2D2211B4A4000B9BD9 /* IMBImageCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageCollectionViewItem.h; sourceTree = "<group>"; };
+		65E4AF2E2211B4A4000B9BD9 /* IMBImageCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBImageCollectionViewItem.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* iMedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iMedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F39FC591CA2995F00BBFA3D /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = fmdb/src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
@@ -2020,8 +2020,8 @@
 				D0BF8C68103F32700014B3B7 /* IMBImageBrowserCell.m */,
 				657C066322133E7000A2DB7F /* IMBImageCollectionView.h */,
 				657C066422133E7100A2DB7F /* IMBImageCollectionView.m */,
-				65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */,
-				65E4AF2E2211B4A4000B9BD9 /* IMBImageBrowserViewItem.m */,
+				65E4AF2D2211B4A4000B9BD9 /* IMBImageCollectionViewItem.h */,
+				65E4AF2E2211B4A4000B9BD9 /* IMBImageCollectionViewItem.m */,
 				65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */,
 				65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */,
 				D0CA961310498F7C00725DA3 /* IMBTimecodeTransformer.h */,
@@ -2414,7 +2414,7 @@
 				D0467BB0112C220F00C1AA4E /* IMBApertureAudioParser.h in Headers */,
 				D0467BB4112C223600C1AA4E /* IMBApertureVideoParser.h in Headers */,
 				274DF618114EF0B200AC8C03 /* IMBImageItem.h in Headers */,
-				65E4AF2F2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h in Headers */,
+				65E4AF2F2211B4A4000B9BD9 /* IMBImageCollectionViewItem.h in Headers */,
 				D0322BFD1FC18E8F00FCE0ED /* IMBLightroom7Parser.h in Headers */,
 				8FDAB509176D033700AD507B /* IMBLightroomRuleScanner.h in Headers */,
 				8FC2089D11C29E1C0083EAB3 /* IMBLightroom3VideoParser.h in Headers */,
@@ -3305,7 +3305,7 @@
 				D0F2DDB9152475C00059DF8D /* IMBiTunesParserMessenger.m in Sources */,
 				D0F2DDBA15247B010059DF8D /* IMBiTunesAudioParser.m in Sources */,
 				3031D3461AB090DC00D80464 /* IMBApertureParserConfiguration.m in Sources */,
-				65E4AF302211B4A4000B9BD9 /* IMBImageBrowserViewItem.m in Sources */,
+				65E4AF302211B4A4000B9BD9 /* IMBImageCollectionViewItem.m in Sources */,
 				D0F2DDBB15247B080059DF8D /* IMBiTunesMovieParser.m in Sources */,
 				D054AFEB152984C300EBFA1C /* IMBGarageBandParserMessenger.m in Sources */,
 				D054B0011529A65100EBFA1C /* IMBGarageBandParser.m in Sources */,
