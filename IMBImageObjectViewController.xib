@@ -59,7 +59,7 @@
                                             <rect key="frame" x="1" y="1" width="407" height="472"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <collectionView selectable="YES" allowsMultipleSelection="YES" id="jmv-70-nRA">
+                                                <collectionView selectable="YES" allowsMultipleSelection="YES" id="jmv-70-nRA" customClass="IMBImageCollectionView">
                                                     <rect key="frame" x="0.0" y="0.0" width="407" height="472"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="ior-6b-WAn">
@@ -69,6 +69,7 @@
                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
                                                         <binding destination="465" name="content" keyPath="arrangedObjects" id="KaB-fj-eqw"/>
+                                                        <binding destination="465" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="KaB-fj-eqw" id="QOY-6h-BDs"/>
                                                         <outlet property="dataSource" destination="-2" id="pWc-5M-zSJ"/>
                                                         <outlet property="delegate" destination="-2" id="BPj-dH-y6A"/>
                                                     </connections>
@@ -97,7 +98,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="slP-Zm-Coe">
                                             <rect key="frame" x="1" y="0.0" width="407" height="473"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" headerView="678" id="578" customClass="IMBDynamicTableView">
                                                     <rect key="frame" x="0.0" y="0.0" width="407" height="450"/>
@@ -205,14 +206,14 @@
                         <tabViewItem label="Item 2" identifier="Item 2" id="581">
                             <view key="view" id="582">
                                 <rect key="frame" x="0.0" y="0.0" width="408" height="474"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView horizontalLineScroll="82" horizontalPageScroll="10" verticalLineScroll="82" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="595">
                                         <rect key="frame" x="0.0" y="0.0" width="408" height="474"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="HY4-lD-3pT">
                                             <rect key="frame" x="1" y="1" width="406" height="472"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="80" id="598" customClass="IMBComboTableView">
                                                     <rect key="frame" x="0.0" y="0.0" width="406" height="472"/>

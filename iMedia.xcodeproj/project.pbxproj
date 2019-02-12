@@ -171,6 +171,8 @@
 		658F97C3221295C40079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
 		658F97C4221295CA0079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
 		658F97C5221295D00079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+        657C066522133E7100A2DB7F /* IMBImageCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 657C066322133E7000A2DB7F /* IMBImageCollectionView.h */; };
+		657C066622133E7100A2DB7F /* IMBImageCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 657C066422133E7100A2DB7F /* IMBImageCollectionView.m */; };
 		65E4AF2B2211B424000B9BD9 /* IMBImageSelectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */; };
 		65E4AF2C2211B424000B9BD9 /* IMBImageSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */; };
 		65E4AF2F2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */; };
@@ -1048,6 +1050,8 @@
 		659D03E6189C3A0A00BA3B81 /* PhFacebook.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PhFacebook.xcodeproj; path = PhFacebook/PhFacebook.xcodeproj; sourceTree = "<group>"; };
 		65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XPCKit.xcodeproj; path = XPCKit/XPCKit.xcodeproj; sourceTree = "<group>"; };
 		65E26F7E17136803000994C3 /* iMedia.stub */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = iMedia.stub; path = SandBoxingKit/iMedia.stub; sourceTree = "<group>"; };
+        657C066322133E7000A2DB7F /* IMBImageCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageCollectionView.h; sourceTree = "<group>"; };
+		657C066422133E7100A2DB7F /* IMBImageCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBImageCollectionView.m; sourceTree = "<group>"; };
 		65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageSelectionView.h; sourceTree = "<group>"; };
 		65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBImageSelectionView.m; sourceTree = "<group>"; };
 		65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageBrowserViewItem.h; sourceTree = "<group>"; };
@@ -2285,6 +2289,8 @@
 				D09FD77E105586BC00E328C7 /* IMBImageBrowserView.m */,
 				D0BF8C67103F32700014B3B7 /* IMBImageBrowserCell.h */,
 				D0BF8C68103F32700014B3B7 /* IMBImageBrowserCell.m */,
+				657C066322133E7000A2DB7F /* IMBImageCollectionView.h */,
+				657C066422133E7100A2DB7F /* IMBImageCollectionView.m */,
 				65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */,
 				65E4AF2E2211B4A4000B9BD9 /* IMBImageBrowserViewItem.m */,
 				65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */,
@@ -2634,6 +2640,7 @@
 				D08E8D861019EB4D005D8614 /* IMBMainThreadProxy.h in Headers */,
 				D0C2DAF21024178E001B1198 /* IMBObjectViewController.h in Headers */,
 				300C8B1A1AF0CEB900F4EC41 /* IMBNavigationController.h in Headers */,
+				657C066522133E7100A2DB7F /* IMBImageCollectionView.h in Headers */,
 				D0C2DD0F1025905A001B1198 /* IMBImageObjectViewController.h in Headers */,
 				D049EF5510346C1C003CC49C /* IMBNodeCell.h in Headers */,
 				D049F00A1034993E003CC49C /* NSImage+iMedia.h in Headers */,
@@ -3689,6 +3696,7 @@
 				30FD646B1546BAE90036BDE2 /* IMBApertureHeaderViewController.m in Sources */,
 				30FD64671546AF6E0036BDE2 /* NSPasteboard+iMedia.m in Sources */,
 				30F61B6B155D4A4D0092A99C /* NSObject+iMedia.m in Sources */,
+				657C066622133E7100A2DB7F /* IMBImageCollectionView.m in Sources */,
 				FC14841C1598884E00F6FDB8 /* IMBLoadMoreObject.m in Sources */,
 				3091F6BE15C9508E005019A1 /* IMBURLGetSizeOperation.m in Sources */,
 				3091F6C015C9508E005019A1 /* IMBURLDownloadOperation.m in Sources */,
