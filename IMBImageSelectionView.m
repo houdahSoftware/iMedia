@@ -36,7 +36,8 @@
 		NSColor* selectionColor = [[NSColor lightGrayColor] colorWithAlphaComponent:0.5];
 		[selectionColor set];
 
-		NSBezierPath* selectionPath = [NSBezierPath bezierPathWithRoundedRect:[self bounds] xRadius:10.0 yRadius:10.0];
+		NSRect selectionRect = [self bounds];
+		NSBezierPath* selectionPath = [NSBezierPath bezierPathWithRoundedRect:selectionRect xRadius:8.0 yRadius:8.0];
 		[selectionPath fill];
 	}
 }
