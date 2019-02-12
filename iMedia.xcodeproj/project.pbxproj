@@ -172,6 +172,8 @@
 		30FFEBFE150A0AA70009C1D0 /* im.edia.iPhoto.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30FFEBEC150A08DB0009C1D0 /* im.edia.iPhoto.xpc */; };
 		651F0B142210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 651F0B132210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib */; };
 		6523FF231B0CE589004FD6D2 /* IMBItemizableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BC5C641AFF22BE002BF87F /* IMBItemizableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		657C066522133E7100A2DB7F /* IMBImageCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 657C066322133E7000A2DB7F /* IMBImageCollectionView.h */; };
+		657C066622133E7100A2DB7F /* IMBImageCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 657C066422133E7100A2DB7F /* IMBImageCollectionView.m */; };
 		65E4AF2B2211B424000B9BD9 /* IMBImageSelectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */; };
 		65E4AF2C2211B424000B9BD9 /* IMBImageSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */; };
 		65E4AF2F2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */; };
@@ -797,6 +799,8 @@
 		30FFEBEE150A08DB0009C1D0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		32DBCF5E0370ADEE00C91783 /* iMedia.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iMedia.pch; sourceTree = "<group>"; };
 		651F0B132210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IMBImageObjectCollectionViewItem.xib; sourceTree = "<group>"; };
+		657C066322133E7000A2DB7F /* IMBImageCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageCollectionView.h; sourceTree = "<group>"; };
+		657C066422133E7100A2DB7F /* IMBImageCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBImageCollectionView.m; sourceTree = "<group>"; };
 		65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageSelectionView.h; sourceTree = "<group>"; };
 		65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBImageSelectionView.m; sourceTree = "<group>"; };
 		65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageBrowserViewItem.h; sourceTree = "<group>"; };
@@ -2014,6 +2018,8 @@
 				D09FD77E105586BC00E328C7 /* IMBImageBrowserView.m */,
 				D0BF8C67103F32700014B3B7 /* IMBImageBrowserCell.h */,
 				D0BF8C68103F32700014B3B7 /* IMBImageBrowserCell.m */,
+				657C066322133E7000A2DB7F /* IMBImageCollectionView.h */,
+				657C066422133E7100A2DB7F /* IMBImageCollectionView.m */,
 				65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */,
 				65E4AF2E2211B4A4000B9BD9 /* IMBImageBrowserViewItem.m */,
 				65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */,
@@ -2363,6 +2369,7 @@
 				D08E8D861019EB4D005D8614 /* IMBMainThreadProxy.h in Headers */,
 				D0C2DAF21024178E001B1198 /* IMBObjectViewController.h in Headers */,
 				300C8B1A1AF0CEB900F4EC41 /* IMBNavigationController.h in Headers */,
+				657C066522133E7100A2DB7F /* IMBImageCollectionView.h in Headers */,
 				D0C2DD0F1025905A001B1198 /* IMBImageObjectViewController.h in Headers */,
 				D049EF5510346C1C003CC49C /* IMBNodeCell.h in Headers */,
 				D049F00A1034993E003CC49C /* NSImage+iMedia.h in Headers */,
@@ -3343,6 +3350,7 @@
 				FC1484131598881A00F6FDB8 /* IMBFlickrParserMessenger.m in Sources */,
 				FC1484171598881A00F6FDB8 /* IMBFlickrSession.m in Sources */,
 				FC1484191598884500F6FDB8 /* IMBFlickrObject.m in Sources */,
+				657C066622133E7100A2DB7F /* IMBImageCollectionView.m in Sources */,
 				FC14841C1598884E00F6FDB8 /* IMBLoadMoreObject.m in Sources */,
 				FC14841D1598886000F6FDB8 /* IMBFlickrNode.m in Sources */,
 				FC14841E1598887700F6FDB8 /* IMBFlickrParser.m in Sources */,

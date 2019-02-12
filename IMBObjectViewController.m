@@ -1019,8 +1019,24 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 #pragma mark 
 #pragma mark IKImageBrowserDelegate
 
+// Bindings from NSCollectionView to our array controller don't seem to work 100%. In particular changes
+// to the selection via the UI are not perpetuated automatically to the array controller's selectionIndexes.
+// To maintain consistency with the NSTableView for other views that rely upon the same array controller,
+// we manually listen for changes and re-assert the selectionIndexes from the collection view to the
+// array controller.
+- (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
+{
+	[ibObjectArrayController setSelectionIndexes:[collectionView selectionIndexes]];
+	[self udpateQuickLookPanel];
+}
 
-- (void) imageBrowserSelectionDidChange:(IKImageBrowserView*)inView
+- (void)collectionView:(NSCollectionView *)collectionView didDeselectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
+{
+	[ibObjectArrayController setSelectionIndexes:[collectionView selectionIndexes]];
+	[self udpateQuickLookPanel];
+}
+
+- (void) udpateQuickLookPanel
 {
 	// Notify the Quicklook panel of the selection change...
 	
@@ -2249,7 +2265,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	{
 		if (_viewType == kIMBObjectViewTypeIcon)
 		{
-			frame = [ibIconView itemFrameAtIndex:index];
+			frame = [ibIconView frameForItemAtIndex:index];
 			view = ibIconView;
 		}	
 		else if (_viewType == kIMBObjectViewTypeList)
