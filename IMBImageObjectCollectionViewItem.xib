@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.59" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.59" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment version="101200" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.59"/>
@@ -21,44 +21,31 @@
                 <outlet property="view" destination="Vek-da-9j6" id="cIe-Za-Gkp"/>
             </connections>
         </collectionViewItem>
-        <view translatesAutoresizingMaskIntoConstraints="NO" id="Vek-da-9j6">
+        <view id="Vek-da-9j6">
             <rect key="frame" x="0.0" y="0.0" width="113" height="135"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="ZdY-Rv-Yei" customClass="IMBImageSelectionView">
+                <customView id="ZdY-Rv-Yei" customClass="IMBImageSelectionView">
                     <rect key="frame" x="0.0" y="22" width="113" height="113"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hxO-fZ-dyQ">
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="hxO-fZ-dyQ">
                             <rect key="frame" x="6" y="6" width="101" height="101"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="oYp-P2-6bx"/>
                         </imageView>
                     </subviews>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="ZdY-Rv-Yei" secondAttribute="height" multiplier="1:1" id="02x-tf-J1e"/>
-                        <constraint firstItem="hxO-fZ-dyQ" firstAttribute="top" secondItem="ZdY-Rv-Yei" secondAttribute="top" constant="6" id="FCY-H3-eJQ"/>
-                        <constraint firstAttribute="bottom" secondItem="hxO-fZ-dyQ" secondAttribute="bottom" constant="6" id="FcV-d0-2G7"/>
-                        <constraint firstAttribute="trailing" secondItem="hxO-fZ-dyQ" secondAttribute="trailing" constant="6" id="Fjz-eS-It8"/>
-                        <constraint firstItem="hxO-fZ-dyQ" firstAttribute="leading" secondItem="ZdY-Rv-Yei" secondAttribute="leading" constant="6" id="fFh-G7-8TF"/>
-                    </constraints>
                 </customView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5JN-J1-cAI">
-                    <rect key="frame" x="40" y="4" width="33" height="14"/>
-                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingMiddle" title="Label" id="NfA-Ty-Mkc">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="5JN-J1-cAI">
+                    <rect key="frame" x="4" y="4" width="105" height="14"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingMiddle" alignment="center" title="Label" id="NfA-Ty-Mkc">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>
-            <constraints>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5JN-J1-cAI" secondAttribute="trailing" constant="2" id="D71-F6-lu9"/>
-                <constraint firstAttribute="bottom" secondItem="5JN-J1-cAI" secondAttribute="bottom" constant="4" id="FlG-3v-wOZ"/>
-                <constraint firstItem="ZdY-Rv-Yei" firstAttribute="leading" secondItem="Vek-da-9j6" secondAttribute="leading" id="PJn-9N-Bip"/>
-                <constraint firstAttribute="trailing" secondItem="ZdY-Rv-Yei" secondAttribute="trailing" id="ZJt-il-gOd"/>
-                <constraint firstItem="ZdY-Rv-Yei" firstAttribute="top" secondItem="Vek-da-9j6" secondAttribute="top" id="bhe-nH-0Fm"/>
-                <constraint firstItem="5JN-J1-cAI" firstAttribute="centerX" secondItem="Vek-da-9j6" secondAttribute="centerX" id="bqP-qE-HA1"/>
-                <constraint firstItem="5JN-J1-cAI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Vek-da-9j6" secondAttribute="leading" constant="2" id="qTi-PL-wFI"/>
-                <constraint firstItem="5JN-J1-cAI" firstAttribute="top" secondItem="ZdY-Rv-Yei" secondAttribute="bottom" constant="4" id="rUr-aC-Smg"/>
-            </constraints>
             <point key="canvasLocation" x="148.5" y="63.5"/>
         </view>
     </objects>
