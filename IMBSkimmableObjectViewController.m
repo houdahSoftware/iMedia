@@ -257,7 +257,7 @@
 
 - (void) mouseMoved:(NSEvent *)anEvent
 {
-	IKImageBrowserView* iconView = [self iconView];
+	NSView* iconView = [self iconView];
 	
 	//NSLog( @"Mouse was moved in image browser");
 	NSPoint mouse = [iconView convertPoint:[anEvent locationInWindow] fromView:nil];

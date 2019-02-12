@@ -702,28 +702,28 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 - (void) _configureIconView
 {
-	// Make the IKImageBrowserView use our custom cell class. Please note that we check for the existence 
-	// of the base class first, as it is un undocumented internal class on 10.5. In 10.6 it is always there...
-	
-	if ([ibIconView respondsToSelector:@selector(setCellClass:)] && NSClassFromString(@"IKImageBrowserCell"))
-	{
-		[ibIconView performSelector:@selector(setCellClass:) withObject:[IMBImageBrowserCell class]];
-	}
-	
-	[ibIconView setAnimates:NO];
-
-	if ([ibIconView respondsToSelector:@selector(setIntercellSpacing:)])
-	{
-		[ibIconView setIntercellSpacing:NSMakeSize(4.0,4.0)];
-	}
-
-	if ([ibIconView respondsToSelector:@selector(setBackgroundLayer:)])
-	{
-		[ibIconView setBackgroundLayer:[self iconViewBackgroundLayer]];
-	}
-
-	// Set the background color to text background so it adapts to dark mode
-	[ibIconView setValue:[NSColor textBackgroundColor] forKey:IKImageBrowserBackgroundColorKey];
+//	// Make the IKImageBrowserView use our custom cell class. Please note that we check for the existence 
+//	// of the base class first, as it is un undocumented internal class on 10.5. In 10.6 it is always there...
+//	
+//	if ([ibIconView respondsToSelector:@selector(setCellClass:)] && NSClassFromString(@"IKImageBrowserCell"))
+//	{
+//		[ibIconView performSelector:@selector(setCellClass:) withObject:[IMBImageBrowserCell class]];
+//	}
+//	
+//	[ibIconView setAnimates:NO];
+//
+//	if ([ibIconView respondsToSelector:@selector(setIntercellSpacing:)])
+//	{
+//		[ibIconView setIntercellSpacing:NSMakeSize(4.0,4.0)];
+//	}
+//
+//	if ([ibIconView respondsToSelector:@selector(setBackgroundLayer:)])
+//	{
+//		[ibIconView setBackgroundLayer:[self iconViewBackgroundLayer]];
+//	}
+//
+//	// Set the background color to text background so it adapts to dark mode
+//	[ibIconView setValue:[NSColor textBackgroundColor] forKey:IKImageBrowserBackgroundColorKey];
 }
 
 

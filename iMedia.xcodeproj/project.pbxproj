@@ -160,6 +160,17 @@
 		30FFEBFE150A0AA70009C1D0 /* com.red-sweater.im.edia.iPhoto.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30FFEBEC150A08DB0009C1D0 /* com.red-sweater.im.edia.iPhoto.xpc */; };
 		651F0B142210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 651F0B132210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib */; };
 		6523FF231B0CE589004FD6D2 /* IMBItemizableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BC5C641AFF22BE002BF87F /* IMBItemizableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		658F97AF221295100079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+		658F97B52212952F0079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+		658F97B82212956E0079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+		658F97BE221295840079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+		658F97BF2212959A0079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+		658F97C0221295AB0079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+		658F97C1221295B60079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+		658F97C2221295BD0079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+		658F97C3221295C40079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+		658F97C4221295CA0079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+		658F97C5221295D00079947F /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
 		65E4AF2B2211B424000B9BD9 /* IMBImageSelectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */; };
 		65E4AF2C2211B424000B9BD9 /* IMBImageSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */; };
 		65E4AF2F2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */; };
@@ -1033,10 +1044,10 @@
 		30FFEBEC150A08DB0009C1D0 /* com.red-sweater.im.edia.iPhoto.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.iPhoto.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
 		30FFEBEE150A08DB0009C1D0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		32DBCF5E0370ADEE00C91783 /* iMedia.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iMedia.pch; sourceTree = "<group>"; };
+		651F0B132210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IMBImageObjectCollectionViewItem.xib; sourceTree = "<group>"; };
 		659D03E6189C3A0A00BA3B81 /* PhFacebook.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PhFacebook.xcodeproj; path = PhFacebook/PhFacebook.xcodeproj; sourceTree = "<group>"; };
 		65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XPCKit.xcodeproj; path = XPCKit/XPCKit.xcodeproj; sourceTree = "<group>"; };
 		65E26F7E17136803000994C3 /* iMedia.stub */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = iMedia.stub; path = SandBoxingKit/iMedia.stub; sourceTree = "<group>"; };
-        651F0B132210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IMBImageObjectCollectionViewItem.xib; sourceTree = "<group>"; };
 		65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageSelectionView.h; sourceTree = "<group>"; };
 		65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBImageSelectionView.m; sourceTree = "<group>"; };
 		65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageBrowserViewItem.h; sourceTree = "<group>"; };
@@ -1494,10 +1505,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658F97B52212952F0079947F /* iMedia.framework in Frameworks */,
 				D0904DE9152D717E003FDD08 /* Foundation.framework in Frameworks */,
 				D0E69CD0151C5576002FE181 /* Quartz.framework in Frameworks */,
 				3089F94D151C91E400D56DC0 /* XPCKit.framework in Frameworks */,
-				65D10B31171C871A00ED5733 /* iMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1521,10 +1532,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658F97C2221295BD0079947F /* iMedia.framework in Frameworks */,
 				D0904DEE152D7181003FDD08 /* Foundation.framework in Frameworks */,
 				D054AFF5152984FA00EBFA1C /* Quartz.framework in Frameworks */,
 				D054AFF7152984FA00EBFA1C /* XPCKit.framework in Frameworks */,
-				65D10B35171C874500ED5733 /* iMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1532,10 +1543,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658F97C0221295AB0079947F /* iMedia.framework in Frameworks */,
 				D0904DEA152D717F003FDD08 /* Foundation.framework in Frameworks */,
 				D05D39A4152ACD1300E30C43 /* Quartz.framework in Frameworks */,
 				D05D39A6152ACD1300E30C43 /* XPCKit.framework in Frameworks */,
-				65D10B30171C871500ED5733 /* iMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1543,10 +1554,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658F97B82212956E0079947F /* iMedia.framework in Frameworks */,
 				D0904DEB152D717F003FDD08 /* Foundation.framework in Frameworks */,
 				D05D39B5152ACD2400E30C43 /* Quartz.framework in Frameworks */,
 				D05D39B7152ACD2400E30C43 /* XPCKit.framework in Frameworks */,
-				65D10B32171C873000ED5733 /* iMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1554,10 +1565,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658F97C1221295B60079947F /* iMedia.framework in Frameworks */,
 				D0904DEC152D7180003FDD08 /* Foundation.framework in Frameworks */,
 				D05D39C6152ACD3300E30C43 /* Quartz.framework in Frameworks */,
 				D05D39C8152ACD3300E30C43 /* XPCKit.framework in Frameworks */,
-				65D10B33171C873500ED5733 /* iMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1565,10 +1576,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658F97C3221295C40079947F /* iMedia.framework in Frameworks */,
 				D0904DEF152D7181003FDD08 /* Foundation.framework in Frameworks */,
 				D05D39D7152ACD5E00E30C43 /* Quartz.framework in Frameworks */,
 				D05D39D9152ACD5E00E30C43 /* XPCKit.framework in Frameworks */,
-				65D10B36171C874900ED5733 /* iMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1576,10 +1587,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658F97C4221295CA0079947F /* iMedia.framework in Frameworks */,
 				D0904DF0152D7182003FDD08 /* Foundation.framework in Frameworks */,
 				D05D39E8152ACD6800E30C43 /* Quartz.framework in Frameworks */,
 				D05D39EA152ACD6800E30C43 /* XPCKit.framework in Frameworks */,
-				65D10B37171C875100ED5733 /* iMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1587,10 +1598,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658F97BF2212959A0079947F /* iMedia.framework in Frameworks */,
 				D0904DF2152D7183003FDD08 /* Foundation.framework in Frameworks */,
 				D05D39F9152ACD8800E30C43 /* Quartz.framework in Frameworks */,
 				D05D39FB152ACD8800E30C43 /* XPCKit.framework in Frameworks */,
-				65D10B39171C875E00ED5733 /* iMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1598,10 +1609,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658F97C5221295D00079947F /* iMedia.framework in Frameworks */,
 				D0904DF1152D7183003FDD08 /* Foundation.framework in Frameworks */,
 				D05D3A0C152AD0D000E30C43 /* Quartz.framework in Frameworks */,
 				D05D3A0E152AD0D000E30C43 /* XPCKit.framework in Frameworks */,
-				65D10B38171C875800ED5733 /* iMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1619,10 +1630,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658F97BE221295840079947F /* iMedia.framework in Frameworks */,
 				D0904DE8152D717E003FDD08 /* Foundation.framework in Frameworks */,
 				D0E69CD2151C5581002FE181 /* Quartz.framework in Frameworks */,
 				3089F94C151C91CE00D56DC0 /* XPCKit.framework in Frameworks */,
-				65D10B2F171C86BB00ED5733 /* iMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1630,10 +1641,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658F97AF221295100079947F /* iMedia.framework in Frameworks */,
 				D0904DED152D7180003FDD08 /* Foundation.framework in Frameworks */,
 				D0F2DDC3152485130059DF8D /* Quartz.framework in Frameworks */,
 				D0F2DDC5152485130059DF8D /* XPCKit.framework in Frameworks */,
-				65D10B34171C873B00ED5733 /* iMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3689,7 +3700,7 @@
 				3000AE201617AE2200EDC78E /* IMBViewAppearance.m in Sources */,
 				301C61FB1AAF45C200A0E15F /* IMBiTunesParserConfiguration.m in Sources */,
 				3099018F16637B93006C1212 /* NSBundle+iMedia.m in Sources */,
-                65E4AF2C2211B424000B9BD9 /* IMBImageSelectionView.m in Sources */,
+				65E4AF2C2211B424000B9BD9 /* IMBImageSelectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
