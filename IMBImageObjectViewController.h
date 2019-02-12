@@ -63,7 +63,7 @@
 
 #pragma mark 
 
-@interface IMBImageObjectViewController : IMBObjectViewController
+@interface IMBImageObjectViewController : IMBObjectViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
 {
 	IBOutlet NSTableView *_tableView;
 }

@@ -213,45 +213,46 @@
 // Load the next thumbnail if mouse was moved sufficiently
 - (void) mouseSkimmedOnItemAtIndex:(NSInteger)inIndex atPoint:(NSPoint)inPoint
 {
-    NSArray *objects = [ibObjectArrayController arrangedObjects];
-    if (inIndex < [objects count])
-    {
-        IMBSkimmableObject* item = [objects objectAtIndex:inIndex];
-        
-        // Derive child object's index in node object from inPoint's relative position in frame
-        
-        NSRect skimmingFrame;
-#if IMB_COMPILING_WITH_SNOW_LEOPARD_OR_NEWER_SDK
-        if (IMBRunningOnSnowLeopardOrNewer())
-        {
-            skimmingFrame = [[[self iconView] cellForItemAtIndex:inIndex] frame];	// >= 10.6
-        }
-        else
-#endif
-        {
-            skimmingFrame = [[self iconView] itemFrameAtIndex:inIndex];
-        }
-        
-        CGFloat xOffset = inPoint.x - skimmingFrame.origin.x;
-        NSUInteger objectCount = [item imageCount];
-        
-        if (objectCount > 0)
-        {
-            CGFloat widthPerObject = skimmingFrame.size.width / objectCount;
-            NSUInteger objectIndex = (NSUInteger) xOffset / widthPerObject;
-            
-            //NSLog(@"Object index: %lu", objectIndex);
-            
-            if (objectIndex != _previousImageIndex)
-            {
-                _previousImageIndex = objectIndex;
-                
-                item.currentSkimmingIndex = objectIndex;
-                
-                [self loadThumbnailForItem:item];
-            }
-        }
-    }
+#warning adapt to Collection View
+//    NSArray *objects = [ibObjectArrayController arrangedObjects];
+//    if (inIndex < [objects count])
+//    {
+//        IMBSkimmableObject* item = [objects objectAtIndex:inIndex];
+//
+//        // Derive child object's index in node object from inPoint's relative position in frame
+//
+//        NSRect skimmingFrame;
+//#if IMB_COMPILING_WITH_SNOW_LEOPARD_OR_NEWER_SDK
+//        if (IMBRunningOnSnowLeopardOrNewer())
+//        {
+//            skimmingFrame = [[[self iconView] cellForItemAtIndex:inIndex] frame];	// >= 10.6
+//        }
+//        else
+//#endif
+//        {
+//            skimmingFrame = [[self iconView] itemFrameAtIndex:inIndex];
+//        }
+//
+//        CGFloat xOffset = inPoint.x - skimmingFrame.origin.x;
+//        NSUInteger objectCount = [item imageCount];
+//
+//        if (objectCount > 0)
+//        {
+//            CGFloat widthPerObject = skimmingFrame.size.width / objectCount;
+//            NSUInteger objectIndex = (NSUInteger) xOffset / widthPerObject;
+//
+//            //NSLog(@"Object index: %lu", objectIndex);
+//
+//            if (objectIndex != _previousImageIndex)
+//            {
+//                _previousImageIndex = objectIndex;
+//
+//                item.currentSkimmingIndex = objectIndex;
+//
+//                [self loadThumbnailForItem:item];
+//            }
+//        }
+//    }
 }
 
 - (void) mouseMoved:(NSEvent *)anEvent

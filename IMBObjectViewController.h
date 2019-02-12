@@ -142,7 +142,7 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 	// User Interface...
 	
 	IBOutlet NSTabView* ibTabView;
-	IBOutlet IKImageBrowserView* ibIconView;
+	IBOutlet NSCollectionView* ibIconView;
  	IBOutlet NSTableView* ibListView;
 	IBOutlet NSTableView* ibComboView;
 	IBOutlet NSSegmentedControl* ibSegments;
@@ -194,7 +194,7 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 // User Interface...
 
 @property (readonly) NSTabView* tabView;
-@property (readonly) IKImageBrowserView* iconView;
+@property (readonly) NSCollectionView* iconView;
 @property (readonly) NSTableView* listView;
 @property (readonly) NSTableView* comboView;
 

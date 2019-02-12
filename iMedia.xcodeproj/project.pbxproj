@@ -158,18 +158,12 @@
 		30FD64671546AF6E0036BDE2 /* NSPasteboard+iMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FD64651546AF6E0036BDE2 /* NSPasteboard+iMedia.m */; };
 		30FD646B1546BAE90036BDE2 /* IMBApertureHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCA064112368388009072AE /* IMBApertureHeaderViewController.m */; };
 		30FFEBFE150A0AA70009C1D0 /* com.red-sweater.im.edia.iPhoto.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30FFEBEC150A08DB0009C1D0 /* com.red-sweater.im.edia.iPhoto.xpc */; };
+		651F0B142210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 651F0B132210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib */; };
 		6523FF231B0CE589004FD6D2 /* IMBItemizableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BC5C641AFF22BE002BF87F /* IMBItemizableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65D10B2F171C86BB00ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
-		65D10B30171C871500ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
-		65D10B31171C871A00ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
-		65D10B32171C873000ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
-		65D10B33171C873500ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
-		65D10B34171C873B00ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
-		65D10B35171C874500ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
-		65D10B36171C874900ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
-		65D10B37171C875100ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
-		65D10B38171C875800ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
-		65D10B39171C875E00ED5733 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
+		65E4AF2B2211B424000B9BD9 /* IMBImageSelectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */; };
+		65E4AF2C2211B424000B9BD9 /* IMBImageSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */; };
+		65E4AF2F2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */; };
+		65E4AF302211B4A4000B9BD9 /* IMBImageBrowserViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E4AF2E2211B4A4000B9BD9 /* IMBImageBrowserViewItem.m */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		8F39FC5B1CA2995F00BBFA3D /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F39FC591CA2995F00BBFA3D /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F39FC5C1CA2995F00BBFA3D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F39FC5A1CA2995F00BBFA3D /* FMDatabasePool.m */; };
@@ -1042,6 +1036,11 @@
 		659D03E6189C3A0A00BA3B81 /* PhFacebook.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PhFacebook.xcodeproj; path = PhFacebook/PhFacebook.xcodeproj; sourceTree = "<group>"; };
 		65E26F1D17135C95000994C3 /* XPCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XPCKit.xcodeproj; path = XPCKit/XPCKit.xcodeproj; sourceTree = "<group>"; };
 		65E26F7E17136803000994C3 /* iMedia.stub */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = iMedia.stub; path = SandBoxingKit/iMedia.stub; sourceTree = "<group>"; };
+        651F0B132210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IMBImageObjectCollectionViewItem.xib; sourceTree = "<group>"; };
+		65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageSelectionView.h; sourceTree = "<group>"; };
+		65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBImageSelectionView.m; sourceTree = "<group>"; };
+		65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBImageBrowserViewItem.h; sourceTree = "<group>"; };
+		65E4AF2E2211B4A4000B9BD9 /* IMBImageBrowserViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBImageBrowserViewItem.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* iMedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iMedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F39FC591CA2995F00BBFA3D /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = fmdb/src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
@@ -2275,6 +2274,10 @@
 				D09FD77E105586BC00E328C7 /* IMBImageBrowserView.m */,
 				D0BF8C67103F32700014B3B7 /* IMBImageBrowserCell.h */,
 				D0BF8C68103F32700014B3B7 /* IMBImageBrowserCell.m */,
+				65E4AF2D2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h */,
+				65E4AF2E2211B4A4000B9BD9 /* IMBImageBrowserViewItem.m */,
+				65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */,
+				65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */,
 				D0CA961310498F7C00725DA3 /* IMBTimecodeTransformer.h */,
 				D0CA961410498F7C00725DA3 /* IMBTimecodeTransformer.m */,
 				D0CE6E1B11F6FA09005EE5B4 /* IMBMetadataTransformer.h */,
@@ -2283,6 +2286,7 @@
 				CE28E51B124192A800B00F3D /* IMBDisableTitleToColorTransformer.m */,
 				D0C2DB6C1024DBCC001B1198 /* IMBNodeViewController.xib */,
 				D0C2DAA110240C0B001B1198 /* IMBImageObjectViewController.xib */,
+				651F0B132210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib */,
 				D08070C710442DAE00891137 /* IMBAudioObjectViewController.xib */,
 				D08070C910442DC800891137 /* IMBMovieObjectViewController.xib */,
 				CEF696FD10643CF4005D7E72 /* IMBLinkObjectViewController.xib */,
@@ -2586,6 +2590,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				301D0B4A1AE009B100BF8F6E /* IMBImageProcessor.h in Headers */,
+				65E4AF2B2211B424000B9BD9 /* IMBImageSelectionView.h in Headers */,
 				303FFD6F152CBC690026B8CF /* IMBAppleMediaParserMessenger.h in Headers */,
 				308DEF151609C6CE00F889C8 /* IMBTableViewAppearance.h in Headers */,
 				D0B87F22103D998D00C48C6F /* iMedia.h in Headers */,
@@ -2662,6 +2667,7 @@
 				D0467BB0112C220F00C1AA4E /* IMBApertureAudioParser.h in Headers */,
 				D0467BB4112C223600C1AA4E /* IMBApertureVideoParser.h in Headers */,
 				274DF618114EF0B200AC8C03 /* IMBImageItem.h in Headers */,
+				65E4AF2F2211B4A4000B9BD9 /* IMBImageBrowserViewItem.h in Headers */,
 				D0322BFD1FC18E8F00FCE0ED /* IMBLightroom7Parser.h in Headers */,
 				8FDAB509176D033700AD507B /* IMBLightroomRuleScanner.h in Headers */,
 				8FC2089D11C29E1C0083EAB3 /* IMBLightroom3VideoParser.h in Headers */,
@@ -3069,6 +3075,7 @@
 					};
 					8DC2EF4F0486A6940098B216 = {
 						DevelopmentTeam = 493CVA9A35;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
 					D02CD49E1224F22400C773A2 = {
@@ -3297,6 +3304,7 @@
 				CEF6539C117E5C29003FF1A5 /* Attribute.pdf in Resources */,
 				CEF6539D117E5C29003FF1A5 /* CC.pdf in Resources */,
 				CEF6539E117E5C29003FF1A5 /* commercial.pdf in Resources */,
+				651F0B142210CFD2007CFEFF /* IMBImageObjectCollectionViewItem.xib in Resources */,
 				CEF6539F117E5C29003FF1A5 /* noderivatives.pdf in Resources */,
 				CEF653A0117E5C29003FF1A5 /* noncommercial.pdf in Resources */,
 				CEF653A1117E5C29003FF1A5 /* remix.pdf in Resources */,
@@ -3629,6 +3637,7 @@
 				D0F2DDB9152475C00059DF8D /* IMBiTunesParserMessenger.m in Sources */,
 				D0F2DDBA15247B010059DF8D /* IMBiTunesAudioParser.m in Sources */,
 				3031D3461AB090DC00D80464 /* IMBApertureParserConfiguration.m in Sources */,
+				65E4AF302211B4A4000B9BD9 /* IMBImageBrowserViewItem.m in Sources */,
 				D0F2DDBB15247B080059DF8D /* IMBiTunesMovieParser.m in Sources */,
 				D054AFEB152984C300EBFA1C /* IMBGarageBandParserMessenger.m in Sources */,
 				D054B0011529A65100EBFA1C /* IMBGarageBandParser.m in Sources */,
@@ -3680,6 +3689,7 @@
 				3000AE201617AE2200EDC78E /* IMBViewAppearance.m in Sources */,
 				301C61FB1AAF45C200A0E15F /* IMBiTunesParserConfiguration.m in Sources */,
 				3099018F16637B93006C1212 /* NSBundle+iMedia.m in Sources */,
+                65E4AF2C2211B424000B9BD9 /* IMBImageSelectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

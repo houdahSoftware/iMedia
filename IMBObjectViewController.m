@@ -128,7 +128,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 - (void) _reloadIconView;
 - (void) _reloadListView;
 - (void) _reloadComboView;
-- (void) _updateTooltips;
 
 @end
 
@@ -474,18 +473,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 	NSScrollView* iconViewScroller = [ibIconView enclosingScrollView];
 	NSClipView* clipView = [iconViewScroller contentView];
-	
-	if (iconViewScroller)
-	{
-		if ([clipView isKindOfClass:[NSClipView class]])
-		{
-			[[NSNotificationCenter defaultCenter] 
-				addObserver:self 
-				selector:@selector(iconViewVisibleItemsChanged:) 
-				name:NSViewBoundsDidChangeNotification 
-				object:clipView];
-		}
-	}
 
 	// We need to save preferences before the app quits...
 	
@@ -925,10 +912,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	NSClipView* clipview = (NSClipView*)[ibComboView superview];
 	[clipview scrollToPoint:NSMakePoint(0.0,y)];
 	[[ibComboView enclosingScrollView] reflectScrolledClipView:clipview];
-	
-	// Tooltips in the icon view need to be rebuilt...
-	
-	[self _updateTooltips];
 }
 
 
@@ -1013,41 +996,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 #pragma mark 
 
-// Please note that providing tooltips is WAY too expensive on 10.5 (possibly due to different internal 
-// implementation of IKImageBrowserView). For this reason we disable tooltips on 10.5. Following up on  
-// the rationale above, in March, 2011, I changed the method for tooltips in 10.6+ to take advantage of a 
-// "visibleItemIndexes" attribute on IKImageBrowserView. This lets us be more conservative in our tooltip 
-// configuration and only install tooltips for the visible items. This is great for e.g. photo collections 
-// with thousands of items, but puts the responsibility on any code that changes the visible items to assure 
-// that _updateTooltips gets called...
-
-- (void) _updateTooltips
-{
-	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(__updateTooltips) object:nil];
-	[self performSelector:@selector(__updateTooltips) withObject:nil afterDelay:0.1];
-}
-
-- (void) __updateTooltips
-{
-	[ibIconView removeAllToolTips];
-	
-	NSArray* objects = ibObjectArrayController.arrangedObjects;
-	NSIndexSet* indexes = [ibIconView visibleItemIndexes];
-	NSUInteger index = [indexes firstIndex];
-	
-	while (index != NSNotFound)
-	{
-		IMBObject* object = [objects objectAtIndex:index];
-		NSRect rect = [ibIconView itemFrameAtIndex:index];
-		[ibIconView addToolTipRect:rect owner:object userData:NULL];
-		index = [indexes indexGreaterThanIndex:index];
-	}
-}
-
-- (void) iconViewVisibleItemsChanged:(NSNotification*)inNotification
-{
-	[self _updateTooltips];
-}
 
 - (void) objectBadgesDidChange:(NSNotification*)inNotification
 {
