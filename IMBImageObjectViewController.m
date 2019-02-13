@@ -200,7 +200,7 @@
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSCollectionViewItem* thisItem = [collectionView makeItemWithIdentifier:@"IMBImageObjectCollectionViewItem" forIndexPath:indexPath];
+	NSCollectionViewItem* thisItem = [collectionView makeItemWithIdentifier:@"IMBObjectCollectionViewItem" forIndexPath:indexPath];
 	IMBObject* representedObject = [collectionView.content objectAtIndex:indexPath.item];
 	if (representedObject != nil)
 	{
