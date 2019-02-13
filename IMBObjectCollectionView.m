@@ -1,14 +1,14 @@
 //
-//  IMBImageCollectionView.m
+//  IMBObjectCollectionView.m
 //  iMedia
 //
 //  Created by Daniel Jalkut on 2/12/19.
 //
 
-#import "IMBImageCollectionView.h"
+#import "IMBObjectCollectionView.h"
 #import "IMBObjectViewController.h"
 
-@implementation IMBImageCollectionView
+@implementation IMBObjectCollectionView
 
 // Thanks to Charles Parnot for sharing that rightMouseDown doesn't seem to get generated
 // as expected for control clicks.
@@ -40,7 +40,7 @@
 			selectedItem = (IMBObject*)[[self itemAtIndex:[selectedItemIndexPath indexAtPosition:1]] representedObject];
 		}
 
-		returnedMenu = [(id<IMBImageCollectionViewDelegate>)[self delegate] collectionView:self wantsContextMenuForItem:selectedItem];
+		returnedMenu = [(id<IMBObjectCollectionViewDelegate>)[self delegate] collectionView:self wantsContextMenuForItem:selectedItem];
 	}
 
 	return returnedMenu;

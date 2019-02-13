@@ -59,7 +59,7 @@
                                             <rect key="frame" x="1" y="1" width="407" height="472"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <collectionView selectable="YES" allowsMultipleSelection="YES" id="jmv-70-nRA" customClass="IMBImageCollectionView">
+                                                <collectionView selectable="YES" allowsMultipleSelection="YES" id="jmv-70-nRA" customClass="IMBObjectCollectionView">
                                                     <rect key="frame" x="0.0" y="0.0" width="407" height="472"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="ior-6b-WAn">

@@ -79,7 +79,7 @@
 #import "IMBComboTableView.h"
 #import "IMBComboTextCell.h"
 #import "IMBImageBrowserCell.h"
-#import "IMBImageCollectionView.h"
+#import "IMBObjectCollectionView.h"
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -1049,7 +1049,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	}
 }
 
-- (NSMenu*) collectionView:(IMBImageCollectionView*)collectionView wantsContextMenuForItem:(IMBObject*)theItem
+- (NSMenu*) collectionView:(IMBObjectCollectionView*)collectionView wantsContextMenuForItem:(IMBObject*)theItem
 {
 	return [self menuForObject:theItem];
 }

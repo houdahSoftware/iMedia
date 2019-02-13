@@ -1,14 +1,14 @@
 //
-//  IMBImageCollectionViewItem.m
+//  IMBObjectCollectionViewItem.m
 //  iMedia
 //
 //  Created by Daniel Jalkut on 2/11/19.
 //
 
-#import "IMBImageCollectionViewItem.h"
+#import "IMBObjectCollectionViewItem.h"
 #import "IMBImageSelectionView.h"
 
-@implementation IMBImageCollectionViewItem
+@implementation IMBObjectCollectionViewItem
 
 - (void)setSelected:(BOOL)selected
 {

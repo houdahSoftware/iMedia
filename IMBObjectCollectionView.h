@@ -1,23 +1,24 @@
 //
-//  IMBImageCollectionView.h
+//  IMBObjectCollectionView.h
 //  iMedia
 //
 //  Created by Daniel Jalkut on 2/12/19.
 //
+#warning rename IMBObjectCollectionView
 
 #import <Cocoa/Cocoa.h>
 
-@class IMBImageCollectionView;
+@class IMBObjectCollectionView;
 @class IMBObject;
 
 NS_ASSUME_NONNULL_BEGIN
-@protocol IMBImageCollectionViewDelegate
+@protocol IMBObjectCollectionViewDelegate
 
-- (NSMenu*) collectionView:(IMBImageCollectionView*)collectionView wantsContextMenuForItem:(IMBObject*)itemIndex;
+- (NSMenu*) collectionView:(IMBObjectCollectionView*)collectionView wantsContextMenuForItem:(IMBObject*)itemIndex;
 
 @end
 
-@interface IMBImageCollectionView : NSCollectionView
+@interface IMBObjectCollectionView : NSCollectionView
 
 // If we are a skimmable view then we use this to track mouse movements
 @property (nonatomic, strong) NSTrackingArea* skimmingTrackingArea;
