@@ -24,4 +24,10 @@
 	[self.imageSelectionView setHighlightState:highlightState];
 }
 
+// Handle right-click by delegating to the collection view itself
+- (NSMenu*) menuForEvent:(NSEvent *)event
+{
+	return [[self collectionView] menuForEvent:event];
+}
+
 @end

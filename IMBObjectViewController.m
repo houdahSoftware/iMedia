@@ -1016,9 +1016,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-
-#pragma mark 
-#pragma mark IKImageBrowserDelegate
+#pragma mark
+#pragma mark NSCollectionViewDelegate
 
 // Bindings from NSCollectionView to our array controller don't seem to work 100%. In particular changes
 // to the selection via the UI are not perpetuated automatically to the array controller's selectionIndexes.
@@ -1050,9 +1049,15 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	}
 }
 
+- (NSMenu*) collectionView:(IMBImageCollectionView*)collectionView wantsContextMenuForItem:(IMBObject*)theItem
+{
+	return [self menuForObject:theItem];
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
+#pragma mark
+#pragma mark IKImageBrowserDelegate
 
 // First give the delegate a chance to handle the double click. It it chooses not to, then we will 
 // handle it ourself by simply opening the files (with their default app)...

@@ -122,7 +122,7 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 @class IKImageBrowserView;
 @class IMBImageCollectionView;
 @protocol IMBObjectViewControllerDelegate;
-
+@protocol IMBImageCollectionViewDelegate;
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -130,7 +130,7 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 #pragma mark 
 
 
-@interface IMBObjectViewController : NSViewController <IMBObjectArrayControllerDelegate,QLPreviewPanelDelegate,QLPreviewPanelDataSource>
+@interface IMBObjectViewController : NSViewController <IMBObjectArrayControllerDelegate,QLPreviewPanelDelegate,QLPreviewPanelDataSource, IMBImageCollectionViewDelegate>
 {
 	// Backend...
 	
