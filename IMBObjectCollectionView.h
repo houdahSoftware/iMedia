@@ -4,7 +4,6 @@
 //
 //  Created by Daniel Jalkut on 2/12/19.
 //
-#warning rename IMBObjectCollectionView
 
 #import <Cocoa/Cocoa.h>
 
