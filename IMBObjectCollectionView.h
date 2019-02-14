@@ -6,12 +6,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "IMBItemizableView.h"
 
 @class IMBObjectCollectionView;
 @class IMBObject;
 
 NS_ASSUME_NONNULL_BEGIN
-@protocol IMBObjectCollectionViewDelegate
+@protocol IMBObjectCollectionViewDelegate <NSCollectionViewDelegate>
 
 - (NSMenu*) collectionView:(IMBObjectCollectionView*)collectionView wantsContextMenuForItem:(IMBObject*)itemIndex;
 

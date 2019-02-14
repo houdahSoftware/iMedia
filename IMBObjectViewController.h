@@ -130,7 +130,7 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 #pragma mark 
 
 
-@interface IMBObjectViewController : NSViewController <IMBObjectArrayControllerDelegate,QLPreviewPanelDelegate,QLPreviewPanelDataSource, IMBObjectCollectionViewDelegate>
+@interface IMBObjectViewController : NSViewController <IMBObjectArrayControllerDelegate,QLPreviewPanelDelegate,QLPreviewPanelDataSource, NSCollectionViewDataSource, IMBObjectCollectionViewDelegate>
 {
 	// Backend...
 	
