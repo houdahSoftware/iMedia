@@ -1033,6 +1033,9 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 		thisItem.textField.stringValue = representedObject.name;
 		thisItem.representedObject = representedObject;
+
+		// Associate the tooltip with the container view
+		thisItem.view.toolTip = representedObject.tooltipString;
 	}
 	return thisItem;
 }
