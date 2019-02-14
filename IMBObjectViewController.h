@@ -120,9 +120,8 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 @class IMBObjectArrayController;
 @class IMBProgressWindowController;
 @class IKImageBrowserView;
-@class IMBImageCollectionView;
+@class IMBObjectCollectionView;
 @protocol IMBObjectViewControllerDelegate;
-
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -130,7 +129,7 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 #pragma mark 
 
 
-@interface IMBObjectViewController : NSViewController <IMBObjectArrayControllerDelegate,QLPreviewPanelDelegate,QLPreviewPanelDataSource>
+@interface IMBObjectViewController : NSViewController <IMBObjectArrayControllerDelegate,QLPreviewPanelDelegate,QLPreviewPanelDataSource, NSCollectionViewDataSource, IMBObjectCollectionViewDelegate>
 {
 	// Backend...
 	
@@ -143,7 +142,7 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 	// User Interface...
 	
 	IBOutlet NSTabView* ibTabView;
-	IBOutlet IMBImageCollectionView* ibIconView;
+	IBOutlet IMBObjectCollectionView* ibIconView;
  	IBOutlet NSTableView* ibListView;
 	IBOutlet NSTableView* ibComboView;
 	IBOutlet NSSegmentedControl* ibSegments;
@@ -195,7 +194,7 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 // User Interface...
 
 @property (readonly) NSTabView* tabView;
-@property (readonly) IMBImageCollectionView* iconView;
+@property (readonly) IMBObjectCollectionView* iconView;
 @property (readonly) NSTableView* listView;
 @property (readonly) NSTableView* comboView;
 

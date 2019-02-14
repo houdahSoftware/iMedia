@@ -1,5 +1,5 @@
 //
-//  IMBImageCollectionViewItem.h
+//  IMBObjectCollectionViewItem.h
 //  iMedia
 //
 //  Created by Daniel Jalkut on 2/11/19.
@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class IMBImageSelectionView;
 
-@interface IMBImageCollectionViewItem : NSCollectionViewItem
+@interface IMBObjectCollectionViewItem : NSCollectionViewItem
 
 @property (assign) IBOutlet IMBImageSelectionView* imageSelectionView;
 

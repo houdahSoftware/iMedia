@@ -191,31 +191,5 @@
 	gridLayout.itemSize = newItemSize;
 }
 
-// NSCollectionViewDataSource
-
-- (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-	return collectionView.content.count;
-}
-
-- (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath
-{
-	NSCollectionViewItem* thisItem = [collectionView makeItemWithIdentifier:@"IMBImageObjectCollectionViewItem" forIndexPath:indexPath];
-	IMBObject* representedObject = [collectionView.content objectAtIndex:indexPath.item];
-	if (representedObject != nil)
-	{
-		thisItem.selected = NO;
-
-		// Seems we have to call imageRepresentation first to get the thumbnail loaded, then
-		// thumbnail returns it in NSImage format.
-		(void) [representedObject imageRepresentation];
-		thisItem.imageView.image = representedObject.thumbnail;
-		
-		thisItem.textField.stringValue = representedObject.name;
-		thisItem.representedObject = representedObject;
-	}
-	return thisItem;
-}
-
 @end
 

@@ -1,14 +1,50 @@
 //
-//  IMBImageCollectionView.m
+//  IMBObjectCollectionView.m
 //  iMedia
 //
 //  Created by Daniel Jalkut on 2/12/19.
 //
 
-#import "IMBImageCollectionView.h"
+#import "IMBObjectCollectionView.h"
 #import "IMBObjectViewController.h"
 
-@implementation IMBImageCollectionView
+@implementation IMBObjectCollectionView
+
+// Thanks to Charles Parnot for sharing that rightMouseDown doesn't seem to get generated
+// as expected for control clicks.
+- (void)mouseDown:(NSEvent *)event
+{
+	if ((event.type == NSRightMouseDown) || (event.modifierFlags & NSControlKeyMask))
+	{
+		[super rightMouseDown:event];
+	}
+	else
+	{
+		[super mouseDown:event];
+	}
+}
+
+// Handle right-click by delegating to our object view controller
+- (NSMenu*) menuForEvent:(NSEvent *)event
+{
+	NSMenu* returnedMenu = nil;
+
+	if ([[self delegate] respondsToSelector:@selector(collectionView:wantsContextMenuForItem:)])
+	{
+		// If we don't find an object, the delegate knows to return a more generic contextual menu item
+		IMBObject* selectedItem = nil;
+		NSPoint viewPoint = [self convertPoint:[event locationInWindow] fromView:nil];
+		NSIndexPath* selectedItemIndexPath = [self indexPathForItemAtPoint:viewPoint];
+		if (selectedItemIndexPath != nil)
+		{
+			selectedItem = (IMBObject*)[[self itemAtIndex:[selectedItemIndexPath indexAtPosition:1]] representedObject];
+		}
+
+		returnedMenu = [(id<IMBObjectCollectionViewDelegate>)[self delegate] collectionView:self wantsContextMenuForItem:selectedItem];
+	}
+
+	return returnedMenu;
+}
 
 #pragma mark
 #pragma mark Quicklook

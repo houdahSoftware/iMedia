@@ -79,7 +79,7 @@
 #import "IMBComboTableView.h"
 #import "IMBComboTextCell.h"
 #import "IMBImageBrowserCell.h"
-#import "IMBImageCollectionView.h"
+#import "IMBObjectCollectionView.h"
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -703,6 +703,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 - (void) _configureIconView
 {
+	// Configure NSCollectionView to support dragging to other apps
+	[ibIconView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
 //	// Make the IKImageBrowserView use our custom cell class. Please note that we check for the existence 
 //	// of the base class first, as it is un undocumented internal class on 10.5. In 10.6 it is always there...
 //	
@@ -1016,12 +1018,43 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
     [self.objectArrayController resetSearch:self];
 }
 
+#pragma mark
+#pragma mark NSCollectionViewDataSource
+
+- (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+	return collectionView.content.count;
+}
+
+- (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath
+{
+	NSCollectionViewItem* thisItem = [collectionView makeItemWithIdentifier:@"IMBObjectCollectionViewItem" forIndexPath:indexPath];
+	IMBObject* representedObject = [collectionView.content objectAtIndex:indexPath.item];
+	if (representedObject != nil)
+	{
+		thisItem.selected = NO;
+
+		// Seems we have to call imageRepresentation first to get the thumbnail loaded, then
+		// thumbnail returns it in NSImage format.
+		(void) [representedObject imageRepresentation];
+		thisItem.imageView.image = representedObject.thumbnail;
+
+		thisItem.textField.stringValue = representedObject.name;
+		thisItem.representedObject = representedObject;
+	}
+	return thisItem;
+}
+
+- (nullable id <NSPasteboardWriting>)collectionView:(NSCollectionView *)collectionView pasteboardWriterForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+	// We only support one section for now, so we map the indexPath to an index set
+	return [self pasteboardItemForDraggingObjectAtIndex:[indexPath indexAtPosition:1]];
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
-
-#pragma mark 
-#pragma mark IKImageBrowserDelegate
+#pragma mark
+#pragma mark NSCollectionViewDelegate
 
 // Bindings from NSCollectionView to our array controller don't seem to work 100%. In particular changes
 // to the selection via the UI are not perpetuated automatically to the array controller's selectionIndexes.
@@ -1053,9 +1086,15 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	}
 }
 
+- (NSMenu*) collectionView:(IMBObjectCollectionView*)collectionView wantsContextMenuForItem:(IMBObject*)theItem
+{
+	return [self menuForObject:theItem];
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
+#pragma mark
+#pragma mark IKImageBrowserDelegate
 
 // First give the delegate a chance to handle the double click. It it chooses not to, then we will 
 // handle it ourself by simply opening the files (with their default app)...
@@ -1329,7 +1368,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	return NO;
 }
 
-
 #pragma mark - NSTableViewDataSource
 
 - (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forRowIndexes:(NSIndexSet *)rowIndexes
@@ -1366,10 +1404,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
     if (object.isSelectable && (object.accessibility == kIMBResourceIsAccessible ||
                                 object.accessibility == kIMBResourceIsAccessibleSecurityScoped))
     {
-        NSArray* types = @[kIMBObjectPasteboardType,(NSString*)kUTTypeFileURL];
-        
         NSPasteboardItem* item = [[NSPasteboardItem alloc] init];
-        [item setDataProvider:object forTypes:types];
+        [item setDataProvider:object forTypes:[self draggingTypesForWritingToPasteboard]];
         
         return item;
     }
@@ -1969,6 +2005,10 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 #pragma mark 
 #pragma mark Dragging
 
+- (NSArray*) draggingTypesForWritingToPasteboard
+{
+	return @[kIMBObjectPasteboardType,(NSString*)kUTTypeFileURL];
+}
 
 // Filter the dragged indexes to only include the selectable (and thus draggable) ones...
 
@@ -1992,92 +2032,18 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	return indexes;
 }
 
-/**
- This method may be used for the IKImageBrowserView (icon view) and (theoretically) for
- the NSTableView (list and combo view). "Theoretically" because NSTableView currently (as of macOS 10.14)
- will not easily give up on rolling its own dragging regime (we hook with tableView:pasteboardWriterForRow: instead).
- 
- Encapsulate all objects in IMBPasteboardItem and promise the kUTTypeFileURL type and wrap each item
- within an NSDraggingItem and begin an NSDraggingSession...
- */
-- (void)beginDraggingSessionWithEvent:(NSEvent *)event withinView:(NSView<NSDraggingSource, IMBItemizableView> *)sourceView forItemsAtIndexes:(NSIndexSet *)inIndexes;
+- (NSPasteboardItem *) pasteboardItemForDraggingObjectAtIndex:(NSInteger)inIndex
 {
-    NSIndexSet *indexes = [self filteredDraggingIndexes:inIndexes];
-    NSMutableArray *draggedObjects = [NSMutableArray array];
-    NSMutableArray *draggingItems = [NSMutableArray array];
-    NSArray *types = @[kIMBObjectPasteboardType,(NSString*)kUTTypeFileURL];
-    __block IMBParserMessenger *parserMessenger = nil;
+	NSPasteboardItem* pasteboardItem = [[NSPasteboardItem alloc] init];
+	NSArray* allObjects = [ibObjectArrayController arrangedObjects];
+	if (inIndex < [allObjects count])
+	{
+		IMBObject* object = [allObjects objectAtIndex:inIndex];
+		[pasteboardItem setDataProvider:object forTypes:[self draggingTypesForWritingToPasteboard]];
+	}
 
-    NSArray *allObjects = [ibObjectArrayController arrangedObjects];
-    
-    CGRect prototypeDraggingFrame = [sourceView draggingFrameForItemAtIndex:sourceView.firstVisibleItemIndex];
-    CGFloat maxDim = MAX(prototypeDraggingFrame.size.width, prototypeDraggingFrame.size.height);
-    
-    [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop)
-    {
-        CGRect imageFrame = [sourceView draggingFrameForItemAtIndex:idx];
-        
-        IMBObject *object = allObjects[idx];
-        
-        parserMessenger = object.parserMessenger;
-        
-        NSPasteboardItem* pasteBoardItem = [[NSPasteboardItem alloc] init];
-        [pasteBoardItem setDataProvider:object forTypes:types];
-        
-        NSDraggingItem *draggingItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteBoardItem];
-        
-        CGPoint draggingOrigin = [sourceView convertPoint:imageFrame.origin toView:self.view];
-        NSImage *thumbnail = object.thumbnail;
-        CGSize draggingSize;
-        if (imageFrame.size.width != 0 && imageFrame.size.height != 0) {
-            if (!thumbnail) {
-                draggingSize = imageFrame.size;
-            } else {
-                CGFloat maxThumbnailDim = MAX(thumbnail.size.width, thumbnail.size.height);
-                CGFloat scale = maxThumbnailDim != 0 ? maxDim / maxThumbnailDim : 1;
-                draggingSize.width = thumbnail.size.width * scale;
-                draggingSize.height = thumbnail.size.height * scale;
-            }
-        } else {
-            draggingSize = prototypeDraggingFrame.size;
-        }
-        CGRect draggingFrame = CGRectMake(draggingOrigin.x, draggingOrigin.y, draggingSize.width, draggingSize.height);
-        
-        // Dragging item will crash app when setting a frame of size (0,0) onto it. Safeguard.
-        if (draggingFrame.size.width != 0 && draggingFrame.size.height != 0) {
-            [draggingItem setDraggingFrame:draggingFrame];
-            if (thumbnail) {
-                draggingItem.imageComponentsProvider = ^NSArray<NSDraggingImageComponent *> * _Nonnull{
-                    NSDraggingImageComponent *imageComponent = [[NSDraggingImageComponent alloc] initWithKey:NSDraggingImageComponentIconKey];
-                    imageComponent.contents = thumbnail;
-                    imageComponent.frame = CGRectMake(0,0,draggingFrame.size.width, draggingFrame.size.height);
-                    return @[imageComponent];
-                };
-            }
-            [draggingItems addObject:draggingItem];
-            [draggedObjects addObject:object];
-        }
-        
-        [pasteBoardItem release];
-        [draggingItem release];
-        
-        if (draggedObjects.count >= MAX_NUM_DRAGGING_ITEMS) {
-            *stop = YES;
-        }
-    }];
-    
-    NSDraggingSession *draggingSession = [self.view beginDraggingSessionWithItems:draggingItems event:event source:sourceView];
-    draggingSession.animatesToStartingPositionsOnCancelOrFail = YES;
-    draggingSession.draggingFormation = NSDraggingFormationPile;
-    
-    // Provide the IMBObjects to a static variable of Pasteboard, which is the fast path shortcut for
-    // intra application drags. These objects are released again in draggingSession:endedAtPoint:operation:
-    // of our object views...
-
-    [NSPasteboard imb_setIMBObjects:draggedObjects];
-    [NSPasteboard imb_setParserMessenger:parserMessenger];
+	return [pasteboardItem autorelease];
 }
-
 
 #pragma mark - Open Media Files
 

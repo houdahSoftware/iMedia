@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11761" systemVersion="16C48b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.59" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11761"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="11761"/>
+        <deployment version="101200" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.59"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IMBLinkObjectViewController">
             <connections>
                 <outlet property="ibComboView" destination="706" id="775"/>
-                <outlet property="ibIconView" destination="694" id="719"/>
+                <outlet property="ibIconView" destination="JMF-PM-obn" id="LcS-ls-f5f"/>
                 <outlet property="ibListView" destination="699" id="774"/>
                 <outlet property="ibObjectArrayController" destination="465" id="614"/>
                 <outlet property="ibSegments" destination="658" id="771"/>
@@ -43,7 +42,7 @@
             <rect key="frame" x="0.0" y="0.0" width="408" height="509"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchField wantsLayer="YES" verticalHuggingPriority="750" id="516">
+                <searchField wantsLayer="YES" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" id="516">
                     <rect key="frame" x="278" y="8" width="118" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" bezelStyle="round" id="517">
@@ -55,7 +54,7 @@
                         <action selector="search:" target="465" id="767"/>
                     </connections>
                 </searchField>
-                <textField verticalHuggingPriority="750" id="493">
+                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" id="493">
                     <rect key="frame" x="105" y="10" width="168" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Object Count" id="494">
@@ -100,34 +99,36 @@
                                 <rect key="frame" x="0.0" y="0.0" width="408" height="474"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <scrollView horizontalLineScroll="127.66666412353516" horizontalPageScroll="10" verticalLineScroll="120" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="691">
+                                    <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="haI-Ie-eVp">
                                         <rect key="frame" x="-1" y="0.0" width="409" height="474"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <clipView key="contentView" copiesOnScroll="NO" id="5Rj-Ap-FDu">
-                                            <rect key="frame" x="1" y="1" width="392" height="472"/>
+                                        <clipView key="contentView" id="31o-ts-lrl">
+                                            <rect key="frame" x="1" y="1" width="407" height="472"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <ikImageBrowserView autoresizesSubviews="NO" zoomValue="0.4985358715057373" constrainsToOriginalSize="YES" id="694" customClass="IMBImageBrowserView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="406" height="472"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                    <ikCellsStyle key="cellsStyleMask" shadowed="YES" outlined="YES" titled="YES"/>
-                                                    <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                                    <size key="cellSize" width="129" height="129"/>
+                                                <collectionView selectable="YES" allowsMultipleSelection="YES" id="JMF-PM-obn" customClass="IMBObjectCollectionView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="407" height="472"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="TOZ-uG-PZI">
+                                                        <size key="itemSize" width="100" height="120"/>
+                                                        <edgeInsets key="sectionInset" left="10" right="10" top="10" bottom="10"/>
+                                                    </collectionViewFlowLayout>
+                                                    <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
-                                                        <binding destination="465" name="content" keyPath="arrangedObjects" id="731"/>
-                                                        <binding destination="465" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="731" id="733"/>
-                                                        <outlet property="dataSource" destination="-2" id="763"/>
-                                                        <outlet property="delegate" destination="-2" id="764"/>
+                                                        <binding destination="465" name="content" keyPath="arrangedObjects" id="E2o-Us-hJ7"/>
+                                                        <binding destination="465" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="E2o-Us-hJ7" id="Vp7-MH-nva"/>
+                                                        <outlet property="dataSource" destination="-2" id="x8o-h9-hXf"/>
+                                                        <outlet property="delegate" destination="-2" id="7SR-RS-QPL"/>
                                                     </connections>
-                                                </ikImageBrowserView>
+                                                </collectionView>
                                             </subviews>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="693">
-                                            <rect key="frame" x="-100" y="-100" width="303" height="15"/>
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="JTd-Z6-g7h">
+                                            <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="692">
-                                            <rect key="frame" x="393" y="1" width="15" height="472"/>
+                                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="OZq-Pz-v0E">
+                                            <rect key="frame" x="234" y="1" width="15" height="143"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -143,11 +144,11 @@
                                         <rect key="frame" x="-1" y="0.0" width="409" height="474"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="2Hj-pA-25e">
-                                            <rect key="frame" x="1" y="1" width="392" height="472"/>
+                                            <rect key="frame" x="1" y="1" width="391" height="472"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" autosaveColumns="NO" id="699" customClass="IMBTableView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="392" height="472"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="391" height="472"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -170,7 +171,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn identifier="name" editable="NO" width="366" minWidth="2" maxWidth="1000" id="701">
+                                                        <tableColumn identifier="name" editable="NO" width="365" minWidth="2" maxWidth="1000" id="701">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -205,8 +206,8 @@
                                             <rect key="frame" x="-100" y="-100" width="393" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="697">
-                                            <rect key="frame" x="393" y="1" width="15" height="472"/>
+                                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="697">
+                                            <rect key="frame" x="392" y="1" width="16" height="472"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -222,17 +223,17 @@
                                         <rect key="frame" x="0.0" y="0.0" width="408" height="474"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="y71-Cl-kMT">
-                                            <rect key="frame" x="1" y="1" width="391" height="472"/>
+                                            <rect key="frame" x="1" y="1" width="390" height="472"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="80" id="706" customClass="IMBComboTableView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="391" height="472"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="390" height="472"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="388" minWidth="40" maxWidth="1000" id="709">
+                                                        <tableColumn width="387" minWidth="40" maxWidth="1000" id="709">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -267,8 +268,8 @@
                                             <rect key="frame" x="-100" y="-100" width="393" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="708">
-                                            <rect key="frame" x="392" y="1" width="15" height="472"/>
+                                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="708">
+                                            <rect key="frame" x="391" y="1" width="16" height="472"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
