@@ -700,7 +700,14 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 
 // Subclasses can override these methods to configure or customize look & feel of the various object views...
-
+//
+// NOTE: Some features of the previous IKImageBrowser implementation have been thus far lost in the
+// transition to NSCollectionView. If they are important to you, you might need to re-implement them
+// on top of this new NSCollectionView-based infrastructure:
+//
+// 		- Custom background layers
+//		- Skimmability
+//
 - (void) _configureIconView
 {
 	// Register the nib explicitly, because if an iMedia client subclasses IMBObjectViewController, it causes
@@ -712,28 +719,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	
 	// Configure NSCollectionView to support dragging to other apps
 	[ibIconView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
-//	// Make the IKImageBrowserView use our custom cell class. Please note that we check for the existence 
-//	// of the base class first, as it is un undocumented internal class on 10.5. In 10.6 it is always there...
-//	
-//	if ([ibIconView respondsToSelector:@selector(setCellClass:)] && NSClassFromString(@"IKImageBrowserCell"))
-//	{
-//		[ibIconView performSelector:@selector(setCellClass:) withObject:[IMBImageBrowserCell class]];
-//	}
-//	
-//	[ibIconView setAnimates:NO];
-//
-//	if ([ibIconView respondsToSelector:@selector(setIntercellSpacing:)])
-//	{
-//		[ibIconView setIntercellSpacing:NSMakeSize(4.0,4.0)];
-//	}
-//
-//	if ([ibIconView respondsToSelector:@selector(setBackgroundLayer:)])
-//	{
-//		[ibIconView setBackgroundLayer:[self iconViewBackgroundLayer]];
-//	}
-//
-//	// Set the background color to text background so it adapts to dark mode
-//	[ibIconView setValue:[NSColor textBackgroundColor] forKey:IKImageBrowserBackgroundColorKey];
 }
 
 
@@ -1048,6 +1033,9 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 		thisItem.textField.stringValue = representedObject.name;
 		thisItem.representedObject = representedObject;
+
+		// Associate the tooltip with the container view
+		thisItem.view.toolTip = representedObject.tooltipString;
 	}
 	return thisItem;
 }
@@ -1098,122 +1086,46 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	return [self menuForObject:theItem];
 }
 
-//----------------------------------------------------------------------------------------------------------------------
-
-#pragma mark
-#pragma mark IKImageBrowserDelegate
-
-// First give the delegate a chance to handle the double click. It it chooses not to, then we will 
+// First give the delegate a chance to handle the double click. It it chooses not to, then we will
 // handle it ourself by simply opening the files (with their default app)...
 
-- (void) imageBrowser:(IKImageBrowserView*)inView cellWasDoubleClickedAtIndex:(NSUInteger)inIndex
+- (void) collectionView:(IMBObjectCollectionView*)collectionView wasDoubleClickedOnItem:(IMBObject*)clickedItem
 {
 	IMBLibraryController* controller = self.libraryController;
 	id delegate = controller.delegate;
 	BOOL didHandleEvent = NO;
-	
+
 	if ([delegate respondsToSelector:@selector(libraryController:didDoubleClickSelectedObjects:inNode:)])
 	{
 		IMBNode* node = self.currentNode;
 		NSArray* objects = [ibObjectArrayController selectedObjects];
 		didHandleEvent = [delegate libraryController:controller didDoubleClickSelectedObjects:objects inNode:node];
 	}
-	
-	if (!didHandleEvent && inIndex != NSNotFound)
+
+	if (!didHandleEvent && (clickedItem != nil))
 	{
-		NSArray* objects = [ibObjectArrayController arrangedObjects];
-		IMBObject* object = [objects objectAtIndex:inIndex];
-		
-		if ([object isKindOfClass:[IMBNodeObject class]])
+		if ([clickedItem isKindOfClass:[IMBNodeObject class]])
 		{
-            [IMBNodeViewController revealNodeWithIdentifier:((IMBNodeObject *)object).representedNodeIdentifier];
-			[self expandNodeObject:(IMBNodeObject*)object];
+			IMBNodeObject* clickedNode = (IMBNodeObject *)clickedItem;
+			[IMBNodeViewController revealNodeWithIdentifier:clickedNode.representedNodeIdentifier];
+			[self expandNodeObject:clickedNode];
 		}
-		else if ([object isKindOfClass:[IMBButtonObject class]])
+		else if ([clickedItem isKindOfClass:[IMBButtonObject class]])
 		{
-			[(IMBButtonObject*)object sendDoubleClickAction];
+			IMBButtonObject* clickedButton = (IMBButtonObject*)clickedItem;
+			[clickedButton sendDoubleClickAction];
 		}
 		else
 		{
-			[self openSelectedObjects:inView];
-		}	
-	}	
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-// Since IKImageBrowserView doesn't support context menus out of the box, we need to display them manually in 
-// the following two delegate methods. Why couldn't Apple take care of this?
-
-- (void) imageBrowser:(IKImageBrowserView*)inView backgroundWasRightClickedWithEvent:(NSEvent*)inEvent
-{
-	NSMenu* menu = [self menuForObject:nil];
-	[NSMenu popUpContextMenu:menu withEvent:inEvent forView:inView];
-}
-
-
-- (void) imageBrowser:(IKImageBrowserView*)inView cellWasRightClickedAtIndex:(NSUInteger)inIndex withEvent:(NSEvent*)inEvent
-{
-	IMBObject* object = [[ibObjectArrayController arrangedObjects] objectAtIndex:inIndex];
-	NSMenu* menu = [self menuForObject:object];
-	[NSMenu popUpContextMenu:menu withEvent:inEvent forView:inView];
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-// Here we sort of mimic the IKImageBrowserDataSource protocol, even though we really don't really
-// implement the protocol, since we use bindings. But this is for the benefit of
-// -[IMBImageBrowserView mouseDragged:] ... I hope it's OK that we are ignoring the inView parameter.
-
-- (id) imageBrowser:(IKImageBrowserView*)inView itemAtIndex:(NSUInteger)inIndex
-{
-	IMBObject* object = [[ibObjectArrayController arrangedObjects] objectAtIndex:inIndex];
-	return object;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-// If the IKImageBrowserView asked for a custom cell class, then pass on the request to the library's delegate. 
-// That way the application is given a chance to customize the look of the browser...
-
-- (Class) imageBrowserCellClassForController:(IMBObjectViewController*)inController
-{
-	if ([self.delegate respondsToSelector:@selector(imageBrowserCellClassForController:)])
-	{
-		return [self.delegate imageBrowserCellClassForController:self];
-	}
-	
-	return [[self class ] iconViewCellClass];
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-// With this method the delegate can return a custom drag image for a drags starting from the IKImageBrowserView...
-/*
-- (NSImage*) draggedImageForController:(IMBObjectViewController*)inController draggedObjects:(NSArray*)inObjects
-{
-	id delegate = self.delegate;
-	
-	if (delegate)
-	{
-		if ([delegate respondsToSelector:@selector(draggedImageForController:draggedObjects:)])
-		{
-			return [delegate draggedImageForController:self draggedObjects:inObjects];
+			[self openSelectedObjects:collectionView];
 		}
 	}
-	
-	return nil;
 }
-*/
 
+//----------------------------------------------------------------------------------------------------------------------
+
+#pragma mark
+#pragma mark IKImageBrowserDelegate
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -1221,6 +1133,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 #pragma mark
 #pragma mark IMBImageBrowserDelegate (informal)
 
+#warning make sure we handle this type of situation in NSCollectionView implementation
 /**
  If a missing object was selected, then display an alert...
  */
