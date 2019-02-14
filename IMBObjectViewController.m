@@ -1068,6 +1068,34 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	[self udpateQuickLookPanel];
 }
 
+// Disable selection of certain items
+- (NSSet<NSIndexPath *> *) selectableItemsInCollectionView:(NSCollectionView *)collectionView atIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
+{
+	NSMutableSet* filteredIndexPaths = [indexPaths mutableCopy];
+	for (NSIndexPath* thisIndexPath in indexPaths)
+	{
+		IMBObject* thisObject = (IMBObject*)[[collectionView itemAtIndexPath:thisIndexPath] representedObject];
+		if ([thisObject isSelectable] == NO)
+		{
+			[filteredIndexPaths removeObject:thisIndexPath];
+		}
+	}
+	return filteredIndexPaths;
+}
+
+- (NSSet<NSIndexPath *> *)collectionView:(NSCollectionView *)collectionView shouldSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
+{
+	return [self selectableItemsInCollectionView:collectionView atIndexPaths:indexPaths];
+}
+
+- (NSSet<NSIndexPath *> *)collectionView:(NSCollectionView *)collectionView shouldChangeItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths toHighlightState:(NSCollectionViewItemHighlightState)highlightState NS_AVAILABLE_MAC(10_11)
+{
+	return [self selectableItemsInCollectionView:collectionView atIndexPaths:indexPaths];
+}
+
+#pragma mark
+#pragma mark QuickLook
+
 - (void) udpateQuickLookPanel
 {
 	// Notify the Quicklook panel of the selection change...
