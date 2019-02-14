@@ -12,9 +12,14 @@
 @class IMBObject;
 
 NS_ASSUME_NONNULL_BEGIN
+
 @protocol IMBObjectCollectionViewDelegate <NSCollectionViewDelegate>
 
 - (NSMenu*) collectionView:(IMBObjectCollectionView*)collectionView wantsContextMenuForItem:(IMBObject*)itemIndex;
+
+// If clickedItem is nil then the double-click occurred somewhere in the view but not directly on an
+// item. The client may still want to handle the double click e.g. to open all selected items.
+- (void) collectionView:(IMBObjectCollectionView*)collectionView wasDoubleClickedOnItem:(nullable IMBObject*)clickedItem;
 
 @end
 
