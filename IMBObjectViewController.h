@@ -74,6 +74,7 @@
 #import <iMedia/IMBCommon.h>
 #import <iMedia/IMBQLPreviewPanel.h>
 #import <iMedia/IMBObjectArrayController.h>
+#import <iMedia/IMBObjectCollectionView.h>
 #import <iMedia/IMBItemizableView.h>
 #import <Quartz/Quartz.h>
 
