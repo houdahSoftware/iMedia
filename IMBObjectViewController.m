@@ -703,6 +703,13 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 - (void) _configureIconView
 {
+	// Register the nib explicitly, because if an iMedia client subclasses IMBObjectViewController, it causes
+	// NSCollectionView's default nib search to look in the bundle correspondiong to the SUBCLASS. To allow
+	// client to subclass us without also providing redundant nibs, we are explicit about it here. Clients who
+	// DO want to override the nibs can register the nib separately.
+	NSNib* viewItemNib = [[NSNib alloc] initWithNibNamed:@"IMBObjectCollectionViewItem" bundle:[NSBundle bundleForClass:[IMBObjectViewController class]]];
+	[ibIconView registerNib:viewItemNib forItemWithIdentifier:@"IMBObjectCollectionViewItem"];
+	
 	// Configure NSCollectionView to support dragging to other apps
 	[ibIconView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
 //	// Make the IKImageBrowserView use our custom cell class. Please note that we check for the existence 
