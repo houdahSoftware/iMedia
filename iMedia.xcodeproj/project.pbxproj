@@ -172,11 +172,11 @@
 		30FFEBFE150A0AA70009C1D0 /* im.edia.iPhoto.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30FFEBEC150A08DB0009C1D0 /* im.edia.iPhoto.xpc */; };
 		651F0B142210CFD2007CFEFF /* IMBObjectCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 651F0B132210CFD2007CFEFF /* IMBObjectCollectionViewItem.xib */; };
 		6523FF231B0CE589004FD6D2 /* IMBItemizableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BC5C641AFF22BE002BF87F /* IMBItemizableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		657C066522133E7100A2DB7F /* IMBObjectCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 657C066322133E7000A2DB7F /* IMBObjectCollectionView.h */; };
+		657C066522133E7100A2DB7F /* IMBObjectCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 657C066322133E7000A2DB7F /* IMBObjectCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		657C066622133E7100A2DB7F /* IMBObjectCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 657C066422133E7100A2DB7F /* IMBObjectCollectionView.m */; };
-		65E4AF2B2211B424000B9BD9 /* IMBImageSelectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */; };
+		65E4AF2B2211B424000B9BD9 /* IMBImageSelectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65E4AF2C2211B424000B9BD9 /* IMBImageSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E4AF2A2211B424000B9BD9 /* IMBImageSelectionView.m */; };
-		65E4AF2F2211B4A4000B9BD9 /* IMBObjectCollectionViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF2D2211B4A4000B9BD9 /* IMBObjectCollectionViewItem.h */; };
+		65E4AF2F2211B4A4000B9BD9 /* IMBObjectCollectionViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 65E4AF2D2211B4A4000B9BD9 /* IMBObjectCollectionViewItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65E4AF302211B4A4000B9BD9 /* IMBObjectCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E4AF2E2211B4A4000B9BD9 /* IMBObjectCollectionViewItem.m */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		8F39FC5B1CA2995F00BBFA3D /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F39FC591CA2995F00BBFA3D /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
