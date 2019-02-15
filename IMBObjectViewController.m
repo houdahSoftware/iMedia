@@ -1028,8 +1028,17 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 		// Seems we have to call imageRepresentation first to get the thumbnail loaded, then
 		// thumbnail returns it in NSImage format.
-		(void) [representedObject imageRepresentation];
-		thisItem.imageView.image = representedObject.thumbnail;
+
+		// I'm not sure if this is the right way to solve this, but thumbnail is nil in cases
+		// where the item is e.g. an IMBFolderObject. Resort to icon if thumbnail is nil?
+		if (representedObject.thumbnail == nil)
+		{
+			thisItem.imageView.image = representedObject.icon;
+		}
+		else
+		{
+			thisItem.imageView.image = representedObject.thumbnail;
+		}
 
 		thisItem.textField.stringValue = representedObject.name;
 		thisItem.representedObject = representedObject;
