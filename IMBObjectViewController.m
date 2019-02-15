@@ -1028,6 +1028,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 		// Seems we have to call imageRepresentation first to get the thumbnail loaded, then
 		// thumbnail returns it in NSImage format.
+		(void) [representedObject imageRepresentation];
 		thisItem.imageView.image = representedObject.thumbnail;
 
 		thisItem.textField.stringValue = representedObject.name;
