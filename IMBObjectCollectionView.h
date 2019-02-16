@@ -6,7 +6,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "IMBItemizableView.h"
 
 @class IMBObjectCollectionView;
 @class IMBObject;
