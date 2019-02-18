@@ -678,7 +678,11 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	// Find the row and reload it. Note that KVO notifications may be sent from a background thread (in this 
 	// case, we know they will be) We should only update the UI on the main thread, and in addition, we use 
 	// NSRunLoopCommonModes to make sure the UI updates when a modal window is up...
-		
+	//
+	// This observation is only applicable to the ibComboView scenario. Should consolidate behavior
+	// of observing image repressentation updates so it behaves the same for collection view and
+	// table view.
+
 	else if (inContext == (void*)kIMBObjectImageRepresentationKey)
 	{
 		NSInteger row = [(IMBObject*)inObject index];
@@ -846,6 +850,33 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 //----------------------------------------------------------------------------------------------------------------------
 
+- (void) updateCollectionViewForIconSize
+{
+	// From IKImageBrowserView, where we initially supported this value:
+	// This value should be greater or equal to zero and less or equal than one. A zoom value of zero corresponds
+	// to the minimum size (40x40 pixels), A zoom value of one means images fit the browser bounds. Other values are interpolated.
+
+	// Despite the description above, it seems in practice iMedia previously maxed out at around 300.0,
+	// not the full width of the view. Hardcoding minimum with and height to make it roughly match
+	// the old minimum size.
+	CGFloat minWidth = 60.0;
+	CGFloat maxWidth = fmin(self.view.bounds.size.width, 300.0);
+
+	CGFloat newMinWidth = minWidth;
+	if ([self iconSize] > 0)
+	{
+		CGFloat widthSpread = maxWidth - minWidth;
+		newMinWidth = minWidth + (widthSpread * [self iconSize]);
+	}
+
+	// Add to the interpolated width whatever the delta is for our non-image based view elements, such
+	// as the selection view, label, and padding.
+	CGFloat verticalNonImageHeightAdjustment = 20.0;
+	CGFloat newMinHeight = newMinWidth + verticalNonImageHeightAdjustment;
+	NSSize newItemSize = NSMakeSize(newMinWidth, newMinHeight);
+	NSCollectionViewFlowLayout* gridLayout = (NSCollectionViewFlowLayout*)[ibIconView collectionViewLayout];
+	gridLayout.itemSize = newItemSize;
+}
 
 - (void) setIconSize:(double)inIconSize
 {
@@ -887,7 +918,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 	// Update the views. The row height of the combo view needs to be adjusted accordingly...
 	
-	[ibIconView setNeedsDisplay:YES];
+	[self updateCollectionViewForIconSize];
+
 	[ibComboView setNeedsDisplay:YES];
 
 	CGFloat height = 60.0 + 100.0 * _iconSize;
@@ -960,8 +992,17 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		// if the system attempts to communicate with the tooltip's owner which is being removed from the view...
 		
 		[ibIconView removeAllToolTips];
-        [ibIconView reloadData];
 
+		// Try to save/restore selection to avoid unwanted deselection of an item that
+		// is selected while thumbnails are still percolating
+		NSIndexSet* savedSelection = [ibObjectArrayController selectionIndexes];
+
+		// Only need to reload "visible" items because those are the ones collection view vouches
+		// actually have image data associated with them.
+		[ibIconView reloadItemsAtIndexPaths:[ibIconView indexPathsForVisibleItems]];
+
+		[ibIconView setSelectionIndexes:savedSelection];
+		
 		// Items loading into the view will cause a change in the scroller's clip view, which will cause the tooltips
 		// to be revised to suit only the current visible items...
 	}
@@ -1059,6 +1100,31 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
 {
 	[ibObjectArrayController setSelectionIndexes:[collectionView selectionIndexes]];
+
+	// If a missing object was selected, then display an alert...
+	if (self.viewType == kIMBObjectViewTypeIcon)
+	{
+		for (NSIndexPath* thisIndexPath in indexPaths)
+		{
+			IMBObject* thisObject = (IMBObject*)[[collectionView itemAtIndexPath:thisIndexPath] representedObject];
+			if (thisObject != nil)
+			{
+				if (thisObject.accessibility == kIMBResourceDoesNotExist)
+				{
+					NSUInteger index = [ibObjectArrayController.arrangedObjects indexOfObjectIdenticalTo:thisObject];
+					NSRect rect = [collectionView frameForItemAtIndex:index];
+					[IMBAccessRightsViewController showMissingResourceAlertForObject:thisObject view:collectionView relativeToRect:rect];
+				}
+				else if (thisObject.accessibility == kIMBResourceNoPermission)
+				{
+					[[IMBAccessRightsViewController sharedViewController]
+					 imb_performCoalescedSelector:@selector(grantAccessRightsForObjectsOfNode:)
+					 withObject:self.currentNode];
+				}
+			}
+		}
+	}
+
 	[self udpateQuickLookPanel];
 }
 
@@ -1151,45 +1217,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-
-#pragma mark
-#pragma mark IKImageBrowserDelegate
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-#pragma mark
-#pragma mark IMBImageBrowserDelegate (informal)
-
-#warning make sure we handle this type of situation in NSCollectionView implementation
-/**
- If a missing object was selected, then display an alert...
- */
-- (void) imb_imageBrowser:(IKImageBrowserView *)inView cellWasClickedAtIndex:(NSUInteger)inIndex
-{
-	if (inIndex < [[ibObjectArrayController arrangedObjects] count] &&
-        self.viewType == kIMBObjectViewTypeIcon)
-	{
-		IMBObject* object = [[ibObjectArrayController arrangedObjects] objectAtIndex:inIndex];
-        
-		if (object)
-		{
-			if (object.accessibility == kIMBResourceDoesNotExist)
-			{
-				NSUInteger index = [ibObjectArrayController.arrangedObjects indexOfObjectIdenticalTo:object];
-				NSRect rect = [inView itemFrameAtIndex:index];
-				[IMBAccessRightsViewController showMissingResourceAlertForObject:object view:inView relativeToRect:rect];
-			}
-			else if (object.accessibility == kIMBResourceNoPermission)
-			{
-				[[IMBAccessRightsViewController sharedViewController]
-                 imb_performCoalescedSelector:@selector(grantAccessRightsForObjectsOfNode:)
-                 withObject:self.currentNode];
-			}
-		}
-    }
-}
-
 
 #pragma mark
 #pragma mark NSTableViewDelegate
@@ -2239,7 +2266,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 
 //----------------------------------------------------------------------------------------------------------------------
-
 
 @end
 

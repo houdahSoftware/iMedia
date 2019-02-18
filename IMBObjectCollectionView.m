@@ -19,7 +19,7 @@
 	NSString* key = [inEvent charactersIgnoringModifiers];
 	NSUInteger modifiers = [inEvent modifierFlags];
 
-	if([key isEqual:@"y"] && (modifiers&NSCommandKeyMask)!=0)
+	if (([key isEqual:@"y"] && (modifiers&NSCommandKeyMask)!=0) || [key isEqualToString:@" "])
 	{
 		[controller quicklook:self];
 	}

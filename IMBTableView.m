@@ -391,7 +391,7 @@ enum IMBMouseOperation
     NSString* key = [inEvent charactersIgnoringModifiers];
 	NSUInteger modifiers = [inEvent modifierFlags];
 	
-    if([key isEqual:@"y"] && (modifiers&NSEventModifierFlagCommand)!=0)
+    if (([key isEqual:@"y"] && (modifiers&NSEventModifierFlagCommand)!=0) || [key isEqualToString:@" "])
 	{
 		IMBObjectViewController* controller = (IMBObjectViewController*) self.delegate;
         [controller quicklook:self];
