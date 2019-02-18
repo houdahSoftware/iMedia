@@ -392,26 +392,21 @@ NSString* kIMBObjectPasteboardType = @"com.karelia.imedia.IMBObject";
  */
 - (NSImage *)thumbnail
 {
-    if ([self imageRepresentation] == nil) {
-        return nil;
-    }
-    
-    if ([self.imageRepresentationType isEqualToString:IKImageBrowserNSImageRepresentationType])
-    {
-        return (NSImage *) self.imageRepresentation;
-    }
-    
-    if ([self.imageRepresentationType isEqualToString:IKImageBrowserCGImageRepresentationType])
-    {
-        return [[NSImage alloc] initWithCGImage:(CGImageRef) self.imageRepresentation size:CGSizeZero];
-    }
-    
-    if ([self.imageRepresentationType isEqualToString:IKImageBrowserNSDataRepresentationType])
-    {
-        return [[NSImage alloc] initWithData:(NSData *) self.imageRepresentation];
-    }
-    
-    return self.icon;
+	NSImage* result = nil;
+
+	// While we haven't loaded an image representation yet, faithfully report that
+    if ([self imageRepresentation] != nil)
+	{
+		result = [NSImage imageWithIMBImageItem:self];
+
+		// Last resort: use the item's icon
+		if (result == nil)
+		{
+			result = self.icon;
+		}
+	}
+
+	return result;
 }
 
 
