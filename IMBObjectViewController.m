@@ -1087,6 +1087,31 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
 {
 	[ibObjectArrayController setSelectionIndexes:[collectionView selectionIndexes]];
+
+	// If a missing object was selected, then display an alert...
+	if (self.viewType == kIMBObjectViewTypeIcon)
+	{
+		for (NSIndexPath* thisIndexPath in indexPaths)
+		{
+			IMBObject* thisObject = (IMBObject*)[[collectionView itemAtIndexPath:thisIndexPath] representedObject];
+			if (thisObject != nil)
+			{
+				if (thisObject.accessibility == kIMBResourceDoesNotExist)
+				{
+					NSUInteger index = [ibObjectArrayController.arrangedObjects indexOfObjectIdenticalTo:thisObject];
+					NSRect rect = [collectionView frameForItemAtIndex:index];
+					[IMBAccessRightsViewController showMissingResourceAlertForObject:thisObject view:collectionView relativeToRect:rect];
+				}
+				else if (thisObject.accessibility == kIMBResourceNoPermission)
+				{
+					[[IMBAccessRightsViewController sharedViewController]
+					 imb_performCoalescedSelector:@selector(grantAccessRightsForObjectsOfNode:)
+					 withObject:self.currentNode];
+				}
+			}
+		}
+	}
+
 	[self udpateQuickLookPanel];
 }
 
@@ -1179,45 +1204,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-
-#pragma mark
-#pragma mark IKImageBrowserDelegate
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-#pragma mark
-#pragma mark IMBImageBrowserDelegate (informal)
-
-#warning make sure we handle this type of situation in NSCollectionView implementation
-/**
- If a missing object was selected, then display an alert...
- */
-- (void) imb_imageBrowser:(IKImageBrowserView *)inView cellWasClickedAtIndex:(NSUInteger)inIndex
-{
-	if (inIndex < [[ibObjectArrayController arrangedObjects] count] &&
-        self.viewType == kIMBObjectViewTypeIcon)
-	{
-		IMBObject* object = [[ibObjectArrayController arrangedObjects] objectAtIndex:inIndex];
-        
-		if (object)
-		{
-			if (object.accessibility == kIMBResourceDoesNotExist)
-			{
-				NSUInteger index = [ibObjectArrayController.arrangedObjects indexOfObjectIdenticalTo:object];
-				NSRect rect = [inView itemFrameAtIndex:index];
-				[IMBAccessRightsViewController showMissingResourceAlertForObject:object view:inView relativeToRect:rect];
-			}
-			else if (object.accessibility == kIMBResourceNoPermission)
-			{
-				[[IMBAccessRightsViewController sharedViewController]
-                 imb_performCoalescedSelector:@selector(grantAccessRightsForObjectsOfNode:)
-                 withObject:self.currentNode];
-			}
-		}
-    }
-}
-
 
 #pragma mark
 #pragma mark NSTableViewDelegate
