@@ -678,7 +678,11 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	// Find the row and reload it. Note that KVO notifications may be sent from a background thread (in this 
 	// case, we know they will be) We should only update the UI on the main thread, and in addition, we use 
 	// NSRunLoopCommonModes to make sure the UI updates when a modal window is up...
-		
+	//
+	// This observation is only applicable to the ibComboView scenario. Should consolidate behavior
+	// of observing image repressentation updates so it behaves the same for collection view and
+	// table view.
+
 	else if (inContext == (void*)kIMBObjectImageRepresentationKey)
 	{
 		NSInteger row = [(IMBObject*)inObject index];
@@ -988,8 +992,17 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		// if the system attempts to communicate with the tooltip's owner which is being removed from the view...
 		
 		[ibIconView removeAllToolTips];
-        [ibIconView reloadData];
 
+		// Try to save/restore selection to avoid unwanted deselection of an item that
+		// is selected while thumbnails are still percolating
+		NSIndexSet* savedSelection = [ibObjectArrayController selectionIndexes];
+
+		// Only need to reload "visible" items because those are the ones collection view vouches
+		// actually have image data associated with them.
+		[ibIconView reloadItemsAtIndexPaths:[ibIconView indexPathsForVisibleItems]];
+
+		[ibIconView setSelectionIndexes:savedSelection];
+		
 		// Items loading into the view will cause a change in the scroller's clip view, which will cause the tooltips
 		// to be revised to suit only the current visible items...
 	}
