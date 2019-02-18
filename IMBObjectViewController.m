@@ -846,6 +846,33 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 //----------------------------------------------------------------------------------------------------------------------
 
+- (void) updateCollectionViewForIconSize
+{
+	// From IKImageBrowserView, where we initially supported this value:
+	// This value should be greater or equal to zero and less or equal than one. A zoom value of zero corresponds
+	// to the minimum size (40x40 pixels), A zoom value of one means images fit the browser bounds. Other values are interpolated.
+
+	// Despite the description above, it seems in practice iMedia previously maxed out at around 300.0,
+	// not the full width of the view. Hardcoding minimum with and height to make it roughly match
+	// the old minimum size.
+	CGFloat minWidth = 60.0;
+	CGFloat maxWidth = fmin(self.view.bounds.size.width, 300.0);
+
+	CGFloat newMinWidth = minWidth;
+	if ([self iconSize] > 0)
+	{
+		CGFloat widthSpread = maxWidth - minWidth;
+		newMinWidth = minWidth + (widthSpread * [self iconSize]);
+	}
+
+	// Add to the interpolated width whatever the delta is for our non-image based view elements, such
+	// as the selection view, label, and padding.
+	CGFloat verticalNonImageHeightAdjustment = 20.0;
+	CGFloat newMinHeight = newMinWidth + verticalNonImageHeightAdjustment;
+	NSSize newItemSize = NSMakeSize(newMinWidth, newMinHeight);
+	NSCollectionViewFlowLayout* gridLayout = (NSCollectionViewFlowLayout*)[ibIconView collectionViewLayout];
+	gridLayout.itemSize = newItemSize;
+}
 
 - (void) setIconSize:(double)inIconSize
 {
@@ -887,7 +914,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 	// Update the views. The row height of the combo view needs to be adjusted accordingly...
 	
-	[ibIconView setNeedsDisplay:YES];
+	[self updateCollectionViewForIconSize];
+
 	[ibComboView setNeedsDisplay:YES];
 
 	CGFloat height = 60.0 + 100.0 * _iconSize;
@@ -2239,7 +2267,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 
 //----------------------------------------------------------------------------------------------------------------------
-
 
 @end
 
