@@ -1072,7 +1072,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		(void) [representedObject imageRepresentation];
 		thisItem.imageView.image = representedObject.thumbnail;
 
-		thisItem.textField.stringValue = representedObject.name;
+		thisItem.textField.stringValue = representedObject.imageTitle;
 		thisItem.representedObject = representedObject;
 
 		// Associate the tooltip with the container view

@@ -508,7 +508,7 @@ NSString* kIMBObjectPasteboardType = @"com.karelia.imedia.IMBObject";
 }
 
 
-// The name of the object will be used as the title in IKImageBrowserView and tables...
+// The name of the object will be used as the title in the icon view and tables...
 
 - (NSString*) imageTitle
 {
