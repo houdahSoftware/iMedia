@@ -30,7 +30,14 @@
 	NSRectFill(dirtyRect);
 
 	// We just draw a single style of highlighting whether we're selected or proposed to be selected
-	BOOL drawsHighlighted = ([self isSelected] || ([self highlightState] != NSCollectionViewItemHighlightNone));
+	BOOL drawsHighlighted = ([self isSelected] || ([self highlightState] == NSCollectionViewItemHighlightForSelection));
+
+	// If we're being deselected we also don't draw a highlight
+	if ([self highlightState] == NSCollectionViewItemHighlightForDeselection)
+	{
+		drawsHighlighted = NO;
+	}
+
 	if (drawsHighlighted)
 	{
 		NSColor* selectionColor = [[NSColor lightGrayColor] colorWithAlphaComponent:0.5];
