@@ -1156,7 +1156,12 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 - (NSSet<NSIndexPath *> *)collectionView:(NSCollectionView *)collectionView shouldChangeItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths toHighlightState:(NSCollectionViewItemHighlightState)highlightState NS_AVAILABLE_MAC(10_11)
 {
-	return [self selectableItemsInCollectionView:collectionView atIndexPaths:indexPaths];
+	// We allow non-selectable items to be highlighted because it gives some feedback to
+	// users that the click happened, and more importantly gives NSCollectionView permission
+	// to deselect whatever was previously selected. This ensures that for example when a
+	// user goes to double-click on a folder item, which is not selectable, it will deselect
+	// whatever was previously selected before passing along the double-click message to the client.
+	return indexPaths;
 }
 
 #pragma mark
