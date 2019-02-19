@@ -36,9 +36,7 @@
 		300C8B1B1AF0CEB900F4EC41 /* IMBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 300C8B191AF0CEB900F4EC41 /* IMBNavigationController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		3010BE0316A843EC00798D2E /* IMBTestApp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3010BDF516A843EB00798D2E /* IMBTestApp.xib */; };
 		3010BE0416A843EC00798D2E /* IMBTestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010BDF716A843EC00798D2E /* IMBTestAppDelegate.m */; };
-		3010BE0516A843EC00798D2E /* IMBTestFaceBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010BDF916A843EC00798D2E /* IMBTestFaceBrowserCell.m */; };
 		3010BE0616A843EC00798D2E /* IMBTestFacesBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010BDFB16A843EC00798D2E /* IMBTestFacesBackgroundLayer.m */; };
-		3010BE0716A843EC00798D2E /* IMBTestiPhotoEventBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010BDFD16A843EC00798D2E /* IMBTestiPhotoEventBrowserCell.m */; };
 		3010BE0816A843EC00798D2E /* IMBTestTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010BDFF16A843EC00798D2E /* IMBTestTextView.m */; };
 		3010BE0916A843EC00798D2E /* iMediaTester.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3010BE0016A843EC00798D2E /* iMediaTester.entitlements */; };
 		3010BE0A16A843EC00798D2E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3010BE0116A843EC00798D2E /* main.m */; };
@@ -358,8 +356,6 @@
 		D08F7B7D15235DFE00505395 /* IMBDynamicTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF687181062DAF0005D7E72 /* IMBDynamicTableView.m */; };
 		D08F7B7E15235E0200505395 /* IMBComboTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF686B41062D0BD005D7E72 /* IMBComboTableView.m */; };
 		D08F7B7F15235E0200505395 /* IMBComboTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF686B91062D18F005D7E72 /* IMBComboTextCell.m */; };
-		D08F7B8015235E1100505395 /* IMBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = D09FD77E105586BC00E328C7 /* IMBImageBrowserView.m */; };
-		D08F7B8115235E1100505395 /* IMBImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BF8C68103F32700014B3B7 /* IMBImageBrowserCell.m */; };
 		D08F7B8215235E5300505395 /* IMBTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE0A8B104802A7009AE844 /* IMBTableView.m */; };
 		D08F7B8315235EA400505395 /* IMBImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 274DF617114EF0B200AC8C03 /* IMBImageItem.m */; };
 		D08F7B841523605400505395 /* IMBObjectArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D099333210119F3400C527B7 /* IMBObjectArrayController.m */; };
@@ -449,7 +445,6 @@
 		D099335C1011B28500C527B7 /* iMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iMedia.framework */; };
 		D09933AF1011B2CD00C527B7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		D0993931101236AB00C527B7 /* IMBOutlineView.h in Headers */ = {isa = PBXBuildFile; fileRef = D099392F101236AB00C527B7 /* IMBOutlineView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D09FD77F105586BC00E328C7 /* IMBImageBrowserView.h in Headers */ = {isa = PBXBuildFile; fileRef = D09FD77D105586BC00E328C7 /* IMBImageBrowserView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0A00A9915F47A7100596789 /* IMBAccessRightsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A00A9715F47A7100596789 /* IMBAccessRightsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0A00A9A15F47A7100596789 /* IMBAccessRightsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A00A9815F47A7100596789 /* IMBAccessRightsViewController.m */; };
 		D0A13A9F152F29C9005513CD /* IMBFolderObject.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A13A9D152F29C8005513CD /* IMBFolderObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -466,7 +461,6 @@
 		D0B779651047B65D00D12548 /* IMBFlickrParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0B779631047B65D00D12548 /* IMBFlickrParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0B87F22103D998D00C48C6F /* iMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = D0B87F21103D998D00C48C6F /* iMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0BE0A8C104802A7009AE844 /* IMBTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BE0A8A104802A7009AE844 /* IMBTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0BF8C69103F32700014B3B7 /* IMBImageBrowserCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BF8C67103F32700014B3B7 /* IMBImageBrowserCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0C2DAA210240C0B001B1198 /* IMBImageObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2DAA110240C0B001B1198 /* IMBImageObjectViewController.xib */; };
 		D0C2DAF21024178E001B1198 /* IMBObjectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D0C2DAF01024178E001B1198 /* IMBObjectViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0C2DB6D1024DBCC001B1198 /* IMBNodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0C2DB6C1024DBCC001B1198 /* IMBNodeViewController.xib */; };
@@ -922,12 +916,8 @@
 		3010BDF516A843EB00798D2E /* IMBTestApp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IMBTestApp.xib; path = TestApp/IMBTestApp.xib; sourceTree = "<group>"; };
 		3010BDF616A843EB00798D2E /* IMBTestAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMBTestAppDelegate.h; path = TestApp/IMBTestAppDelegate.h; sourceTree = "<group>"; };
 		3010BDF716A843EC00798D2E /* IMBTestAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMBTestAppDelegate.m; path = TestApp/IMBTestAppDelegate.m; sourceTree = "<group>"; };
-		3010BDF816A843EC00798D2E /* IMBTestFaceBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMBTestFaceBrowserCell.h; path = TestApp/IMBTestFaceBrowserCell.h; sourceTree = "<group>"; };
-		3010BDF916A843EC00798D2E /* IMBTestFaceBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMBTestFaceBrowserCell.m; path = TestApp/IMBTestFaceBrowserCell.m; sourceTree = "<group>"; };
 		3010BDFA16A843EC00798D2E /* IMBTestFacesBackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMBTestFacesBackgroundLayer.h; path = TestApp/IMBTestFacesBackgroundLayer.h; sourceTree = "<group>"; };
 		3010BDFB16A843EC00798D2E /* IMBTestFacesBackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMBTestFacesBackgroundLayer.m; path = TestApp/IMBTestFacesBackgroundLayer.m; sourceTree = "<group>"; };
-		3010BDFC16A843EC00798D2E /* IMBTestiPhotoEventBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMBTestiPhotoEventBrowserCell.h; path = TestApp/IMBTestiPhotoEventBrowserCell.h; sourceTree = "<group>"; };
-		3010BDFD16A843EC00798D2E /* IMBTestiPhotoEventBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMBTestiPhotoEventBrowserCell.m; path = TestApp/IMBTestiPhotoEventBrowserCell.m; sourceTree = "<group>"; };
 		3010BDFE16A843EC00798D2E /* IMBTestTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMBTestTextView.h; path = TestApp/IMBTestTextView.h; sourceTree = "<group>"; };
 		3010BDFF16A843EC00798D2E /* IMBTestTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMBTestTextView.m; path = TestApp/IMBTestTextView.m; sourceTree = "<group>"; };
 		3010BE0016A843EC00798D2E /* iMediaTester.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = iMediaTester.entitlements; path = TestApp/iMediaTester.entitlements; sourceTree = "<group>"; };
@@ -1339,8 +1329,6 @@
 		D09933551011B26E00C527B7 /* iMediaTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iMediaTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D099392F101236AB00C527B7 /* IMBOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBOutlineView.h; sourceTree = "<group>"; };
 		D0993930101236AB00C527B7 /* IMBOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBOutlineView.m; sourceTree = "<group>"; };
-		D09FD77D105586BC00E328C7 /* IMBImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBImageBrowserView.h; sourceTree = "<group>"; };
-		D09FD77E105586BC00E328C7 /* IMBImageBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBImageBrowserView.m; sourceTree = "<group>"; };
 		D0A00A9715F47A7100596789 /* IMBAccessRightsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBAccessRightsViewController.h; sourceTree = "<group>"; };
 		D0A00A9815F47A7100596789 /* IMBAccessRightsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBAccessRightsViewController.m; sourceTree = "<group>"; };
 		D0A13A9D152F29C8005513CD /* IMBFolderObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBFolderObject.h; sourceTree = "<group>"; };
@@ -1355,8 +1343,6 @@
 		D0B87F21103D998D00C48C6F /* iMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iMedia.h; sourceTree = "<group>"; };
 		D0BE0A8A104802A7009AE844 /* IMBTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBTableView.h; sourceTree = "<group>"; };
 		D0BE0A8B104802A7009AE844 /* IMBTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBTableView.m; sourceTree = "<group>"; };
-		D0BF8C67103F32700014B3B7 /* IMBImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBImageBrowserCell.h; sourceTree = "<group>"; };
-		D0BF8C68103F32700014B3B7 /* IMBImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBImageBrowserCell.m; sourceTree = "<group>"; };
 		D0C2DAA110240C0B001B1198 /* IMBImageObjectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IMBImageObjectViewController.xib; sourceTree = "<group>"; };
 		D0C2DAF01024178E001B1198 /* IMBObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBObjectViewController.h; sourceTree = "<group>"; };
 		D0C2DAF11024178E001B1198 /* IMBObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBObjectViewController.m; sourceTree = "<group>"; };
@@ -2285,10 +2271,6 @@
 				CEF686B91062D18F005D7E72 /* IMBComboTextCell.m */,
 				D08C5C9C104862540068FF07 /* IMBTextFieldCell.h */,
 				D08C5C9D104862540068FF07 /* IMBTextFieldCell.m */,
-				D09FD77D105586BC00E328C7 /* IMBImageBrowserView.h */,
-				D09FD77E105586BC00E328C7 /* IMBImageBrowserView.m */,
-				D0BF8C67103F32700014B3B7 /* IMBImageBrowserCell.h */,
-				D0BF8C68103F32700014B3B7 /* IMBImageBrowserCell.m */,
 				657C066322133E7000A2DB7F /* IMBObjectCollectionView.h */,
 				657C066422133E7100A2DB7F /* IMBObjectCollectionView.m */,
 				65E4AF2D2211B4A4000B9BD9 /* IMBObjectCollectionViewItem.h */,
@@ -2400,12 +2382,8 @@
 				3010BDF516A843EB00798D2E /* IMBTestApp.xib */,
 				3010BDF616A843EB00798D2E /* IMBTestAppDelegate.h */,
 				3010BDF716A843EC00798D2E /* IMBTestAppDelegate.m */,
-				3010BDF816A843EC00798D2E /* IMBTestFaceBrowserCell.h */,
-				3010BDF916A843EC00798D2E /* IMBTestFaceBrowserCell.m */,
 				3010BDFA16A843EC00798D2E /* IMBTestFacesBackgroundLayer.h */,
 				3010BDFB16A843EC00798D2E /* IMBTestFacesBackgroundLayer.m */,
-				3010BDFC16A843EC00798D2E /* IMBTestiPhotoEventBrowserCell.h */,
-				3010BDFD16A843EC00798D2E /* IMBTestiPhotoEventBrowserCell.m */,
 				3010BDFE16A843EC00798D2E /* IMBTestTextView.h */,
 				3010BDFF16A843EC00798D2E /* IMBTestTextView.m */,
 				3010BE0016A843EC00798D2E /* iMediaTester.entitlements */,
@@ -2648,7 +2626,6 @@
 				D0D635EC1035B4C500FF8631 /* IMBLightroomParser.h in Headers */,
 				D0D635EE1035B4C500FF8631 /* IMBApertureParser.h in Headers */,
 				8FC15E4C176A99EB007FF34F /* IMBLightroom5Parser.h in Headers */,
-				D0BF8C69103F32700014B3B7 /* IMBImageBrowserCell.h in Headers */,
 				D0E96D1C104410BD0015979F /* IMBPanelController.h in Headers */,
 				D08070BF10442CD700891137 /* IMBMovieObjectViewController.h in Headers */,
 				D08070C310442CE100891137 /* IMBAudioObjectViewController.h in Headers */,
@@ -2658,7 +2635,6 @@
 				D0CA9427104932CD00725DA3 /* IMBiTunesAudioParser.h in Headers */,
 				D0CA961510498F7C00725DA3 /* IMBTimecodeTransformer.h in Headers */,
 				D052B0951053B0F700988F53 /* IMBProgressWindowController.h in Headers */,
-				D09FD77F105586BC00E328C7 /* IMBImageBrowserView.h in Headers */,
 				CEF686B51062D0BD005D7E72 /* IMBComboTableView.h in Headers */,
 				CEF686BA1062D18F005D7E72 /* IMBComboTextCell.h in Headers */,
 				CEF687191062DAF0005D7E72 /* IMBDynamicTableView.h in Headers */,
@@ -3645,8 +3621,6 @@
 				D08F7B7F15235E0200505395 /* IMBComboTextCell.m in Sources */,
 				301D0B4B1AE009B100BF8F6E /* IMBImageProcessor.m in Sources */,
 				301C61F31AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.m in Sources */,
-				D08F7B8015235E1100505395 /* IMBImageBrowserView.m in Sources */,
-				D08F7B8115235E1100505395 /* IMBImageBrowserCell.m in Sources */,
 				D08F7B8215235E5300505395 /* IMBTableView.m in Sources */,
 				D08F7B8315235EA400505395 /* IMBImageItem.m in Sources */,
 				D08F7B841523605400505395 /* IMBObjectArrayController.m in Sources */,
@@ -3781,9 +3755,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3010BE0416A843EC00798D2E /* IMBTestAppDelegate.m in Sources */,
-				3010BE0516A843EC00798D2E /* IMBTestFaceBrowserCell.m in Sources */,
 				3010BE0616A843EC00798D2E /* IMBTestFacesBackgroundLayer.m in Sources */,
-				3010BE0716A843EC00798D2E /* IMBTestiPhotoEventBrowserCell.m in Sources */,
 				3010BE0816A843EC00798D2E /* IMBTestTextView.m in Sources */,
 				3010BE0A16A843EC00798D2E /* main.m in Sources */,
 			);

@@ -62,8 +62,6 @@
 #import <iMedia/IMBOutlineView.h>
 #import <iMedia/IMBTableView.h>
 #import <iMedia/NSImage+iMedia.h>
-#import "IMBTestiPhotoEventBrowserCell.h"
-#import "IMBTestFaceBrowserCell.h"
 #import "IMBTestFacesBackgroundLayer.h"
 #import "IMBAccessRightsController.h"
 #import "IMBTableViewAppearance.h"
@@ -540,21 +538,6 @@
 
 #pragma mark
 #pragma mark IMBObjectViewControllerDelegate
-
-
-- (Class) imageBrowserCellClassForController:(IMBObjectViewController*)inController
-{
-	if ([inController isKindOfClass:[IMBiPhotoEventObjectViewController class]])
-	{
-		return [IMBTestiPhotoEventBrowserCell class];
-	}
-	if ([inController isKindOfClass:[IMBFaceObjectViewController class]])
-	{
-		return [IMBTestFaceBrowserCell class];
-	}
-	return nil;
-}
-
 
 - (CALayer*) imageBrowserBackgroundLayerForController:(IMBObjectViewController*)inController
 {

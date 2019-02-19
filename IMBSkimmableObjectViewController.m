@@ -49,7 +49,6 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#import "IMBImageBrowserView.h"
 #import "IMBLibraryController.h"
 #import "IMBObjectArrayController.h"
 #import "IMBPanelController.h"

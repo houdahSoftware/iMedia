@@ -75,10 +75,8 @@
 #import "IMBOperationQueue.h"
 #import "IMBObjectThumbnailLoadOperation.h"
 #import "IMBButtonObject.h"
-#import "IMBImageBrowserView.h"
 #import "IMBComboTableView.h"
 #import "IMBComboTextCell.h"
-#import "IMBImageBrowserCell.h"
 #import "IMBObjectCollectionView.h"
 
 
