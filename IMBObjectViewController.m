@@ -2009,12 +2009,18 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 - (NSPasteboardItem *) pasteboardItemForDraggingObjectAtIndex:(NSInteger)inIndex
 {
-	NSPasteboardItem* pasteboardItem = [[NSPasteboardItem alloc] init];
+	NSPasteboardItem* pasteboardItem = nil;
 	NSArray* allObjects = [ibObjectArrayController arrangedObjects];
 	if (inIndex < [allObjects count])
 	{
 		IMBObject* object = [allObjects objectAtIndex:inIndex];
-		[pasteboardItem setDataProvider:object forTypes:[self draggingTypesForWritingToPasteboard]];
+
+		// We don't allow non-selectable objects to be dragged either
+		if ([object isSelectable])
+		{
+			pasteboardItem = [[NSPasteboardItem alloc] init];
+			[pasteboardItem setDataProvider:object forTypes:[self draggingTypesForWritingToPasteboard]];
+		}
 	}
 
 	return [pasteboardItem autorelease];
