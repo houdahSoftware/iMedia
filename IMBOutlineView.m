@@ -355,7 +355,12 @@
                 CGFloat appearanceAlpha = [appearanceTextColor alphaComponent];
                 draggingPromptColor = [appearanceTextColor colorWithAlphaComponent:appearanceAlpha * 0.6 * alpha];
             } else {
-                draggingPromptColor = [NSColor colorWithCalibratedWhite:0.66667 alpha:alpha];
+				CGFloat whiteValue = 0.66667;
+				if (@available(macOS 10.14, *)) {
+					BOOL isDarkMode = [[[NSAppearance currentAppearance] bestMatchFromAppearancesWithNames:@[NSAppearanceNameDarkAqua, NSAppearanceNameAqua]] isEqualToString:@"NSAppearanceNameDarkAqua"];
+					CGFloat whiteValue = isDarkMode ? 1.0 : 0.66667;
+				}
+				draggingPromptColor = [NSColor colorWithCalibratedWhite:whiteValue alpha:alpha];
             }
             [textCell setTextColor:draggingPromptColor];
 			
@@ -434,7 +439,7 @@ NSString* IMBIsDefaultAppearanceAttributeName = @"IMBIsDefaultAppearanceAttribut
     [shadow setShadowOffset:NSMakeSize(0.0, -1.0)];
     
     appearance.sectionHeaderTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                              [NSColor disabledControlTextColor], NSForegroundColorAttributeName,
+                                              [NSColor secondaryLabelColor], NSForegroundColorAttributeName,
                                               [NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]], NSFontAttributeName,
                                               shadow, NSShadowAttributeName,
                                               [NSNumber numberWithBool:YES], IMBIsDefaultAppearanceAttributeName,
