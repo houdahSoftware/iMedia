@@ -183,7 +183,7 @@
 // This method creates the immediate subnodes of the "Lightroom" root node. The two subnodes are "Folders"  
 // and "Collections"...
 
-- (void) populateSubnodesForRootNode:(IMBNode*)inRootNode error:(NSError**)outError
+- (BOOL) populateSubnodesForRootNode:(IMBNode*)inRootNode error:(NSError**)outError
 {
     if (! [self checkDatabaseVersion]) {
         if (outError != NULL) {
@@ -207,7 +207,7 @@
 
         //inRootNode.accessibility = kIMBResourceDoesNotExist;
         
-        return;
+        return NO;
     }
     
 	NSMutableArray* subnodes = [inRootNode mutableArrayForPopulatingSubnodes];
@@ -283,6 +283,8 @@
 	[objects addObject:collectionsObject];
 	
 	inRootNode.objects = objects;
+
+	return YES;
 }
 
 - (NSString*) pyramidPathForImage:(NSNumber*)idLocal

@@ -126,7 +126,8 @@ extern NSString* kIMBObjectPasteboardType;
 
 @property (assign) IMBResourceAccessibility accessibility;	// What access do we have to the object's resource?
 @property (retain) NSString* name;							// Display name for user interface
-@property (readonly) NSImage* icon;							// Small icon to be displayed in list view
+@property (readonly) NSImage* thumbnail;                    // .imageRepresentation in canonical NSImage format
+@property (readonly) NSImage* icon;                         // Small icon to be displayed in list view
 @property (retain) NSString* identifier;					// Unique identifier for this object
 @property (retain) NSString* persistentResourceIdentifier;  // Unique persistent resource identifier for this object
 

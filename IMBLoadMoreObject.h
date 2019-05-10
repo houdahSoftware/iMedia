@@ -70,6 +70,6 @@
 
 - (NSDictionary *)preliminaryMetadata;	// return empty
 
-@property (assign) NSString* nodeIdentifier;
+@property (strong) NSString* nodeIdentifier;
 
 @end
