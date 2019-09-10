@@ -435,19 +435,24 @@
 	
 	if ((error == nil) && (source != nil))
 	{
-		if (shouldScaleDown)
+		CGImageSourceStatus status = CGImageSourceGetStatus(source);
+
+		if ((status == kCGImageStatusComplete) && (CGImageSourceGetCount(source)))
 		{
-            NSDictionary* options = [NSDictionary dictionaryWithObjectsAndKeys:
-				(id)kCFBooleanTrue,kCGImageSourceCreateThumbnailFromImageIfAbsent,
-				(id)[NSNumber numberWithInteger:256],kCGImageSourceThumbnailMaxPixelSize,
-				(id)kCFBooleanTrue,kCGImageSourceCreateThumbnailWithTransform,
-				nil];
-            
-            thumbnail = CGImageSourceCreateThumbnailAtIndex(source,0,(CFDictionaryRef)options);
-		}
-		else
-		{
-            thumbnail = CGImageSourceCreateImageAtIndex(source,0,NULL);
+			if (shouldScaleDown)
+			{
+				NSDictionary* options = [NSDictionary dictionaryWithObjectsAndKeys:
+										 (id)kCFBooleanTrue,kCGImageSourceCreateThumbnailFromImageIfAbsent,
+										 (id)[NSNumber numberWithInteger:256],kCGImageSourceThumbnailMaxPixelSize,
+										 (id)kCFBooleanTrue,kCGImageSourceCreateThumbnailWithTransform,
+										 nil];
+
+				thumbnail = CGImageSourceCreateThumbnailAtIndex(source,0,(CFDictionaryRef)options);
+			}
+			else
+			{
+				thumbnail = CGImageSourceCreateImageAtIndex(source,0,NULL);
+			}
 		}
 		
 		if (thumbnail == nil)
