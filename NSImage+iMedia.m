@@ -197,13 +197,14 @@
 				NSNumber *depth = (NSNumber*) [props objectForKey:(NSString *)kCGImagePropertyDepth];
 				NSString *model = [props objectForKey:(NSString *)kCGImagePropertyColorModel];
 				NSString *filetype = [[url pathExtension] uppercaseString];
+				NSString *path = [url path];
 				if (width) [md setObject:width forKey:@"width"];
 				if (height) [md setObject:height forKey:@"height"];
 				if (depth) [md setObject:depth forKey:@"depth"];
 				if (model) [md setObject:model forKey:@"model"];
 				if (filetype) [md setObject:filetype forKey:@"filetype"];
-				[md setObject:[url path] forKey:@"path"];
-				
+				if (path) [md setObject:path forKey:@"path"];
+
 				NSDictionary *exif = [props objectForKey:(NSString *)kCGImagePropertyExifDictionary];
 				if ( nil != exif )
 				{
@@ -405,6 +406,13 @@
 
 - (NSImage *) imb_imageCroppedToRect:(NSRect)inCropRect
 {
+	NSSize size = [self size];
+
+	if (NSEqualSizes(size, NSZeroSize))
+	{
+		return nil;
+	}
+
     NSImage* croppedImage = nil;
     
     [self lockFocus];
