@@ -330,7 +330,9 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[self _stopObservingLibraryController];
-	
+
+	ibNodePopupButton = nil;
+
     IMBRelease(_libraryController);
     IMBRelease(_navigationController);
 	IMBRelease(_selectedNodeIdentifier);
