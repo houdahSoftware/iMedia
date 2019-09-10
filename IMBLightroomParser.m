@@ -1062,6 +1062,8 @@ static NSArray* sSupportedImageUTIs = nil;
 		
 		while ([results next]) {
 			NSString* filename = [results stringForColumn:@"idx_filename"];
+			NSString* baseName = [results stringForColumn:@"baseName"];
+			NSString* sidecarExtensionsString = [results stringForColumn:@"sidecarExtensions"];
 			NSNumber* idLocal = [NSNumber numberWithLong:[results longForColumn:@"id_local"]];
 			NSString* captureTime = [results stringForColumn:@"captureTime"];
 			NSNumber* fileHeight = [NSNumber numberWithDouble:[results doubleForColumn:@"fileHeight"]];
@@ -1085,7 +1087,34 @@ static NSArray* sSupportedImageUTIs = nil;
 				[metadata setValue:fileHeight forKey:@"height"];
 				[metadata setValue:fileWidth forKey:@"width"];
 				[metadata setValue:orientation forKey:@"orientation"];
-				
+
+				if (sidecarExtensionsString) {
+					NSArray* sidecarExtensions = [sidecarExtensionsString componentsSeparatedByString:@","];
+
+					if (!baseName) {
+						baseName = [filename stringByDeletingPathExtension];
+					}
+
+					for (NSString *sidecarExtension in sidecarExtensions) {
+						if ([sidecarExtension caseInsensitiveCompare:@"xmp"] == NSOrderedSame) {
+							continue;
+						}
+
+						NSString* alternateFilename = [baseName stringByAppendingPathExtension:sidecarExtension];
+						NSString* alternateMasterPath = [folderPath stringByAppendingPathComponent:alternateFilename];
+
+						if ([self canOpenFileAtPath:alternateMasterPath]) {
+							[metadata setValue:alternateMasterPath forKey:@"AlternateMasterPath"];
+
+							if (name) {
+								name = [name stringByAppendingFormat:@"+%@", sidecarExtension];
+							}
+
+							break;
+						}
+					}
+				}
+
 				if (name) {
 					[metadata setObject:name forKey:@"name"];
 				}
@@ -1148,14 +1177,17 @@ static NSArray* sSupportedImageUTIs = nil;
 		while ([results next]) {
 			NSString* absolutePath = [results stringForColumn:@"absolutePath"];
 			NSString* filename = [results stringForColumn:@"idx_filename"];
+			NSString* baseName = [results stringForColumn:@"baseName"];
+			NSString* sidecarExtensionsString = [results stringForColumn:@"sidecarExtensions"];
 			NSNumber* idLocal = [NSNumber numberWithLong:[results longForColumn:@"id_local"]];
+			NSString* captureTime = [results stringForColumn:@"captureTime"];
 			NSNumber* fileHeight = [NSNumber numberWithDouble:[results doubleForColumn:@"fileHeight"]];
 			NSNumber* fileWidth = [NSNumber numberWithDouble:[results doubleForColumn:@"fileWidth"]];
 			NSString* orientation = [results stringForColumn:@"orientation"];
 			NSString* caption = [results stringForColumn:@"caption"];
 			NSString* pyramidPath = ([results imb_hasColumnWithName:@"pyramidPath"] ? [results stringForColumn:@"pyramidPath"] : nil);
-			NSString* name = caption!= nil ? caption : filename;
-			NSString* path = [absolutePath stringByAppendingString:filename];
+			NSString* name = filename;
+			NSString* path = [absolutePath stringByAppendingPathComponent:filename];
 			
 			if (pyramidPath == nil) {
 				pyramidPath = [self pyramidPathForImage:idLocal];
@@ -1171,10 +1203,45 @@ static NSArray* sSupportedImageUTIs = nil;
 				[metadata setValue:fileWidth forKey:@"width"];
 				[metadata setValue:orientation forKey:@"orientation"];
 
+				if (sidecarExtensionsString) {
+					NSArray* sidecarExtensions = [sidecarExtensionsString componentsSeparatedByString:@","];
+
+					if (!baseName) {
+						baseName = [filename stringByDeletingPathExtension];
+					}
+
+					for (NSString *sidecarExtension in sidecarExtensions) {
+						if ([sidecarExtension caseInsensitiveCompare:@"xmp"] == NSOrderedSame) {
+							continue;
+						}
+
+						NSString* alternateFilename = [baseName stringByAppendingPathExtension:sidecarExtension];
+						NSString* alternateMasterPath = [absolutePath stringByAppendingPathComponent:alternateFilename];
+
+						if ([self canOpenFileAtPath:alternateMasterPath]) {
+							[metadata setValue:alternateMasterPath forKey:@"AlternateMasterPath"];
+
+							if (name) {
+								name = [name stringByAppendingFormat:@"+%@", sidecarExtension];
+							}
+
+							break;
+						}
+					}
+				}
+
 				if (name) {
 					[metadata setObject:name forKey:@"name"];
 				}
 				
+				if (captureTime) {
+					[metadata setObject:captureTime forKey:@"dateTime"];
+				}
+
+				if (caption) {
+					[metadata setObject:caption forKey:@"comment"];
+				}
+
 				IMBObject* object = [self objectWithPath:path
 												 idLocal:idLocal
 													name:name

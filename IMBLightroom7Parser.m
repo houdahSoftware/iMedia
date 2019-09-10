@@ -151,132 +151,140 @@
 		inNode.displayedObjectCount = 0;
 	}
 
-	FMDatabase	*database				= self.database;
-
-	if (database == nil) {
-		return;
-	}
-
-	NSNumber	*collectionId			= [self idLocalFromAttributes:inNode.attributes];
-
-	NSString	*rulesQuery				= [self smartCollectionRulesQuery];
-	FMResultSet *rulesResults			= [database executeQuery:rulesQuery, collectionId];
-	NSString	*rulesString			= nil;
-
-	if ([rulesResults next]) {
-		rulesString = [rulesResults stringForColumn:@"content"];
-	}
-
-	[rulesResults close];
-
-	if (rulesString == nil) {
-		return;
-	}
-
-	NSScanner	*ruleScanner			= [NSScanner lightroomRulesScannerWithString:rulesString];
-	id			rules					= nil;
-
-	if (! [ruleScanner scanLightroomRules:&rules]) {
-		return;
-	}
-
-	if (! [rules isKindOfClass:[NSDictionary class]]) {
-		return;
-	}
-
-	NSArray		*s						= [rules objectForKey:@"s"];
-
-	if (! [s isKindOfClass:[NSArray class]]) {
-		return;
-	}
-
-	NSArray		*objectMatchArguments	= nil;
-	NSString	*objectMatchClause		= [self smartCollectionObjectMatchClause:s arguments:&objectMatchArguments];
-
-	if (objectMatchClause == nil) {
-		return;
-	}
-
-	if (objectMatchArguments == nil) {
-		objectMatchArguments = [NSArray array];
-	}
-
-	NSString	*sortTypeQuery			= [self smartCollectionSortTypeQuery];
-	FMResultSet *sortTypeResults		= [database executeQuery:sortTypeQuery, collectionId];
-	NSString	*sortTypeString			= nil;
-
-	if ([sortTypeResults next]) {
-		sortTypeString = [sortTypeResults stringForColumn:@"content"];
-	}
-
-	[sortTypeResults close];
-
-
-	NSString	*sortDirectionQuery		= [self smartCollectionSortDirectionQuery];
-	FMResultSet *sortDirectionResults	= [database executeQuery:sortDirectionQuery, collectionId];
-	NSString	*sortDirectionString	= nil;
-
-	if ([sortDirectionResults next]) {
-		sortDirectionString = [sortDirectionResults stringForColumn:@"content"];
-	}
-
-	[sortDirectionResults close];
-
-
-	NSString	*objectQuery			= [self smartCollectionObjectsQuery:objectMatchClause
-												 sortTypeString:sortTypeString
-											sortDirectionString:sortDirectionString];
-
-	if (objectQuery == nil) {
-		return;
-	}
-
-	FMResultSet *results				= [database executeQuery:objectQuery withArgumentsInArray:objectMatchArguments];
-
-	NSUInteger	index					= 0;
-
-	while ([results next]) {
-		NSString	*absolutePath	= [results stringForColumn:@"absolutePath"];
-		NSString	*filename		= [results stringForColumn:@"idx_filename"];
-		NSNumber	*idLocal		= [NSNumber numberWithLong:[results longForColumn:@"id_local"]];
-		NSNumber	*fileHeight		= [NSNumber numberWithDouble:[results doubleForColumn:@"fileHeight"]];
-		NSNumber	*fileWidth		= [NSNumber numberWithDouble:[results doubleForColumn:@"fileWidth"]];
-		NSString	*orientation	= [results stringForColumn:@"orientation"];
-		NSString	*caption		= [results stringForColumn:@"caption"];
-		NSString	*pyramidPath	= ([results imb_hasColumnWithName:@"pyramidPath"] ? [results stringForColumn:@"pyramidPath"] : nil);
-		NSString	*name			= caption != nil ? caption : filename;
-		NSString	*path			= [absolutePath stringByAppendingString:filename];
-
-		if (pyramidPath == nil) {
-			pyramidPath = [self pyramidPathForImage:idLocal];
+	[self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
+		if (libraryDatabase == nil) {
+			return;
 		}
 
-		if ([self canOpenFileAtPath:path]) {
-			NSMutableDictionary *metadata	= [NSMutableDictionary dictionary];
+		NSNumber	*collectionId			= [self idLocalFromAttributes:inNode.attributes];
 
-			[metadata setValue:path forKey:@"MasterPath"];
-			[metadata setValue:idLocal forKey:@"idLocal"];
-			[metadata setValue:path forKey:@"path"];
-			[metadata setValue:fileHeight forKey:@"height"];
-			[metadata setValue:fileWidth forKey:@"width"];
-			[metadata setValue:orientation forKey:@"orientation"];
+		NSString	*rulesQuery				= [self smartCollectionRulesQuery];
+		FMResultSet *rulesResults			= [libraryDatabase executeQuery:rulesQuery, collectionId];
+		NSString	*rulesString			= nil;
 
-			if (name) {
-				[metadata setObject:name forKey:@"name"];
+		if ([rulesResults next]) {
+			rulesString = [rulesResults stringForColumn:@"content"];
+		}
+
+		[rulesResults close];
+
+		if (rulesString == nil) {
+			return;
+		}
+
+		NSScanner	*ruleScanner			= [NSScanner lightroomRulesScannerWithString:rulesString];
+		id			rules					= nil;
+
+		if (! [ruleScanner scanLightroomRules:&rules]) {
+			return;
+		}
+
+		if (! [rules isKindOfClass:[NSDictionary class]]) {
+			return;
+		}
+
+		NSArray		*s						= [rules objectForKey:@"s"];
+
+		if (! [s isKindOfClass:[NSArray class]]) {
+			return;
+		}
+
+		NSArray		*objectMatchArguments	= nil;
+		NSString	*objectMatchClause		= [self smartCollectionObjectMatchClause:s arguments:&objectMatchArguments];
+
+		if (objectMatchClause == nil) {
+			return;
+		}
+
+		if (objectMatchArguments == nil) {
+			objectMatchArguments = [NSArray array];
+		}
+
+		NSString	*sortTypeQuery			= [self smartCollectionSortTypeQuery];
+		FMResultSet *sortTypeResults		= [libraryDatabase executeQuery:sortTypeQuery, collectionId];
+		NSString	*sortTypeString			= nil;
+
+		if ([sortTypeResults next]) {
+			sortTypeString = [sortTypeResults stringForColumn:@"content"];
+		}
+
+		[sortTypeResults close];
+
+
+		NSString	*sortDirectionQuery		= [self smartCollectionSortDirectionQuery];
+		FMResultSet *sortDirectionResults	= [libraryDatabase executeQuery:sortDirectionQuery, collectionId];
+		NSString	*sortDirectionString	= nil;
+
+		if ([sortDirectionResults next]) {
+			sortDirectionString = [sortDirectionResults stringForColumn:@"content"];
+		}
+
+		[sortDirectionResults close];
+
+
+		NSString	*objectQuery			= [self smartCollectionObjectsQuery:objectMatchClause
+													 sortTypeString:sortTypeString
+												sortDirectionString:sortDirectionString];
+
+		if (objectQuery == nil) {
+			return;
+		}
+
+		FMResultSet *results				= [libraryDatabase executeQuery:objectQuery withArgumentsInArray:objectMatchArguments];
+
+//		if (results == nil) {
+//			NSLog(@"QUERY: %@", objectQuery);
+//			NSLog(@"ARGUMENTS: %@", objectMatchArguments);
+//			NSLog(@"ERROR: %@", [libraryDatabase lastError]);
+//		}
+
+		NSUInteger	index					= 0;
+
+		while ([results next]) {
+			NSString	*absolutePath				= [results stringForColumn:@"absolutePath"];
+			NSString	*baseName 					= [results stringForColumn:@"baseName"];
+			NSString	*sidecarExtensionsString 	= [results stringForColumn:@"sidecarExtensions"];
+			NSString	*filename					= [results stringForColumn:@"idx_filename"];
+			NSNumber	*idLocal					= [NSNumber numberWithLong:[results longForColumn:@"id_local"]];
+			NSNumber	*fileHeight					= [NSNumber numberWithDouble:[results doubleForColumn:@"fileHeight"]];
+			NSNumber	*fileWidth					= [NSNumber numberWithDouble:[results doubleForColumn:@"fileWidth"]];
+			NSString	*orientation				= [results stringForColumn:@"orientation"];
+			NSString	*caption					= [results stringForColumn:@"caption"];
+			NSString	*pyramidPath				= ([results imb_hasColumnWithName:@"pyramidPath"] ? [results stringForColumn:@"pyramidPath"] : nil);
+			NSString	*name						= caption != nil ? caption : filename;
+			NSString	*path						= [absolutePath stringByAppendingPathComponent:filename];
+
+			if (pyramidPath == nil) {
+				pyramidPath = [self pyramidPathForImage:idLocal];
 			}
 
-			IMBObject			*object		= [self objectWithPath:path
-												idLocal:idLocal
-												   name:name
-											pyramidPath:pyramidPath
-											   metadata:metadata
-												  index:index++];
-			[(NSMutableArray *)inNode.objects addObject : object];
-			inNode.displayedObjectCount++;
-		}
-	}
+			if ([self canOpenFileAtPath:path]) {
+				NSMutableDictionary *metadata	= [NSMutableDictionary dictionary];
 
-	[results close];
+				[metadata setValue:path forKey:@"MasterPath"];
+				[metadata setValue:idLocal forKey:@"idLocal"];
+				[metadata setValue:path forKey:@"path"];
+				[metadata setValue:fileHeight forKey:@"height"];
+				[metadata setValue:fileWidth forKey:@"width"];
+				[metadata setValue:orientation forKey:@"orientation"];
+
+				if (name) {
+					[metadata setObject:name forKey:@"name"];
+				}
+
+				IMBObject			*object		= [self objectWithPath:path
+													idLocal:idLocal
+													   name:name
+												pyramidPath:pyramidPath
+												   metadata:metadata
+													  index:index++];
+				[(NSMutableArray *)inNode.objects addObject : object];
+				inNode.displayedObjectCount++;
+			}
+		}
+
+		[results close];
+	}];
 }
 
 // TODO: Not yet used
@@ -290,7 +298,7 @@
 	@"	INNER JOIN Adobe_images ai ON alf.id_local = ai.rootFile"
 	@"	INNER JOIN AgLibraryCollectionImage alci ON alci.image = ai.id_local"
 	@"	INNER JOIN AgLibraryCollectionCoverImage alcci ON alcci.collectionImage = alci.id_local"
-	@"	WHERE alcci.collection = ?;"
+	@"	WHERE alcci.collection = ?";
 
 	return query;
 }
@@ -366,9 +374,10 @@
 				// are empty == empty
 				// aren't empty == notEmpty
 			}
-			else if ([criteria isEqualToString:@"rating"]) {
-				// in range
-				// value 2
+			else if ([criteria isEqualToString:@"rating"] && (value2 != nil) ) {
+				NSString *clause = [NSString stringWithFormat:@"( rating BETWEEN %@ AND %@", value, value2];
+
+				[clauses addObject:clause];
 			}
 			else if ([criteria isEqualToString:@"pick"]) {
 			}
@@ -439,8 +448,7 @@
 			else if ([criteria isEqualToString:@"all"]) {
 				// any searchable text
 			}
-
-			if ([criteria isEqualToString:@"empty"]) {
+			else if ([criteria isEqualToString:@"empty"]) {
 				NSString *clause = [NSString stringWithFormat:@"( %@ IS NULL OR %@ == '' )", criteria, criteria];
 
 				[clauses addObject:clause];
@@ -486,7 +494,7 @@
 		if ([combine isEqualToString:@"union"]) {
 			return [clauses componentsJoinedByString:@" OR "];
 		}
-		else if ([combine isEqualToString:@"interset"]) {
+		else if ([combine isEqualToString:@"intersect"]) {
 			return [clauses componentsJoinedByString:@" AND "];
 		}
 		else if ([combine isEqualToString:@"exclude"]) {
@@ -525,7 +533,7 @@
 	{
 		queryFormat	=
 		@" SELECT arf.absolutePath || '/' || alf.pathFromRoot absolutePath,"
-		@"        aif.idx_filename, ai.id_local, ai.captureTime, ai.fileHeight, ai.fileWidth, ai.orientation, "
+		@"        aif.idx_filename, aif.baseName, aif.sidecarExtensions, ai.id_local, ai.captureTime, ai.fileHeight, ai.fileWidth, ai.orientation, "
 		@"        iptc.caption"
 		@" FROM Adobe_images ai"
 		@" LEFT JOIN AgLibraryFile aif ON aif.id_local = ai.rootFile"

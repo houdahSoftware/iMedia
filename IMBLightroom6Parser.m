@@ -245,7 +245,7 @@
 		NSString	*caption		= [results stringForColumn:@"caption"];
 		NSString	*pyramidPath	= ([results imb_hasColumnWithName:@"pyramidPath"] ? [results stringForColumn:@"pyramidPath"] : nil);
 		NSString	*name			= caption != nil ? caption : filename;
-		NSString	*path			= [absolutePath stringByAppendingString:filename];
+		NSString	*path			= [absolutePath stringByAppendingPathComponent:filename];
 
 		if (pyramidPath == nil) {
 			pyramidPath = [self pyramidPathForImage:idLocal];
@@ -525,7 +525,7 @@
 	{
 		queryFormat	=
 		@" SELECT arf.absolutePath || '/' || alf.pathFromRoot absolutePath,"
-		@"        aif.idx_filename, ai.id_local, ai.captureTime, ai.fileHeight, ai.fileWidth, ai.orientation, "
+		@"        aif.idx_filename, aif.baseName, aif.sidecarExtensions, ai.id_local, ai.captureTime, ai.fileHeight, ai.fileWidth, ai.orientation, "
 		@"        iptc.caption"
 		@" FROM Adobe_images ai"
 		@" LEFT JOIN AgLibraryFile aif ON aif.id_local = ai.rootFile"
