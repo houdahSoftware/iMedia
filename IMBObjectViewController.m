@@ -1403,7 +1403,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
         NSPasteboardItem* item = [[NSPasteboardItem alloc] init];
         [item setDataProvider:object forTypes:types];
         
-        return item;
+        return [item autorelease];
     }
     
     return nil;
@@ -2083,7 +2083,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
                     NSDraggingImageComponent *imageComponent = [[NSDraggingImageComponent alloc] initWithKey:NSDraggingImageComponentIconKey];
                     imageComponent.contents = thumbnail;
                     imageComponent.frame = CGRectMake(0,0,draggingFrame.size.width, draggingFrame.size.height);
-                    return @[imageComponent];
+                    return @[ [imageComponent autorelease]];
                 };
             }
             [draggingItems addObject:draggingItem];
