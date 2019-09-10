@@ -2756,7 +2756,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 1020;
 				TargetAttributes = {
 					307F9690183D090D004F87E0 = {
 						DevelopmentTeam = DKGQD8H8ZY;
@@ -3553,6 +3553,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				SYMROOT = "";
 			};
@@ -3567,6 +3568,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				SYMROOT = "";
