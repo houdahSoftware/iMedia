@@ -86,8 +86,13 @@
 			CGImageSourceCreateWithData((CFDataRef)imageData,  NULL);
 			if (imageSource)
 			{
-				imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
-				imageRef = (CGImageRef) [NSMakeCollectable(imageRef) autorelease];
+				CGImageSourceStatus status = CGImageSourceGetStatus(imageSource);
+
+				if ((status == kCGImageStatusComplete) && (CGImageSourceGetCount(imageSource)))
+				{
+					imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
+					imageRef = (CGImageRef) [NSMakeCollectable(imageRef) autorelease];
+				}
 
 				CFRelease(imageSource);
 			}
