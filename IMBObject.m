@@ -403,12 +403,12 @@ NSString* kIMBObjectPasteboardType = @"com.karelia.imedia.IMBObject";
     
     if ([self.imageRepresentationType isEqualToString:IKImageBrowserCGImageRepresentationType])
     {
-        return [[NSImage alloc] initWithCGImage:(CGImageRef) self.imageRepresentation size:CGSizeZero];
+        return [[[NSImage alloc] initWithCGImage:(CGImageRef) self.imageRepresentation size:CGSizeZero] autorelease];
     }
     
     if ([self.imageRepresentationType isEqualToString:IKImageBrowserNSDataRepresentationType])
     {
-        return [[NSImage alloc] initWithData:(NSData *) self.imageRepresentation];
+        return [[[NSImage alloc] initWithData:(NSData *) self.imageRepresentation] autorelease];
     }
     
     return self.icon;
