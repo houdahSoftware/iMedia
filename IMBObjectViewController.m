@@ -1385,7 +1385,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
         NSPasteboardItem* item = [[NSPasteboardItem alloc] init];
         [item setDataProvider:object forTypes:[self draggingTypesForWritingToPasteboard]];
         
-        return item;
+        return [item autorelease];
     }
     
     return nil;

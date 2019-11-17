@@ -130,9 +130,23 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
 		if ([MLMediaSourcePhotosIdentifier isEqualToString:[self.configuration mediaSourceIdentifier]] && IMBRunningOnMojaveOrNewer()) {
 			BOOL photosLibraryExists = NO;
 
-			CFDataRef systemLibraryURLBookmark = SBPreferencesCopyAppValue((CFStringRef)@"IPXDefaultLibraryURLBookmark",
-																		   (CFStringRef)@"com.apple.Photos");
+			CFDataRef systemLibraryURLBookmark = NULL;
+			CFDictionaryRef wellKnownLibraryPathCache = SBPreferencesCopyAppValue((CFStringRef)@"WellKnownLibraryPathCache",
+																				 (CFStringRef)@"com.apple.photolibraryd");
 
+			if (wellKnownLibraryPathCache != NULL) {
+				CFDictionaryRef cache = CFDictionaryGetValue(wellKnownLibraryPathCache, CFSTR("cache"));
+
+				if (cache != NULL) {
+					systemLibraryURLBookmark = CFDictionaryGetValue(cache, CFSTR("kRDLibraryKey_Canonical"));
+				}
+
+				if (systemLibraryURLBookmark != NULL) {
+					CFRetain(systemLibraryURLBookmark);
+				}
+
+				CFRelease(wellKnownLibraryPathCache);
+			}
 
 			if (systemLibraryURLBookmark != NULL) {
 				if (CFDataGetTypeID() == CFGetTypeID(systemLibraryURLBookmark)) {
@@ -144,7 +158,10 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
 																				   &resolveError);
 
 					if (systemLibraryURL != NULL) {
-						if ([[NSFileManager defaultManager] fileExistsAtPath:[(__bridge NSURL *) systemLibraryURL path]]) {
+						NSFileManager *fileManager = [NSFileManager defaultManager];
+						NSString *systemLibraryPath = [(__bridge NSURL *) systemLibraryURL path];
+
+						if ([fileManager fileExistsAtPath:systemLibraryPath]) {
 							photosLibraryExists = YES;
 						}
 
@@ -153,7 +170,7 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
 					else {
 						NSString *resolveErrorString = (NSString*)CFBridgingRelease(CFErrorCopyDescription(resolveError));
 
-						NSLog(@"Could not decode IPXDefaultLibraryURLBookmark value in com.apple.Photos. Error: %@", resolveErrorString);
+						NSLog(@"Could not decode kRDLibraryKey_Canonical value in com.apple.photolibraryd. Error: %@", resolveErrorString);
 					}
 				}
 
@@ -171,7 +188,7 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
     IMBNode *node = [[IMBNode alloc] initWithParser:self topLevel:YES];
     node.name = [self libraryName];
     node.groupType = kIMBGroupTypeLibrary;
-    node.icon = [[NSWorkspace imb_threadSafeWorkspace] iconForFile:[self appPath]];
+    node.icon = [[NSWorkspace imb_threadSafeWorkspace] iconForFile:[self iconPath]];
     node.isIncludedInPopup = YES;
     node.isLeafNode = NO;
     node.mediaSource = self.mediaSource;
@@ -452,7 +469,7 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
     }
     if (icon == nil) {
         icon = [IMBAppleMediaLibraryPropertySynchronizer iconImageForMediaGroup:mediaGroup];
-
+        
 		// Hack: Photos group icons often fail to load on High Sierra
 		if ((icon == nil) && [MLMediaSourcePhotosIdentifier isEqualToString:[self.configuration mediaSourceIdentifier]]) {
 			NSString *typeIdentifier = mediaGroup.typeIdentifier;
@@ -460,19 +477,41 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
 			static const IMBIconTypeMappingEntry kIconTypeMappingEntries[] =
 			{
 				// Icon Type,								Application Icon Name,		Fallback Icon Name, 	Alternate Icon Name, 	Alternate Bundle Path
-				{@"com.apple.Photos.Album",					@"SidebarAlbum",			nil,					nil,					nil},
-				{@"com.apple.Photos.AlbumsGroup",			@"SidebarAlbum",			nil,					nil,					nil},
-				{@"com.apple.Photos.AllCollectionsGroup",	@"SidebarAlbum",			nil,					nil,					nil},
-				{@"com.apple.Photos.AllMomentsGroup",		@"SidebarAlbum",			nil,					nil,					nil},
-				{@"com.apple.Photos.AllYearsGroup",			@"SidebarAlbum",			nil,					nil,					nil},
-				{@"com.apple.Photos.CollectionGroup",		@"SidebarAlbum",			nil,					nil,					nil},
-				{@"com.apple.Photos.FrontCameraGroup",		@"SidebarSelfies",			nil,					nil,					nil},
-				{@"com.apple.Photos.MomentGroup",			@"SidebarAlbum",			nil,					nil,					nil},
-				{@"com.apple.Photos.MyPhotoStream",			@"SidebariCloud",			nil,					nil,					nil},
-				{@"com.apple.Photos.PlacesAlbum",			@"SidebarAlbum",			nil,					nil,					nil},
-				{@"com.apple.Photos.ScreenshotGroup",		@"SidebarScreenshots",		nil,					nil,					nil},
-				{@"com.apple.Photos.SharedGroup",			@"SidebariCloud",			nil,					nil,					nil},
-				{@"com.apple.Photos.YearGroup",				@"SidebarAlbum",			nil,					nil,					nil},
+				{@"com.apple.Photos.Album",							@"SidebarAlbum",			nil,					nil,					nil},
+				{@"com.apple.Photos.AlbumsGroup",					@"SidebarOverview",			nil,					nil,					nil},
+				{@"com.apple.Photos.AllCollectionsGroup",			@"SidebarOverview",			nil,					nil,					nil},
+				{@"com.apple.Photos.AllMomentsGroup",				@"SidebarOverview",			nil,					nil,					nil},
+				{@"com.apple.Photos.AllPhotosAlbum",				@"SidebarOverview",         nil,                    nil,                    nil},
+				{@"com.apple.Photos.AllYearsGroup",         		@"SidebarOverview",         nil,                    nil,                    nil},
+                {@"com.apple.Photos.AnimatedGroup",         		@"SidebarGIF",              nil,                    nil,                    nil},
+                {@"com.apple.Photos.BurstGroup",            		@"SidebarBursts",           nil,                    nil,                    nil},
+				{@"com.apple.Photos.CollectionGroup",				@"SidebarOverview",			nil,					nil,					nil},
+                {@"com.apple.Photos.DepthEffectGroup",      		@"SidecarDepth",            nil,                    nil,                    nil},
+				{@"com.apple.Photos.FacesAlbum",        			@"SidebarFaces",    	    nil,                    nil,                    nil},
+				{@"com.apple.Photos.FavoritesGroup",        		@"SidecarFavorites",        nil,                    nil,                    nil},
+                {@"com.apple.Photos.Folder",                		@"SidebarGenericFolder",    nil,                    nil,                    nil},
+                {@"com.apple.Photos.FrontCameraGroup",      		@"SidebarSelfies",          nil,                    nil,                    nil},
+				{@"com.apple.Photos.LastImportGroup",				@"SidebarLastImport",       nil,                    nil,                    nil},
+                {@"com.apple.Photos.LivePhotosGroup",       		@"SidebarLivePhotos",       nil,                    nil,                    nil},
+                {@"com.apple.Photos.LongExposureGroup",     		@"SidebarLivePhotos",       nil,                    nil,                    nil},
+                {@"com.apple.Photos.MomentGroup",           		@"SidebarMemories",         nil,                    nil,                    nil},
+				{@"com.apple.Photos.MyPhotoStream",					@"SidebariCloud",			nil,					nil,					nil},
+				{@"com.apple.Photos.PanoramasGroup",				@"SidebarPanoramas",        nil,					nil,					nil},
+				{@"com.apple.Photos.PlacesAlbum",					@"SidebarPlaces",			nil,					nil,					nil},
+				{@"com.apple.Photos.PlacesCityAlbum",				@"SidebarPlaces",			nil,					nil,					nil},
+				{@"com.apple.Photos.PlacesCountryAlbum",			@"SidebarPlaces",			nil,					nil,					nil},
+				{@"com.apple.Photos.PlacesPointOfInterestAlbum",	@"SidebarPlaces",			nil,					nil,					nil},
+				{@"com.apple.Photos.PlacesProvinceAlbum",			@"SidebarPlaces",			nil,					nil,					nil},
+				{@"com.apple.Photos.PublishedAlbum",				@"SidebarAlbum",			nil,					nil,					nil},
+				{@"com.apple.Photos.RootGroup",						@"SidebarOverview",			nil,					nil,					nil},
+				{@"com.apple.Photos.ScreenshotGroup",				@"SidebarScreenshots",		nil,					nil,					nil},
+				{@"com.apple.Photos.SharedGroup",					@"SidebarOverview",			nil,					nil,					nil},
+				{@"com.apple.Photos.SharedPhotoStream",				@"SidebariCloud",			nil,					nil,					nil},
+				{@"com.apple.Photos.SloMoGroup",					@"SidebarSloMo",			nil,					nil,					nil},
+                {@"com.apple.Photos.SmartAlbum",					@"SidebarSmartAlbum",       nil,                    nil,                    nil},
+				{@"com.apple.Photos.TimelapseGroup",				@"SidebarTimelapse",		nil,					nil,					nil},
+				{@"com.apple.Photos.VideosGroup",					@"SidebarVideos",			nil,					nil,					nil},
+				{@"com.apple.Photos.YearGroup",						@"SidebarOverview",			nil,					nil,					nil},
 
 			};
 
@@ -722,6 +761,20 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
 - (NSString *) appPath
 {
     return [[NSWorkspace imb_threadSafeWorkspace] absolutePathForAppBundleWithIdentifier:[self.configuration sourceAppBundleIdentifier]];
+}
+
+- (NSString *) iconPath
+{
+	NSString* identifier = [self.configuration sourceAppBundleIdentifier];
+	
+	// PB 14.10.2019: This is just a quick hack to get the correct icon for the Music library when running on Catalina.
+	// Didn't have the time for proper refactoring of this code.
+	if (NSAppKitVersionNumber > 1671.5 && [identifier isEqualToString:@"com.apple.iTunes"])
+    {
+		identifier = @"com.apple.Music";
+    }
+
+    return [[NSWorkspace imb_threadSafeWorkspace] absolutePathForAppBundleWithIdentifier:identifier];
 }
 
 /**

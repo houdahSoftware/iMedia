@@ -20,5 +20,7 @@
 	<string>IMBTestApp</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>In order to create or open a project with your photos the application requires access.</string>
 </dict>
 </plist>
