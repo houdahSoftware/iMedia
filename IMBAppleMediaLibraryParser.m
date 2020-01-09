@@ -188,7 +188,7 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
     IMBNode *node = [[IMBNode alloc] initWithParser:self topLevel:YES];
     node.name = [self libraryName];
     node.groupType = kIMBGroupTypeLibrary;
-    node.icon = [[NSWorkspace imb_threadSafeWorkspace] iconForFile:[self appPath]];
+    node.icon = [[NSWorkspace imb_threadSafeWorkspace] iconForFile:[self iconPath]];
     node.isIncludedInPopup = YES;
     node.isLeafNode = NO;
     node.mediaSource = self.mediaSource;
@@ -761,6 +761,20 @@ NSString *kIMBMLMediaGroupTypeFacesFolder = @"FacesFolder";
 - (NSString *) appPath
 {
     return [[NSWorkspace imb_threadSafeWorkspace] absolutePathForAppBundleWithIdentifier:[self.configuration sourceAppBundleIdentifier]];
+}
+
+- (NSString *) iconPath
+{
+	NSString* identifier = [self.configuration sourceAppBundleIdentifier];
+	
+	// PB 14.10.2019: This is just a quick hack to get the correct icon for the Music library when running on Catalina.
+	// Didn't have the time for proper refactoring of this code.
+	if (NSAppKitVersionNumber > 1671.5 && [identifier isEqualToString:@"com.apple.iTunes"])
+    {
+		identifier = @"com.apple.Music";
+    }
+
+    return [[NSWorkspace imb_threadSafeWorkspace] absolutePathForAppBundleWithIdentifier:identifier];
 }
 
 /**

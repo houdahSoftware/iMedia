@@ -58,8 +58,6 @@
 - (NSString *)imb_pathResolved:(NSString *)path;
 
 - (NSString*)imb_uniqueTemporaryFile:(NSString*)name;
-- (NSString*)imb_uniqueTemporaryFile:(NSString*)name withinDirectory:(NSString*)directoryPath;
-- (NSString*)imb_uniqueTemporaryPathWithinDirectory:(NSString*)directoryPath;
 
 - (NSString*)imb_sharedTemporaryFolder:(NSString*)dirName;
 
