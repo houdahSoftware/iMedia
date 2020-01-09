@@ -340,6 +340,10 @@ NSString* kIMBObjectPasteboardType = @"com.karelia.imedia.IMBObject";
 	return _location;
 }
 
+-(void)setAccessibility:(IMBResourceAccessibility)accessibility
+{
+	_accessibility = accessibility;
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -710,10 +714,10 @@ NSString* kIMBObjectPasteboardType = @"com.karelia.imedia.IMBObject";
 					self.error = inError;
 				}
 				else {
+					self.accessibility = inPopulatedObject.accessibility;
 					self.error = inPopulatedObject.error;
 				}
-				
-                self.accessibility = inPopulatedObject.accessibility;
+
                 self.imageRepresentationType = inPopulatedObject.imageRepresentationType;
                 [self storeReceivedImageRepresentation:inPopulatedObject.atomic_imageRepresentation];
                 if (self.metadata == nil) self.metadata = inPopulatedObject.metadata;
