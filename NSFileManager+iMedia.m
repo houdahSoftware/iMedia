@@ -145,48 +145,11 @@
 
 - (NSString*)imb_uniqueTemporaryFile:(NSString*)name
 {
-	NSString *processName = [[NSProcessInfo processInfo] processName];
-	NSString *directoryName = [NSString stringWithFormat:@"%@_iMediaTemporary", processName];
-	NSString *directoryPath = [NSTemporaryDirectory() stringByAppendingPathComponent:directoryName];
-	
-	[self createDirectoryAtPath:directoryPath withIntermediateDirectories:YES attributes:nil error:NULL];
-	
-    return [self imb_uniqueTemporaryFile:name withinDirectory:directoryPath];
-}
-
-- (NSString*)imb_uniqueTemporaryFile:(NSString*)name withinDirectory:(NSString*)directoryPath
-{
-	NSString *temporaryPath = [self imb_uniqueTemporaryPathWithinDirectory:directoryPath];
-	
-	if ([name length] > 0) {
-		[self createDirectoryAtPath:temporaryPath withIntermediateDirectories:YES attributes:nil error:NULL];
-		
-		return [temporaryPath stringByAppendingPathComponent:name];
-	}
-	
-	return temporaryPath;
-}
-
-// Creates a new, unique path (for a directory or a file), so don't use this if you want to match up
-// with an existing downloaded file!
-
-- (NSString*)imb_uniqueTemporaryPathWithinDirectory:(NSString*)directoryPath
-{
-	NSString *tempFileTemplate = [directoryPath stringByAppendingPathComponent:@"XXXXXXXXXXXX"];
-	const char *tempFileTemplateCString = [tempFileTemplate fileSystemRepresentation];
-	NSString* tempFilePath = nil;
-
-	NSInteger tempPathBufferLength = strlen(tempFileTemplateCString) + 1;
-	NSMutableData *tempPathBuffer = [NSMutableData dataWithBytes:tempFileTemplateCString length:tempPathBufferLength];
-
-	int tempFileDescriptor = mkstemp(tempPathBuffer.mutableBytes);
-	if (tempFileDescriptor != -1)
-	{
-		tempFilePath = [NSString stringWithUTF8String:tempPathBuffer.bytes];
-		close(tempFileDescriptor);
-	}
-
-	return tempFilePath;
+	NSString* tmpPath = NSTemporaryDirectory();
+	NSURL* tmpURL = [NSURL fileURLWithPath:tmpPath];
+	NSURL* tmpFolderURL = [NSFileVersion temporaryDirectoryURLForNewVersionOfItemAtURL:tmpURL];
+	NSURL* tmpFileURL = [tmpFolderURL URLByAppendingPathComponent:name];
+	return [tmpFileURL path];
 }
 
 

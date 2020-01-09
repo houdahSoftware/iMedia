@@ -614,7 +614,9 @@ static NSArray* sSupportedImageUTIs = nil;
 		BOOL success = NO;
 		
 		if ((orientation == nil) || [orientation isEqual:@"AB"]) {
-			success = [jpegData writeToFile:jpegPath atomically:YES];
+			NSError* error = nil;
+			[[NSFileManager defaultManager] removeItemAtPath:jpegPath error:&error];
+			success = [jpegData writeToURL:jpegURL options:NSDataWritingAtomic error:&error];
 		}
 		else {
 			CGImageSourceRef jpegSource = CGImageSourceCreateWithData((CFDataRef)jpegData, NULL);
