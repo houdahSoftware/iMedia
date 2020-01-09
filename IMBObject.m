@@ -340,10 +340,6 @@ NSString* kIMBObjectPasteboardType = @"com.karelia.imedia.IMBObject";
 	return _location;
 }
 
--(void)setAccessibility:(IMBResourceAccessibility)accessibility
-{
-	_accessibility = accessibility;
-}
 
 //----------------------------------------------------------------------------------------------------------------------
 
