@@ -81,7 +81,7 @@ static NSColor* sTextColor;
 	[transformer release];
 	[pool drain];
 	
-	[self setTextColor:[NSColor blackColor]];
+	[self setTextColor:[NSColor controlTextColor]];
 }
 
 
