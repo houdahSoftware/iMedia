@@ -57,8 +57,6 @@
 - (BOOL)imb_createDirectoryPath:(NSString *)path attributes:(NSDictionary *)attributes;
 
 - (NSString*)imb_uniqueTemporaryFile:(NSString*)name;
-- (NSString*)imb_uniqueTemporaryFile:(NSString*)name withinDirectory:(NSString*)directoryPath;
-- (NSString*)imb_uniqueTemporaryPathWithinDirectory:(NSString*)directoryPath;
 
 - (NSString*)imb_sharedTemporaryFolder:(NSString*)dirName;
 
