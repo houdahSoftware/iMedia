@@ -283,18 +283,7 @@
 	static NSImage* folderIcon = nil;
 	
 	if (folderIcon == nil) {
-		NSString* pathToOtherApp = [[self class] lightroomPath];
-		NSString* pathToModule = [pathToOtherApp stringByAppendingPathComponent:@"Contents/Frameworks/Library.lrmodule"];
-		NSString* pathToResources = [pathToModule stringByAppendingPathComponent:@"Contents/Resources"];
-		NSString* pathToIcon = [pathToResources stringByAppendingPathComponent:@"icon_folder.png"];
-		NSImage* image = [[[NSImage alloc] initByReferencingFile:pathToIcon] autorelease];
-		image = [image imb_imageCroppedToRect:NSMakeRect(2,1,19,16)];
-		
-		if (image == nil) {
-			image = [NSImage imb_sharedGenericFolderIcon];
-		}
-		
-		folderIcon = [image copy];
+		folderIcon = [[self customLightroomIconWithName:@"icon_folder.png" croppedToRect:NSMakeRect(2,1,19,16)] copy];
 	}
 	
 	return folderIcon;
@@ -305,18 +294,7 @@
 	static NSImage* groupIcon = nil;
 	
 	if (groupIcon == nil) {
-		NSString* pathToOtherApp = [[self class] lightroomPath];
-		NSString* pathToModule = [pathToOtherApp stringByAppendingPathComponent:@"Contents/Frameworks/Library.lrmodule"];
-		NSString* pathToResources = [pathToModule stringByAppendingPathComponent:@"Contents/Resources"];
-		NSString* pathToIcon = [pathToResources stringByAppendingPathComponent:@"groupCreation.png"];
-		NSImage* image = [[[NSImage alloc] initByReferencingFile:pathToIcon] autorelease];
-		image = [image imb_imageCroppedToRect:NSMakeRect(2,2,19,16)];
-		
-		if (image == nil) {
-			image = [NSImage imb_sharedGenericFolderIcon];
-		}
-		
-		groupIcon = [image copy];
+		groupIcon = [[self customLightroomIconWithName:@"groupCreation.png" croppedToRect:NSMakeRect(2,2,19,16)] copy];
 	}
 	
 	return groupIcon;
@@ -327,18 +305,7 @@
 	static NSImage* collectionIcon = nil;
 	
 	if (collectionIcon == nil) {
-		NSString* pathToOtherApp = [[self class] lightroomPath];
-		NSString* pathToModule = [pathToOtherApp stringByAppendingPathComponent:@"Contents/Frameworks/Library.lrmodule"];
-		NSString* pathToResources = [pathToModule stringByAppendingPathComponent:@"Contents/Resources"];
-		NSString* pathToIcon = [pathToResources stringByAppendingPathComponent:@"collectionCreation.png"];
-		NSImage* image = [[[NSImage alloc] initByReferencingFile:pathToIcon] autorelease];
-		image = [image imb_imageCroppedToRect:NSMakeRect(1,1,19,16)];
-		
-		if (image == nil) {
-			image = [NSImage imb_sharedGenericFolderIcon];
-		}
-		
-		collectionIcon = [image copy];
+		collectionIcon = [[self customLightroomIconWithName:@"collectionCreation.png" croppedToRect:NSMakeRect(1,1,19,16)] copy];
 	}
 	
 	return collectionIcon;

@@ -157,7 +157,7 @@
 	if (_icon)
 	{
 		NSRect iconRect = [self imageRectForBounds:inFrame flipped:isFlipped];
-		[_icon drawInRect:iconRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:isFlipped hints:nil];
+		[_icon drawInRect:iconRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:isFlipped hints:nil];
 	}
 	
 	// Draw the title...
@@ -170,7 +170,7 @@
 	if (_badgeIcon != nil && !_isGroupCell)
 	{
 		NSRect badgeRect = [self badgeRectForBounds:inFrame flipped:isFlipped];
-		[_badgeIcon drawInRect:badgeRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:isFlipped hints:nil];
+		[_badgeIcon drawInRect:badgeRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:isFlipped hints:nil];
 	}
 }
 
@@ -303,7 +303,7 @@
             [NSApp sendEvent:inEvent];
         }
 
-        inEvent = [[inControlView window] nextEventMatchingMask:(NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSMouseEnteredMask | NSMouseExitedMask)];
+        inEvent = [[inControlView window] nextEventMatchingMask:(NSEventMaskLeftMouseUp | NSLeftMouseDraggedMask | NSMouseEnteredMask | NSMouseExitedMask)];
     }
  
     if (inside)

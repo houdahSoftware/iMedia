@@ -93,42 +93,6 @@
 			(itemInfo.flags & kLSItemInfoIsInvisible));
 }
 
-// Will resolve an alias into a path.. this code was taken from
-// see http://cocoa.karelia.com/Foundation_Categories/
-// see http://developer.apple.com/documentation/Cocoa/Conceptual/LowLevelFileMgmt/Tasks/ResolvingAliases.html
-- (NSString *)imb_pathResolved:(NSString *)path
-{
-	NSString *resolvedPath = NULL;
-	
-	CFURLRef url = CFURLCreateWithFileSystemPath(NULL /*allocator*/, (CFStringRef)path, kCFURLPOSIXPathStyle, NO /*isDirectory*/);
-	if (url != NULL)
-	{
-		FSRef fsRef;
-		if (CFURLGetFSRef(url, &fsRef))
-		{
-			Boolean targetIsFolder, wasAliased;
-			if (FSResolveAliasFile (&fsRef, true /*resolveAliasChains*/, 
-									&targetIsFolder, &wasAliased) == noErr && wasAliased)
-			{
-				CFURLRef resolvedUrl = CFURLCreateFromFSRef(NULL, &fsRef);
-				if (resolvedUrl != NULL)
-				{
-					CFStringRef cfstr = CFURLCopyFileSystemPath(resolvedUrl,
-																kCFURLPOSIXPathStyle);
-					CFRelease(resolvedUrl);
-					resolvedPath = [NSMakeCollectable(cfstr) autorelease];
-				}
-			}
-		}
-		CFRelease(url);
-	}
-	
-	if ( resolvedPath == NULL )
-		resolvedPath = [[path copy] autorelease];
-	
-	return resolvedPath;
-}
-
 // Return (creating if necessary) a path to the shared iMedia temporary directory.
 // If you pass in a subfolder name, that will be created and appended.
 

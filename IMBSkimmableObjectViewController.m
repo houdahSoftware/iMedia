@@ -49,7 +49,6 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-#import "IMBImageBrowserView.h"
 #import "IMBLibraryController.h"
 #import "IMBObjectArrayController.h"
 #import "IMBPanelController.h"
@@ -158,7 +157,7 @@
 	[super awakeFromNib];
 	
 	// Prepare for skimming
-	[(IMBImageBrowserView*) [self iconView] enableSkimming];
+	[[self iconView] enableSkimming];
 	
 	ibObjectArrayController.searchableProperties = [NSArray arrayWithObjects:
 													@"name",
@@ -175,6 +174,9 @@
 
 
 #pragma mark Skimming
+
+// Skimming not yet implemented wtih NSCollectionView
+#if REVEAL_COLLECTION_VIEW_SHORTCOMINGS
 
 - (void) mouseEntered:(NSEvent*) inEvent
 {
@@ -217,9 +219,9 @@
     if (inIndex < [objects count])
     {
         IMBSkimmableObject* item = [objects objectAtIndex:inIndex];
-        
+
         // Derive child object's index in node object from inPoint's relative position in frame
-        
+
         NSRect skimmingFrame;
 #if IMB_COMPILING_WITH_SNOW_LEOPARD_OR_NEWER_SDK
         if (IMBRunningOnSnowLeopardOrNewer())
@@ -231,23 +233,23 @@
         {
             skimmingFrame = [[self iconView] itemFrameAtIndex:inIndex];
         }
-        
+
         CGFloat xOffset = inPoint.x - skimmingFrame.origin.x;
         NSUInteger objectCount = [item imageCount];
-        
+
         if (objectCount > 0)
         {
             CGFloat widthPerObject = skimmingFrame.size.width / objectCount;
             NSUInteger objectIndex = (NSUInteger) xOffset / widthPerObject;
-            
+
             //NSLog(@"Object index: %lu", objectIndex);
-            
+
             if (objectIndex != _previousImageIndex)
             {
                 _previousImageIndex = objectIndex;
-                
+
                 item.currentSkimmingIndex = objectIndex;
-                
+
                 [self loadThumbnailForItem:item];
             }
         }
@@ -256,24 +258,20 @@
 
 - (void) mouseMoved:(NSEvent *)anEvent
 {
-	IKImageBrowserView* iconView = [self iconView];
+	NSCollectionView* iconView = [self iconView];
 	
 	//NSLog( @"Mouse was moved in image browser");
 	NSPoint mouse = [iconView convertPoint:[anEvent locationInWindow] fromView:nil];
 	
 	if (!NSPointInRect(mouse, [iconView bounds]))
 		return;
-	
-	NSUInteger hoverIndex;
-#if IMB_COMPILING_WITH_SNOW_LEOPARD_OR_NEWER_SDK
-	if (IMBRunningOnSnowLeopardOrNewer())
+
+	NSInteger hoverIndex = NSNotFound;
+	NSIndexPath* hoverIndexPath  = [iconView indexPathForItemAtPoint:mouse];
+	if (hoverIndexPath != nil)
 	{
-		hoverIndex = [(IMBImageBrowserView*) iconView indexOfCellAtPoint:mouse];	// >= 10.6
-	}
-	else
-#endif
-	{
-		hoverIndex = [iconView indexOfItemAtPoint:mouse];
+		// We only support a single section
+		hoverIndex = [hoverIndexPath indexAtPosition:1];
 	}
 
 	//NSLog(@"Current index: %ld, previous index: %ld", (long) hoverIndex, (long) _previousNodeObjectIndex);
@@ -293,6 +291,8 @@
 	
 	[super mouseMoved:anEvent];
 }
+
+#endif
 
 #pragma mark Helper
 

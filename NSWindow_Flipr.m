@@ -202,7 +202,7 @@
 		[flipr orderWindow:NSWindowBelow relativeTo:[finalWindow windowNumber]];
 		NSTimeInterval duration = DURATION;
 // Slow down by a factor of 5 if the shift key is down.
-		if ([[NSApp currentEvent] modifierFlags]&NSShiftKeyMask) {
+		if ([[NSApp currentEvent] modifierFlags]&NSEventModifierFlagShift) {
 			duration *= 5.0;
 		}
 // We accumulate drawing time and draw a second frame at the point where the rotation starts to show.
@@ -290,7 +290,7 @@
 	[shadow set];
 // And we draw the result image.
 	NSRect bounds = [self bounds];
-	[outputCIImage drawInRect:bounds fromRect:NSMakeRect(-originalRect.origin.x,-originalRect.origin.y,bounds.size.width,bounds.size.height) operation:NSCompositeSourceOver fraction:1.0];
+	[outputCIImage drawInRect:bounds fromRect:NSMakeRect(-originalRect.origin.x,-originalRect.origin.y,bounds.size.width,bounds.size.height) operation:NSCompositingOperationSourceOver fraction:1.0];
 // Calculate the time spent drawing
 	frameTime = UnsignedWideToUInt64(AbsoluteDeltaToNanoseconds(UpTime(),startTime))/1E9;
 }
@@ -325,7 +325,7 @@ static NSWindow* flippingWindow = nil;
 		if (CPUIsSuitable()) {
 // This is a little arbitary... the window will be resized every time it's used.
 			NSRect frame = NSMakeRect(128,128,512,768);
-			flippingWindow = [[NSWindow alloc] initWithContentRect:frame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+			flippingWindow = [[NSWindow alloc] initWithContentRect:frame styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO];
 			[flippingWindow setBackgroundColor:[NSColor clearColor]];
 			[flippingWindow setOpaque:NO];	
 			[flippingWindow setHasShadow:NO];

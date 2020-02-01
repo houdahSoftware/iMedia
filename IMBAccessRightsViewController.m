@@ -228,7 +228,7 @@ typedef void (^IMBOpenPanelCompletionHandler)(NSURL* inURL);
 	
 	NSInteger button = [panel runModal];
 
-	if (button == NSFileHandlingPanelOKButton)
+	if (button == NSModalResponseOK)
 	{
 		NSURL* url = [panel URL];
 		inCompletionBlock(url);

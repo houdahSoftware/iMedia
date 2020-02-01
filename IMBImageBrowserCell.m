@@ -178,7 +178,7 @@ extern NSString *const IKImageBrowserCellPlaceHolderLayer __attribute__((weak_im
 //		CGFloat dx = 16.0;
 //		CGFloat dy = 16.0;
 //		frame = NSMakeRect(x0-0.5*dx,y0-0.5*dy,dx,dy);
-//		[icon drawInRect:frame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+//		[icon drawInRect:frame fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
 //	}
 //}
 
@@ -217,7 +217,7 @@ extern NSString *const IKImageBrowserCellPlaceHolderLayer __attribute__((weak_im
 	}
 	else
 	{
-		[attributes1 setObject:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
+		[attributes1 setObject:[NSColor textColor] forKey:NSForegroundColorAttributeName];
 		[attributes2 setObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName];
 	}
 
@@ -444,7 +444,7 @@ extern NSString *const IKImageBrowserCellPlaceHolderLayer __attribute__((weak_im
     // Wrap and center the text
     NSMutableParagraphStyle *paragraphStyle = [[[NSMutableParagraphStyle alloc] init] autorelease];
     [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
-    [paragraphStyle setAlignment:NSCenterTextAlignment];
+    [paragraphStyle setAlignment:NSTextAlignmentCenter];
     
     NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
     [attrs setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];

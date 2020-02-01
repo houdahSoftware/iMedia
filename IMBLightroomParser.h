@@ -177,6 +177,8 @@ IMBLightroomNodeType;
 
 + (NSImage*) largeFolderIcon;
 
++ (NSImage*) customLightroomIconWithName:(NSString*)iconName croppedToRect:(NSRect)croppingRect;
+
 - (NSNumber*) idLocalFromAttributes:(NSDictionary*)inAttributes;
 - (BOOL) canOpenFileAtPath:(NSString*)inPath;
 - (IMBObject*) objectWithPath:(NSString*)inPath

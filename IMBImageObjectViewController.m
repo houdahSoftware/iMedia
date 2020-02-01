@@ -59,6 +59,7 @@
 #import "IMBObjectArrayController.h"
 #import "IMBCommon.h"
 #import "IMBConfig.h"
+#import "IMBObject.h"
 #import "NSWorkspace+iMedia.h"
 
 
@@ -155,10 +156,6 @@
 		@"%d images",
 		@"Format string for object count in plural");
 }
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
 
 @end
 

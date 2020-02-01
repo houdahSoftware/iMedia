@@ -75,10 +75,9 @@
 #import "IMBOperationQueue.h"
 #import "IMBObjectThumbnailLoadOperation.h"
 #import "IMBButtonObject.h"
-#import "IMBImageBrowserView.h"
 #import "IMBComboTableView.h"
 #import "IMBComboTextCell.h"
-#import "IMBImageBrowserCell.h"
+#import "IMBObjectCollectionView.h"
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -128,7 +127,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 - (void) _reloadIconView;
 - (void) _reloadListView;
 - (void) _reloadComboView;
-- (void) _updateTooltips;
 
 @end
 
@@ -474,18 +472,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 	NSScrollView* iconViewScroller = [ibIconView enclosingScrollView];
 	NSClipView* clipView = [iconViewScroller contentView];
-	
-	if (iconViewScroller)
-	{
-		if ([clipView isKindOfClass:[NSClipView class]])
-		{
-			[[NSNotificationCenter defaultCenter] 
-				addObserver:self 
-				selector:@selector(iconViewVisibleItemsChanged:) 
-				name:NSViewBoundsDidChangeNotification 
-				object:clipView];
-		}
-	}
 
 	// We need to save preferences before the app quits...
 	
@@ -690,7 +676,11 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	// Find the row and reload it. Note that KVO notifications may be sent from a background thread (in this 
 	// case, we know they will be) We should only update the UI on the main thread, and in addition, we use 
 	// NSRunLoopCommonModes to make sure the UI updates when a modal window is up...
-		
+	//
+	// This observation is only applicable to the ibComboView scenario. Should consolidate behavior
+	// of observing image repressentation updates so it behaves the same for collection view and
+	// table view.
+
 	else if (inContext == (void*)kIMBObjectImageRepresentationKey)
 	{
 		NSInteger row = [(IMBObject*)inObject index];
@@ -712,28 +702,25 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 
 // Subclasses can override these methods to configure or customize look & feel of the various object views...
-
+//
+// NOTE: Some features of the previous IKImageBrowser implementation have been thus far lost in the
+// transition to NSCollectionView. If they are important to you, you might need to re-implement them
+// on top of this new NSCollectionView-based infrastructure:
+//
+// 		- Custom background layers
+//		- Skimmability
+//
 - (void) _configureIconView
 {
-	// Make the IKImageBrowserView use our custom cell class. Please note that we check for the existence 
-	// of the base class first, as it is un undocumented internal class on 10.5. In 10.6 it is always there...
+	// Register the nib explicitly, because if an iMedia client subclasses IMBObjectViewController, it causes
+	// NSCollectionView's default nib search to look in the bundle correspondiong to the SUBCLASS. To allow
+	// client to subclass us without also providing redundant nibs, we are explicit about it here. Clients who
+	// DO want to override the nibs can register the nib separately.
+	NSNib* viewItemNib = [[NSNib alloc] initWithNibNamed:@"IMBObjectCollectionViewItem" bundle:[NSBundle bundleForClass:[IMBObjectViewController class]]];
+	[ibIconView registerNib:viewItemNib forItemWithIdentifier:@"IMBObjectCollectionViewItem"];
 	
-	if ([ibIconView respondsToSelector:@selector(setCellClass:)] && NSClassFromString(@"IKImageBrowserCell"))
-	{
-		[ibIconView performSelector:@selector(setCellClass:) withObject:[IMBImageBrowserCell class]];
-	}
-	
-	[ibIconView setAnimates:NO];
-
-	if ([ibIconView respondsToSelector:@selector(setIntercellSpacing:)])
-	{
-		[ibIconView setIntercellSpacing:NSMakeSize(4.0,4.0)];
-	}
-
-	if ([ibIconView respondsToSelector:@selector(setBackgroundLayer:)])
-	{
-		[ibIconView setBackgroundLayer:[self iconViewBackgroundLayer]];
-	}
+	// Configure NSCollectionView to support dragging to other apps
+	[ibIconView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
 }
 
 
@@ -861,6 +848,33 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 //----------------------------------------------------------------------------------------------------------------------
 
+- (void) updateCollectionViewForIconSize
+{
+	// From IKImageBrowserView, where we initially supported this value:
+	// This value should be greater or equal to zero and less or equal than one. A zoom value of zero corresponds
+	// to the minimum size (40x40 pixels), A zoom value of one means images fit the browser bounds. Other values are interpolated.
+
+	// Despite the description above, it seems in practice iMedia previously maxed out at around 300.0,
+	// not the full width of the view. Hardcoding minimum with and height to make it roughly match
+	// the old minimum size.
+	CGFloat minWidth = 60.0;
+	CGFloat maxWidth = fmin(self.view.bounds.size.width, 300.0);
+
+	CGFloat newMinWidth = minWidth;
+	if ([self iconSize] > 0)
+	{
+		CGFloat widthSpread = maxWidth - minWidth;
+		newMinWidth = minWidth + (widthSpread * [self iconSize]);
+	}
+
+	// Add to the interpolated width whatever the delta is for our non-image based view elements, such
+	// as the selection view, label, and padding.
+	CGFloat verticalNonImageHeightAdjustment = 20.0;
+	CGFloat newMinHeight = newMinWidth + verticalNonImageHeightAdjustment;
+	NSSize newItemSize = NSMakeSize(newMinWidth, newMinHeight);
+	NSCollectionViewFlowLayout* gridLayout = (NSCollectionViewFlowLayout*)[ibIconView collectionViewLayout];
+	gridLayout.itemSize = newItemSize;
+}
 
 - (void) setIconSize:(double)inIconSize
 {
@@ -902,7 +916,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 	// Update the views. The row height of the combo view needs to be adjusted accordingly...
 	
-	[ibIconView setNeedsDisplay:YES];
+	[self updateCollectionViewForIconSize];
+
 	[ibComboView setNeedsDisplay:YES];
 
 	CGFloat height = 60.0 + 100.0 * _iconSize;
@@ -922,10 +937,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	NSClipView* clipview = (NSClipView*)[ibComboView superview];
 	[clipview scrollToPoint:NSMakePoint(0.0,y)];
 	[[ibComboView enclosingScrollView] reflectScrolledClipView:clipview];
-	
-	// Tooltips in the icon view need to be rebuilt...
-	
-	[self _updateTooltips];
 }
 
 
@@ -979,8 +990,17 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		// if the system attempts to communicate with the tooltip's owner which is being removed from the view...
 		
 		[ibIconView removeAllToolTips];
-        [ibIconView reloadData];
 
+		// Try to save/restore selection to avoid unwanted deselection of an item that
+		// is selected while thumbnails are still percolating
+		NSIndexSet* savedSelection = [ibObjectArrayController selectionIndexes];
+
+		// Only need to reload "visible" items because those are the ones collection view vouches
+		// actually have image data associated with them.
+		[ibIconView reloadItemsAtIndexPaths:[ibIconView indexPathsForVisibleItems]];
+
+		[ibIconView setSelectionIndexes:savedSelection];
+		
 		// Items loading into the view will cause a change in the scroller's clip view, which will cause the tooltips
 		// to be revised to suit only the current visible items...
 	}
@@ -1010,41 +1030,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 #pragma mark 
 
-// Please note that providing tooltips is WAY too expensive on 10.5 (possibly due to different internal 
-// implementation of IKImageBrowserView). For this reason we disable tooltips on 10.5. Following up on  
-// the rationale above, in March, 2011, I changed the method for tooltips in 10.6+ to take advantage of a 
-// "visibleItemIndexes" attribute on IKImageBrowserView. This lets us be more conservative in our tooltip 
-// configuration and only install tooltips for the visible items. This is great for e.g. photo collections 
-// with thousands of items, but puts the responsibility on any code that changes the visible items to assure 
-// that _updateTooltips gets called...
-
-- (void) _updateTooltips
-{
-	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(__updateTooltips) object:nil];
-	[self performSelector:@selector(__updateTooltips) withObject:nil afterDelay:0.1];
-}
-
-- (void) __updateTooltips
-{
-	[ibIconView removeAllToolTips];
-	
-	NSArray* objects = ibObjectArrayController.arrangedObjects;
-	NSIndexSet* indexes = [ibIconView visibleItemIndexes];
-	NSUInteger index = [indexes firstIndex];
-	
-	while (index != NSNotFound)
-	{
-		IMBObject* object = [objects objectAtIndex:index];
-		NSRect rect = [ibIconView itemFrameAtIndex:index];
-		[ibIconView addToolTipRect:rect owner:object userData:NULL];
-		index = [indexes indexGreaterThanIndex:index];
-	}
-}
-
-- (void) iconViewVisibleItemsChanged:(NSNotification*)inNotification
-{
-	[self _updateTooltips];
-}
 
 - (void) objectBadgesDidChange:(NSNotification*)inNotification
 {
@@ -1064,15 +1049,123 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
     [self.objectArrayController resetSearch:self];
 }
 
+#pragma mark
+#pragma mark NSCollectionViewDataSource
+
+- (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+	return collectionView.content.count;
+}
+
+- (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath
+{
+	NSCollectionViewItem* thisItem = [collectionView makeItemWithIdentifier:@"IMBObjectCollectionViewItem" forIndexPath:indexPath];
+	IMBObject* representedObject = [collectionView.content objectAtIndex:indexPath.item];
+	if (representedObject != nil)
+	{
+		thisItem.selected = NO;
+
+		// Seems we have to call imageRepresentation first to get the thumbnail loaded, then
+		// thumbnail returns it in NSImage format.
+		(void) [representedObject imageRepresentation];
+		thisItem.imageView.image = representedObject.thumbnail;
+
+		thisItem.textField.stringValue = representedObject.imageTitle;
+		thisItem.representedObject = representedObject;
+
+		// Associate the tooltip with the container view
+		thisItem.view.toolTip = representedObject.tooltipString;
+	}
+	return thisItem;
+}
+
+- (nullable id <NSPasteboardWriting>)collectionView:(NSCollectionView *)collectionView pasteboardWriterForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+	// We only support one section for now, so we map the indexPath to an index set
+	return [self pasteboardItemForDraggingObjectAtIndex:[indexPath indexAtPosition:1]];
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
+#pragma mark
+#pragma mark NSCollectionViewDelegate
 
-#pragma mark 
-#pragma mark IKImageBrowserDelegate
+// Bindings from NSCollectionView to our array controller don't seem to work 100%. In particular changes
+// to the selection via the UI are not perpetuated automatically to the array controller's selectionIndexes.
+// To maintain consistency with the NSTableView for other views that rely upon the same array controller,
+// we manually listen for changes and re-assert the selectionIndexes from the collection view to the
+// array controller.
+- (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
+{
+	[ibObjectArrayController setSelectionIndexes:[collectionView selectionIndexes]];
 
+	// If a missing object was selected, then display an alert...
+	if (self.viewType == kIMBObjectViewTypeIcon)
+	{
+		for (NSIndexPath* thisIndexPath in indexPaths)
+		{
+			IMBObject* thisObject = (IMBObject*)[[collectionView itemAtIndexPath:thisIndexPath] representedObject];
+			if (thisObject != nil)
+			{
+				if (thisObject.accessibility == kIMBResourceDoesNotExist)
+				{
+					NSUInteger index = [ibObjectArrayController.arrangedObjects indexOfObjectIdenticalTo:thisObject];
+					NSRect rect = [collectionView frameForItemAtIndex:index];
+					[IMBAccessRightsViewController showMissingResourceAlertForObject:thisObject view:collectionView relativeToRect:rect];
+				}
+				else if (thisObject.accessibility == kIMBResourceNoPermission)
+				{
+					[[IMBAccessRightsViewController sharedViewController]
+					 imb_performCoalescedSelector:@selector(grantAccessRightsForObjectsOfNode:)
+					 withObject:self.currentNode];
+				}
+			}
+		}
+	}
 
-- (void) imageBrowserSelectionDidChange:(IKImageBrowserView*)inView
+	[self udpateQuickLookPanel];
+}
+
+- (void)collectionView:(NSCollectionView *)collectionView didDeselectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
+{
+	[ibObjectArrayController setSelectionIndexes:[collectionView selectionIndexes]];
+	[self udpateQuickLookPanel];
+}
+
+// Disable selection of certain items
+- (NSSet<NSIndexPath *> *) selectableItemsInCollectionView:(NSCollectionView *)collectionView atIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
+{
+	NSMutableSet* filteredIndexPaths = [indexPaths mutableCopy];
+	for (NSIndexPath* thisIndexPath in indexPaths)
+	{
+		IMBObject* thisObject = (IMBObject*)[[collectionView itemAtIndexPath:thisIndexPath] representedObject];
+		if ([thisObject isSelectable] == NO)
+		{
+			[filteredIndexPaths removeObject:thisIndexPath];
+		}
+	}
+	return filteredIndexPaths;
+}
+
+- (NSSet<NSIndexPath *> *)collectionView:(NSCollectionView *)collectionView shouldSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
+{
+	return [self selectableItemsInCollectionView:collectionView atIndexPaths:indexPaths];
+}
+
+- (NSSet<NSIndexPath *> *)collectionView:(NSCollectionView *)collectionView shouldChangeItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths toHighlightState:(NSCollectionViewItemHighlightState)highlightState NS_AVAILABLE_MAC(10_11)
+{
+	// We allow non-selectable items to be highlighted because it gives some feedback to
+	// users that the click happened, and more importantly gives NSCollectionView permission
+	// to deselect whatever was previously selected. This ensures that for example when a
+	// user goes to double-click on a folder item, which is not selectable, it will deselect
+	// whatever was previously selected before passing along the double-click message to the client.
+	return indexPaths;
+}
+
+#pragma mark
+#pragma mark QuickLook
+
+- (void) udpateQuickLookPanel
 {
 	// Notify the Quicklook panel of the selection change...
 	
@@ -1085,156 +1178,48 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	}
 }
 
+- (NSMenu*) collectionView:(IMBObjectCollectionView*)collectionView wantsContextMenuForItem:(IMBObject*)theItem
+{
+	return [self menuForObject:theItem];
+}
 
-//----------------------------------------------------------------------------------------------------------------------
-
-
-// First give the delegate a chance to handle the double click. It it chooses not to, then we will 
+// First give the delegate a chance to handle the double click. It it chooses not to, then we will
 // handle it ourself by simply opening the files (with their default app)...
 
-- (void) imageBrowser:(IKImageBrowserView*)inView cellWasDoubleClickedAtIndex:(NSUInteger)inIndex
+- (void) collectionView:(IMBObjectCollectionView*)collectionView wasDoubleClickedOnItem:(IMBObject*)clickedItem
 {
 	IMBLibraryController* controller = self.libraryController;
 	id delegate = controller.delegate;
 	BOOL didHandleEvent = NO;
-	
+
 	if ([delegate respondsToSelector:@selector(libraryController:didDoubleClickSelectedObjects:inNode:)])
 	{
 		IMBNode* node = self.currentNode;
 		NSArray* objects = [ibObjectArrayController selectedObjects];
 		didHandleEvent = [delegate libraryController:controller didDoubleClickSelectedObjects:objects inNode:node];
 	}
-	
-	if (!didHandleEvent && inIndex != NSNotFound)
+
+	if (!didHandleEvent && (clickedItem != nil))
 	{
-		NSArray* objects = [ibObjectArrayController arrangedObjects];
-		IMBObject* object = [objects objectAtIndex:inIndex];
-		
-		if ([object isKindOfClass:[IMBNodeObject class]])
+		if ([clickedItem isKindOfClass:[IMBNodeObject class]])
 		{
-            [IMBNodeViewController revealNodeWithIdentifier:((IMBNodeObject *)object).representedNodeIdentifier];
-			[self expandNodeObject:(IMBNodeObject*)object];
+			IMBNodeObject* clickedNode = (IMBNodeObject *)clickedItem;
+			[IMBNodeViewController revealNodeWithIdentifier:clickedNode.representedNodeIdentifier];
+			[self expandNodeObject:clickedNode];
 		}
-		else if ([object isKindOfClass:[IMBButtonObject class]])
+		else if ([clickedItem isKindOfClass:[IMBButtonObject class]])
 		{
-			[(IMBButtonObject*)object sendDoubleClickAction];
+			IMBButtonObject* clickedButton = (IMBButtonObject*)clickedItem;
+			[clickedButton sendDoubleClickAction];
 		}
 		else
 		{
-			[self openSelectedObjects:inView];
-		}	
-	}	
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-// Since IKImageBrowserView doesn't support context menus out of the box, we need to display them manually in 
-// the following two delegate methods. Why couldn't Apple take care of this?
-
-- (void) imageBrowser:(IKImageBrowserView*)inView backgroundWasRightClickedWithEvent:(NSEvent*)inEvent
-{
-	NSMenu* menu = [self menuForObject:nil];
-	[NSMenu popUpContextMenu:menu withEvent:inEvent forView:inView];
-}
-
-
-- (void) imageBrowser:(IKImageBrowserView*)inView cellWasRightClickedAtIndex:(NSUInteger)inIndex withEvent:(NSEvent*)inEvent
-{
-	IMBObject* object = [[ibObjectArrayController arrangedObjects] objectAtIndex:inIndex];
-	NSMenu* menu = [self menuForObject:object];
-	[NSMenu popUpContextMenu:menu withEvent:inEvent forView:inView];
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-// Here we sort of mimic the IKImageBrowserDataSource protocol, even though we really don't really
-// implement the protocol, since we use bindings. But this is for the benefit of
-// -[IMBImageBrowserView mouseDragged:] ... I hope it's OK that we are ignoring the inView parameter.
-
-- (id) imageBrowser:(IKImageBrowserView*)inView itemAtIndex:(NSUInteger)inIndex
-{
-	IMBObject* object = [[ibObjectArrayController arrangedObjects] objectAtIndex:inIndex];
-	return object;
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-// If the IKImageBrowserView asked for a custom cell class, then pass on the request to the library's delegate. 
-// That way the application is given a chance to customize the look of the browser...
-
-- (Class) imageBrowserCellClassForController:(IMBObjectViewController*)inController
-{
-	if ([self.delegate respondsToSelector:@selector(imageBrowserCellClassForController:)])
-	{
-		return [self.delegate imageBrowserCellClassForController:self];
-	}
-	
-	return [[self class ] iconViewCellClass];
-}
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-// With this method the delegate can return a custom drag image for a drags starting from the IKImageBrowserView...
-/*
-- (NSImage*) draggedImageForController:(IMBObjectViewController*)inController draggedObjects:(NSArray*)inObjects
-{
-	id delegate = self.delegate;
-	
-	if (delegate)
-	{
-		if ([delegate respondsToSelector:@selector(draggedImageForController:draggedObjects:)])
-		{
-			return [delegate draggedImageForController:self draggedObjects:inObjects];
+			[self openSelectedObjects:collectionView];
 		}
 	}
-	
-	return nil;
 }
-*/
-
 
 //----------------------------------------------------------------------------------------------------------------------
-
-
-#pragma mark
-#pragma mark IMBImageBrowserDelegate (informal)
-
-/**
- If a missing object was selected, then display an alert...
- */
-- (void) imb_imageBrowser:(IKImageBrowserView *)inView cellWasClickedAtIndex:(NSUInteger)inIndex
-{
-	if (inIndex < [[ibObjectArrayController arrangedObjects] count] &&
-        self.viewType == kIMBObjectViewTypeIcon)
-	{
-		IMBObject* object = [[ibObjectArrayController arrangedObjects] objectAtIndex:inIndex];
-        
-		if (object)
-		{
-			if (object.accessibility == kIMBResourceDoesNotExist)
-			{
-				NSUInteger index = [ibObjectArrayController.arrangedObjects indexOfObjectIdenticalTo:object];
-				NSRect rect = [inView itemFrameAtIndex:index];
-				[IMBAccessRightsViewController showMissingResourceAlertForObject:object view:inView relativeToRect:rect];
-			}
-			else if (object.accessibility == kIMBResourceNoPermission)
-			{
-				[[IMBAccessRightsViewController sharedViewController]
-                 imb_performCoalescedSelector:@selector(grantAccessRightsForObjectsOfNode:)
-                 withObject:self.currentNode];
-			}
-		}
-    }
-}
-
 
 #pragma mark
 #pragma mark NSTableViewDelegate
@@ -1361,7 +1346,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	return NO;
 }
 
-
 #pragma mark - NSTableViewDataSource
 
 - (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forRowIndexes:(NSIndexSet *)rowIndexes
@@ -1398,10 +1382,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
     if (object.isSelectable && (object.accessibility == kIMBResourceIsAccessible ||
                                 object.accessibility == kIMBResourceIsAccessibleSecurityScoped))
     {
-        NSArray* types = @[kIMBObjectPasteboardType,(NSString*)kUTTypeFileURL];
-        
         NSPasteboardItem* item = [[NSPasteboardItem alloc] init];
-        [item setDataProvider:object forTypes:types];
+        [item setDataProvider:object forTypes:[self draggingTypesForWritingToPasteboard]];
         
         return [item autorelease];
     }
@@ -1757,7 +1739,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 				@"Menu item in context menu of IMBObjectViewController");
 				
 			item = [[NSMenuItem alloc] initWithTitle:title action:@selector(quicklook:) keyEquivalent:@"y"];
-			[item setKeyEquivalentModifierMask:NSCommandKeyMask];
+			[item setKeyEquivalentModifierMask:NSEventModifierFlagCommand];
 			[item setRepresentedObject:inObject];
 			[item setTarget:self];
 			[menu addItem:item];
@@ -1783,7 +1765,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		item = [[NSMenuItem alloc] initWithTitle:title action:@selector(showFiltered:) keyEquivalent:@""];
 		[item setTag:kIMBObjectFilterAll];
 		[item setTarget:self];
-        [item setState: _objectFilter == kIMBObjectFilterAll ? NSOnState : NSOffState];
+        [item setState: _objectFilter == kIMBObjectFilterAll ? NSControlStateValueOn : NSControlStateValueOff];
 		[menu addItem:item];
 		[item release];
 
@@ -1796,7 +1778,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		item = [[NSMenuItem alloc] initWithTitle:title action:@selector(showFiltered:) keyEquivalent:@""];
 		[item setTag:kIMBObjectFilterBadge];
 		[item setTarget:self];
-        [item setState: _objectFilter == kIMBObjectFilterBadge ? NSOnState : NSOffState];
+        [item setState: _objectFilter == kIMBObjectFilterBadge ? NSControlStateValueOn : NSControlStateValueOff];
 		[menu addItem:item];
 		[item release];
 
@@ -1809,7 +1791,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		item = [[NSMenuItem alloc] initWithTitle:title action:@selector(showFiltered:) keyEquivalent:@""];
 		[item setTag:kIMBObjectFilterNoBadge];
 		[item setTarget:self];
-        [item setState: _objectFilter == kIMBObjectFilterNoBadge ? NSOnState : NSOffState];
+        [item setState: _objectFilter == kIMBObjectFilterNoBadge ? NSControlStateValueOn : NSControlStateValueOff];
 		[menu addItem:item];
 		[item release];
 	}
@@ -1989,7 +1971,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 - (IBAction) showFiltered:(id)inSender
 {
 	_objectFilter = (IMBObjectFilter)[inSender tag];
-	[inSender setState:NSOnState];
+	[inSender setState:NSControlStateValueOn];
 	[[self objectArrayController] rearrangeObjects];
 	[self.view setNeedsDisplay:YES];
 }
@@ -2001,6 +1983,10 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 #pragma mark 
 #pragma mark Dragging
 
+- (NSArray*) draggingTypesForWritingToPasteboard
+{
+	return @[kIMBObjectPasteboardType,(NSString*)kUTTypeFileURL];
+}
 
 // Filter the dragged indexes to only include the selectable (and thus draggable) ones...
 
@@ -2024,92 +2010,24 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	return indexes;
 }
 
-/**
- This method may be used for the IKImageBrowserView (icon view) and (theoretically) for
- the NSTableView (list and combo view). "Theoretically" because NSTableView currently (as of macOS 10.14)
- will not easily give up on rolling its own dragging regime (we hook with tableView:pasteboardWriterForRow: instead).
- 
- Encapsulate all objects in IMBPasteboardItem and promise the kUTTypeFileURL type and wrap each item
- within an NSDraggingItem and begin an NSDraggingSession...
- */
-- (void)beginDraggingSessionWithEvent:(NSEvent *)event withinView:(NSView<NSDraggingSource, IMBItemizableView> *)sourceView forItemsAtIndexes:(NSIndexSet *)inIndexes;
+- (NSPasteboardItem *) pasteboardItemForDraggingObjectAtIndex:(NSInteger)inIndex
 {
-    NSIndexSet *indexes = [self filteredDraggingIndexes:inIndexes];
-    NSMutableArray *draggedObjects = [NSMutableArray array];
-    NSMutableArray *draggingItems = [NSMutableArray array];
-    NSArray *types = @[kIMBObjectPasteboardType,(NSString*)kUTTypeFileURL];
-    __block IMBParserMessenger *parserMessenger = nil;
+	NSPasteboardItem* pasteboardItem = nil;
+	NSArray* allObjects = [ibObjectArrayController arrangedObjects];
+	if (inIndex < [allObjects count])
+	{
+		IMBObject* object = [allObjects objectAtIndex:inIndex];
 
-    NSArray *allObjects = [ibObjectArrayController arrangedObjects];
-    
-    CGRect prototypeDraggingFrame = [sourceView draggingFrameForItemAtIndex:sourceView.firstVisibleItemIndex];
-    CGFloat maxDim = MAX(prototypeDraggingFrame.size.width, prototypeDraggingFrame.size.height);
-    
-    [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop)
-    {
-        CGRect imageFrame = [sourceView draggingFrameForItemAtIndex:idx];
-        
-        IMBObject *object = allObjects[idx];
-        
-        parserMessenger = object.parserMessenger;
-        
-        NSPasteboardItem* pasteBoardItem = [[NSPasteboardItem alloc] init];
-        [pasteBoardItem setDataProvider:object forTypes:types];
-        
-        NSDraggingItem *draggingItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteBoardItem];
-        
-        CGPoint draggingOrigin = [sourceView convertPoint:imageFrame.origin toView:self.view];
-        NSImage *thumbnail = object.thumbnail;
-        CGSize draggingSize;
-        if (imageFrame.size.width != 0 && imageFrame.size.height != 0) {
-            if (!thumbnail) {
-                draggingSize = imageFrame.size;
-            } else {
-                CGFloat maxThumbnailDim = MAX(thumbnail.size.width, thumbnail.size.height);
-                CGFloat scale = maxThumbnailDim != 0 ? maxDim / maxThumbnailDim : 1;
-                draggingSize.width = thumbnail.size.width * scale;
-                draggingSize.height = thumbnail.size.height * scale;
-            }
-        } else {
-            draggingSize = prototypeDraggingFrame.size;
-        }
-        CGRect draggingFrame = CGRectMake(draggingOrigin.x, draggingOrigin.y, draggingSize.width, draggingSize.height);
-        
-        // Dragging item will crash app when setting a frame of size (0,0) onto it. Safeguard.
-        if (draggingFrame.size.width != 0 && draggingFrame.size.height != 0) {
-            [draggingItem setDraggingFrame:draggingFrame];
-            if (thumbnail) {
-                draggingItem.imageComponentsProvider = ^NSArray<NSDraggingImageComponent *> * _Nonnull{
-                    NSDraggingImageComponent *imageComponent = [[NSDraggingImageComponent alloc] initWithKey:NSDraggingImageComponentIconKey];
-                    imageComponent.contents = thumbnail;
-                    imageComponent.frame = CGRectMake(0,0,draggingFrame.size.width, draggingFrame.size.height);
-                    return @[ [imageComponent autorelease]];
-                };
-            }
-            [draggingItems addObject:draggingItem];
-            [draggedObjects addObject:object];
-        }
-        
-        [pasteBoardItem release];
-        [draggingItem release];
-        
-        if (draggedObjects.count >= MAX_NUM_DRAGGING_ITEMS) {
-            *stop = YES;
-        }
-    }];
-    
-    NSDraggingSession *draggingSession = [self.view beginDraggingSessionWithItems:draggingItems event:event source:sourceView];
-    draggingSession.animatesToStartingPositionsOnCancelOrFail = YES;
-    draggingSession.draggingFormation = NSDraggingFormationPile;
-    
-    // Provide the IMBObjects to a static variable of Pasteboard, which is the fast path shortcut for
-    // intra application drags. These objects are released again in draggingSession:endedAtPoint:operation:
-    // of our object views...
+		// We don't allow non-selectable objects to be dragged either
+		if ([object isSelectable])
+		{
+			pasteboardItem = [[NSPasteboardItem alloc] init];
+			[pasteboardItem setDataProvider:object forTypes:[self draggingTypesForWritingToPasteboard]];
+		}
+	}
 
-    [NSPasteboard imb_setIMBObjects:draggedObjects];
-    [NSPasteboard imb_setParserMessenger:parserMessenger];
+	return [pasteboardItem autorelease];
 }
-
 
 #pragma mark - Open Media Files
 
@@ -2272,7 +2190,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 {
 	NSView* view = [self selectedObjectView];
 	
-	if ([inEvent type] == NSKeyDown)
+	if ([inEvent type] == NSEventTypeKeyDown)
 	{
 		[view keyDown:inEvent];
 		return YES;
@@ -2301,7 +2219,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	{
 		if (_viewType == kIMBObjectViewTypeIcon)
 		{
-			frame = [ibIconView itemFrameAtIndex:index];
+			frame = [ibIconView frameForItemAtIndex:index];
 			view = ibIconView;
 		}	
 		else if (_viewType == kIMBObjectViewTypeList)
@@ -2357,7 +2275,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 
 //----------------------------------------------------------------------------------------------------------------------
-
 
 @end
 

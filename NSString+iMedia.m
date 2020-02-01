@@ -64,71 +64,9 @@
 + (NSString *)imb_UTIForFileAtPath:(NSString *)anAbsolutePath
 {
 	NSString *result = nil;
-	FSRef fileRef;
-	Boolean isDirectory;
-	
-	if (anAbsolutePath == nil)
-	{
-		return nil;
-	}
-	
-	if (FSPathMakeRef((const UInt8 *)[anAbsolutePath fileSystemRepresentation], &fileRef, &isDirectory) == noErr)
-	{
-		// get the content type (UTI) of this file
-		CFStringRef uti = NULL;
-		if (LSCopyItemAttribute(&fileRef, kLSRolesViewer, kLSItemContentType, (CFTypeRef*)&uti)==noErr)
-		{
-			//			result = [[((NSString *)uti) retain] autorelease];	// I want an autoreleased copy of this.
-			
-			if (uti)											// PB 06/18/08: fixes a memory leak
-			{
-				result = [NSString stringWithString:(NSString*)uti];
-				CFRelease(uti);
-			}
-		}
-	}
-	
-	// check extension if we can't find the actual file
-	if (nil == result)
-	{
-		NSString *extension = [anAbsolutePath pathExtension];
-		if ( (nil != extension) && ![extension isEqualToString:@""] )
-		{
-			result = [self imb_UTIForFilenameExtension:extension];
-		}
-	}
-	
-	// if no extension or no result, check file type
-	if ( nil == result || [result isEqualToString:(NSString *)kUTTypeData])
-	{
-		NSString *fileType = NSHFSTypeOfFile(anAbsolutePath);
-		if (6 == [fileType length])
-		{
-			fileType = [fileType substringWithRange:NSMakeRange(1,4)];
-		}
-		result = [self imb_UTIForFileType:fileType];
-		if ([result hasPrefix:@"dyn."])
-		{
-			result = nil;		// reject a dynamic type if it tries that.
-		}
-	}
-	
-	if (nil == result)	// not found, figure out if it's a directory or not
-	{
-		NSFileManager *fm = [[NSFileManager alloc] init];
-        
-		BOOL isDirectory;
-		if ( [fm fileExistsAtPath:anAbsolutePath isDirectory:&isDirectory] )
-		{
-			// TODO: Really should use -[NSWorkspace isFilePackageAtPath:] to possibly return either kUTTypePackage or kUTTypeFolder
-			result = isDirectory ? (NSString *)kUTTypeDirectory : (NSString *)kUTTypeData;
-		}
-        
-        [fm release];
-	}
-	
-	// Will return nil if file doesn't exist.
-	
+	NSURL* targetFileURL = [NSURL fileURLWithPath:anAbsolutePath];
+
+	[targetFileURL getResourceValue:&result forKey:NSURLTypeIdentifierKey error:nil];
 	return result;
 }
 

@@ -62,13 +62,20 @@
     
     NSString *type = [item imageRepresentationType];
     
-    // Already in the right format (CGImage)
+    // Already in the right format (NSImage)
 	
 	if ([type isEqualToString:IKImageBrowserNSImageRepresentationType])
     {
         result = [item imageRepresentation];
     }
-    
+
+	// From CGImage
+
+	else if ([type isEqualToString:IKImageBrowserCGImageRepresentationType])
+	{
+		result = [[[NSImage alloc] initWithCGImage:(CGImageRef)[item imageRepresentation] size:CGSizeZero] autorelease];
+	}
+
     // From URL, path or data
 	
 	else if ([type isEqualToString:IKImageBrowserNSURLRepresentationType])
@@ -86,8 +93,8 @@
         NSData *data = [item imageRepresentation];
         result = [[[NSImage alloc] initWithData:data] autorelease];
     }
-    
-    return result;
+
+	return result;
 }
 
 @end

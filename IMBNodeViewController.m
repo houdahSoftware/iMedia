@@ -708,6 +708,11 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
 					object:nil];
 
 				[self.libraryController addUserAddedNodeForFolder:url];
+
+				// Whenever a drag of a folder occurs, make sure our folders section is expanded
+				// so that the user doesn't get the impression there was no effect to their drag.
+				[ibNodeOutlineView expandItem:[self.libraryController nodeWithIdentifier:@"group://FOLDERS"]];
+
 				result = YES;
 			}
 		}	
@@ -1063,7 +1068,7 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
         {
             NSMutableDictionary* effectiveTextAttributes = [NSMutableDictionary dictionaryWithDictionary:textAttributes];
             NSMutableParagraphStyle* paragraphStyle = [[[NSMutableParagraphStyle alloc] init] autorelease];
-            [paragraphStyle setAlignment:NSRightTextAlignment];
+            [paragraphStyle setAlignment:NSTextAlignmentRight];
             [effectiveTextAttributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
             
             // If we use default appearance don't mess with background style
@@ -1697,7 +1702,7 @@ static NSMutableDictionary* sRegisteredNodeViewControllerClasses = nil;
 
 	NSInteger result = [panel runModal];
 
-	if (result == NSFileHandlingPanelOKButton)
+	if (result == NSModalResponseOK)
 	{
 		NSArray* urls = [panel URLs];
 		for (NSURL* url in urls)

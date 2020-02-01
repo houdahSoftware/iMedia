@@ -71,10 +71,11 @@
 
 #pragma mark HEADERS
 
-#import "IMBCommon.h"
-#import "IMBQLPreviewPanel.h"
-#import "IMBObjectArrayController.h"
-#import "IMBItemizableView.h"
+#import <iMedia/IMBCommon.h>
+#import <iMedia/IMBQLPreviewPanel.h>
+#import <iMedia/IMBObjectArrayController.h>
+#import <iMedia/IMBObjectCollectionView.h>
+#import <iMedia/IMBItemizableView.h>
 #import <Quartz/Quartz.h>
 
 
@@ -120,8 +121,8 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 @class IMBObjectArrayController;
 @class IMBProgressWindowController;
 @class IKImageBrowserView;
+@class IMBObjectCollectionView;
 @protocol IMBObjectViewControllerDelegate;
-
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -129,7 +130,7 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 #pragma mark 
 
 
-@interface IMBObjectViewController : NSViewController <IMBObjectArrayControllerDelegate,QLPreviewPanelDelegate,QLPreviewPanelDataSource>
+@interface IMBObjectViewController : NSViewController <IMBObjectArrayControllerDelegate,QLPreviewPanelDelegate,QLPreviewPanelDataSource, NSCollectionViewDataSource, IMBObjectCollectionViewDelegate>
 {
 	// Backend...
 	
@@ -142,7 +143,7 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 	// User Interface...
 	
 	IBOutlet NSTabView* ibTabView;
-	IBOutlet IKImageBrowserView* ibIconView;
+	IBOutlet IMBObjectCollectionView* ibIconView;
  	IBOutlet NSTableView* ibListView;
 	IBOutlet NSTableView* ibComboView;
 	IBOutlet NSSegmentedControl* ibSegments;
@@ -194,7 +195,7 @@ extern NSString* kIMBObjectBadgesDidChangeNotification;
 // User Interface...
 
 @property (readonly) NSTabView* tabView;
-@property (readonly) IKImageBrowserView* iconView;
+@property (readonly) IMBObjectCollectionView* iconView;
 @property (readonly) NSTableView* listView;
 @property (readonly) NSTableView* comboView;
 

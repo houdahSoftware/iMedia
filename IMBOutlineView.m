@@ -140,17 +140,17 @@
 	self.draggingPrompt = NSLocalizedStringWithDefaultValue(
 		@"IMBOutlineView.draggingPrompt",
 		nil,IMBBundle(),
-		@"Drag additional folders here",
+		@"Drag additional folders here to add them to the media browser.",
 		@"String that is displayed in the IMBOutlineView");
 
-	CGFloat size = [NSFont systemFontSizeForControlSize:NSSmallControlSize];
+	CGFloat size = [NSFont systemFontSizeForControlSize:NSControlSizeSmall];
 	NSFont* font = [NSFont boldSystemFontOfSize:size];
 	
 	self.textCell = [[[IMBTextFieldCell alloc] initTextCell:@""] autorelease];
-	[self.textCell setAlignment:NSCenterTextAlignment];
+	[self.textCell setAlignment:NSTextAlignmentCenter];
 	[self.textCell setVerticalAlignment:kIMBBottomTextAlignment];
 	[self.textCell setFont:font];
-	[self.textCell setTextColor:[NSColor grayColor]];
+	[self.textCell setTextColor:[NSColor secondaryLabelColor]];
 
 	// We need to save preferences before tha app quits...
 	
@@ -301,7 +301,7 @@
 					
 					[wheel setAutoresizingMask:NSViewNotSizable];
 					[wheel setStyle:NSProgressIndicatorSpinningStyle];
-					[wheel setControlSize:NSSmallControlSize];
+					[wheel setControlSize:NSControlSizeSmall];
 					[wheel setUsesThreadedAnimation:YES];
 					[wheel setIndeterminate:YES];
 					
@@ -355,7 +355,12 @@
                 CGFloat appearanceAlpha = [appearanceTextColor alphaComponent];
                 draggingPromptColor = [appearanceTextColor colorWithAlphaComponent:appearanceAlpha * 0.6 * alpha];
             } else {
-                draggingPromptColor = [NSColor colorWithCalibratedWhite:0.66667 alpha:alpha];
+				CGFloat whiteValue = 0.66667;
+				if (@available(macOS 10.14, *)) {
+					BOOL isDarkMode = [[[NSAppearance currentAppearance] bestMatchFromAppearancesWithNames:@[NSAppearanceNameDarkAqua, NSAppearanceNameAqua]] isEqualToString:@"NSAppearanceNameDarkAqua"];
+					CGFloat whiteValue = isDarkMode ? 1.0 : 0.66667;
+				}
+				draggingPromptColor = [NSColor colorWithCalibratedWhite:whiteValue alpha:alpha];
             }
             [textCell setTextColor:draggingPromptColor];
 			
@@ -430,11 +435,11 @@ NSString* IMBIsDefaultAppearanceAttributeName = @"IMBIsDefaultAppearanceAttribut
     IMBTableViewAppearance* appearance = [[[IMBTableViewAppearance alloc] initWithView:self] autorelease];
     
     NSShadow* shadow = [[[NSShadow alloc] init] autorelease];
-    [shadow setShadowColor:[NSColor whiteColor]];
+    [shadow setShadowColor:[NSColor textBackgroundColor]];
     [shadow setShadowOffset:NSMakeSize(0.0, -1.0)];
     
     appearance.sectionHeaderTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                              [NSColor disabledControlTextColor], NSForegroundColorAttributeName,
+                                              [NSColor secondaryLabelColor], NSForegroundColorAttributeName,
                                               [NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]], NSFontAttributeName,
                                               shadow, NSShadowAttributeName,
                                               [NSNumber numberWithBool:YES], IMBIsDefaultAppearanceAttributeName,
@@ -454,10 +459,13 @@ NSString* IMBIsDefaultAppearanceAttributeName = @"IMBIsDefaultAppearanceAttribut
 
 // If we do have an appearance set, then disable Yosemite style translucency, as it interferres too much...
 
-//- (BOOL) allowsVibrancy
-//{
-//	return _appearance != nil ? NO : YES;
-//}
-
+// DCJ: Disabling this because it causes poor drawing performance of progress indicator.
+// https://redsweater.fogbugz.com/f/cases/20255/iMedia-drawing-defect-perhaps-Yosemite-specific
+#if 0
+- (BOOL) allowsVibrancy
+{
+	return _appearance != nil ? NO : YES;
+}
+#endif
 
 @end
