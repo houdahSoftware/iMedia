@@ -1138,7 +1138,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	NSMutableSet* filteredIndexPaths = [indexPaths mutableCopy];
 	for (NSIndexPath* thisIndexPath in indexPaths)
 	{
-		IMBObject* thisObject = (IMBObject*)[[collectionView itemAtIndexPath:thisIndexPath] representedObject];
+		IMBObject* thisObject = (IMBObject*)[collectionView.content objectAtIndex:thisIndexPath.item];
+
 		if ([thisObject isSelectable] == NO)
 		{
 			[filteredIndexPaths removeObject:thisIndexPath];
