@@ -466,13 +466,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	[ibObjectArrayController addObserver:self forKeyPath:kArrangedObjectsKey options:0 context:(void*)kArrangedObjectsKey];
 	[ibObjectArrayController addObserver:self forKeyPath:kImageRepresentationKeyPath options:NSKeyValueObservingOptionNew context:(void*)kImageRepresentationKeyPath];
 
-	// For tooltip display, we pay attention to changes in the icon view's scroller clip view, because 
-	// that will naturally indicate a change in visible items (unfortunately IKImageBrowserView's 
-	// visibleItemIndexes attribute doesn't seem to be KVO compatible.
-
-	NSScrollView* iconViewScroller = [ibIconView enclosingScrollView];
-	NSClipView* clipView = [iconViewScroller contentView];
-
 	// We need to save preferences before the app quits...
 	
 	[[NSNotificationCenter defaultCenter] 
