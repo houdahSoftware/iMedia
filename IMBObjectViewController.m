@@ -723,6 +723,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	
 	// Configure NSCollectionView to support dragging to other apps
 	[ibIconView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
+
+	[viewItemNib release];
 }
 
 
@@ -1137,7 +1139,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 // Disable selection of certain items
 - (NSSet<NSIndexPath *> *) selectableItemsInCollectionView:(NSCollectionView *)collectionView atIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
 {
-	NSMutableSet* filteredIndexPaths = [indexPaths mutableCopy];
+	NSMutableSet* filteredIndexPaths = [[indexPaths mutableCopy] autorelease];
 	for (NSIndexPath* thisIndexPath in indexPaths)
 	{
 		IMBObject* thisObject = (IMBObject*)[collectionView.content objectAtIndex:thisIndexPath.item];
