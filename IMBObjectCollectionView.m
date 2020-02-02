@@ -29,6 +29,60 @@
 	}
 }
 
+- (void)doCommandBySelector:(SEL)selector
+{
+	if (selector == @selector(scrollPageDown:))
+	{
+		[[self enclosingScrollView] pageDown:self];
+	}
+	else if (selector == @selector(scrollPageUp:))
+	{
+		[[self enclosingScrollView] pageUp:self];
+	}
+	else if (selector == @selector(scrollToEndOfDocument:))
+	{
+		[self scrollToEndOfDocument:self];
+
+	}
+	else if (selector == @selector(scrollToBeginningOfDocument:))
+	{
+		[self scrollToBeginningOfDocument:self];
+	}
+	else {
+		[super doCommandBySelector:selector];
+	}
+}
+
+- (void)scrollToBeginningOfDocument:(id)sender
+{
+	NSPoint newScrollOrigin;
+	NSScrollView *scrollview = self.enclosingScrollView;
+
+	if ([[scrollview documentView] isFlipped]) {
+		newScrollOrigin = NSMakePoint(0.0, 0.0);
+	}
+	else {
+		newScrollOrigin = NSMakePoint(0.0, NSMaxY([[scrollview documentView] frame]) - NSHeight([[scrollview contentView] bounds]));
+	}
+
+	[[scrollview documentView] scrollPoint:newScrollOrigin];
+
+}
+
+- (void)scrollToEndOfDocument:(id)sender
+{
+	NSPoint newScrollOrigin;
+	NSScrollView *scrollview = self.enclosingScrollView;
+
+	if ([[scrollview documentView] isFlipped]) {
+		newScrollOrigin = NSMakePoint(0.0, NSMaxY([[scrollview documentView] frame]) - NSHeight([[scrollview contentView] bounds]));
+	} else {
+		newScrollOrigin = NSMakePoint(0.0, 0.0);
+	}
+
+	[[scrollview documentView] scrollPoint:newScrollOrigin];
+}
+
 - (IMBObject*) itemForMouseEvent:(NSEvent*)mouseEvent
 {
 	IMBObject* itemUnderMouse = nil;
