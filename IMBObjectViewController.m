@@ -498,7 +498,9 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
      name:kIMBObjectBadgesDidChangeNotification
      object:nil];
 	
-    
+	// Set up icon view to call up table view for "type select" key handling
+	ibIconView.typeSelectTableView = ibListView;
+
 	// After all has been said and done delegate may do additional setup on selected (sub)views
 	
 	if ([self.delegate respondsToSelector:@selector(objectViewController:didLoadViews:)])
