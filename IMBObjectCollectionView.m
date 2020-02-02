@@ -23,9 +23,47 @@
 	{
 		[controller quicklook:self];
 	}
+	else if (([[inEvent characters] length] > 0) && (([inEvent modifierFlags] & NSEventModifierFlagDeviceIndependentFlagsMask) == 0)) {
+		return [self typeSelectKeyDown:inEvent];
+	}
 	else
 	{
 		[super keyDown:inEvent];
+	}
+}
+
+- (void)keyUp:(NSEvent *)event
+{
+	NSString *eventCharacters = [event characters];
+
+	if ([eventCharacters length] > 0)
+	{
+		unichar firstChar = [eventCharacters characterAtIndex:0];
+
+		if (firstChar == NSEnterCharacter)
+		{
+			return [self.typeSelectTableView keyUp:event];
+		}
+		else if (([event modifierFlags] & NSEventModifierFlagDeviceIndependentFlagsMask) == 0)
+		{
+			return [self.typeSelectTableView keyUp:event];
+		}
+	}
+
+	[super keyUp:event];
+}
+
+- (void)typeSelectKeyDown:(NSEvent *)event
+{
+	NSSet<NSIndexPath *> *oldSlectionIndexPaths = self.selectionIndexPaths;
+
+	[self.typeSelectTableView keyDown:event];
+
+	NSSet<NSIndexPath *> *selectionIndexPaths = self.selectionIndexPaths;
+
+	if (! [oldSlectionIndexPaths isEqual:selectionIndexPaths])
+	{
+		[self scrollToItemsAtIndexPaths:selectionIndexPaths scrollPosition:NSCollectionViewScrollPositionNearestHorizontalEdge|NSCollectionViewScrollPositionNearestVerticalEdge];
 	}
 }
 
