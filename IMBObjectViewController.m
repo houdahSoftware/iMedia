@@ -1082,6 +1082,40 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	return [self pasteboardItemForDraggingObjectAtIndex:[indexPath indexAtPosition:1]];
 }
 
+- (void)collectionView:(NSCollectionView *)collectionView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
+{
+	session.animatesToStartingPositionsOnCancelOrFail = YES;
+	session.draggingFormation = NSDraggingFormationDefault;
+
+	// Provide the IMBObjects to a static variable of Pasteboard, which is the fast path shortcut for
+	// intra application drags. These objects are released again in draggingSession:endedAtPoint:operation:
+	// of our object views...
+
+	NSMutableIndexSet *rowIndexes = [NSMutableIndexSet indexSet];
+
+	for (NSIndexPath *indexPath in indexPaths) {
+		[rowIndexes addIndex:indexPath.item];
+	}
+
+	NSIndexSet *indexes = [self filteredDraggingIndexes:rowIndexes];
+	NSArray<IMBObject *> *draggedObjects = [[ibObjectArrayController arrangedObjects] objectsAtIndexes:indexes];
+	IMBParserMessenger *parserMessenger = draggedObjects.lastObject.parserMessenger;
+
+	[NSPasteboard imb_setIMBObjects:draggedObjects];
+	[NSPasteboard imb_setParserMessenger:parserMessenger];
+
+//	[session enumerateDraggingItemsWithOptions:0 forView:self.view classes:[NSArray arrayWithObject:[NSURL class]] searchOptions:@{} usingBlock:^(NSDraggingItem * _Nonnull draggingItem, NSInteger idx, BOOL * _Nonnull stop) {
+//		// Not sure whether we could do some useful stuff here. Maybe, adjust starting frame of
+//		// dragging item in case of a single item drag? (It may currently be a little off the cursor position)
+//		//NSLog(@"Hello, world!");
+//	}];
+}
+
+- (void)collectionView:(NSCollectionView *)collectionView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint dragOperation:(NSDragOperation)operation
+{
+	[NSPasteboard imb_setIMBObjects:nil];
+}
+
 //----------------------------------------------------------------------------------------------------------------------
 
 #pragma mark
@@ -1362,11 +1396,16 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
     [NSPasteboard imb_setIMBObjects:draggedObjects];
     [NSPasteboard imb_setParserMessenger:parserMessenger];
     
-    [session enumerateDraggingItemsWithOptions:0 forView:self.view classes:[NSArray arrayWithObject:[NSURL class]] searchOptions:@{} usingBlock:^(NSDraggingItem * _Nonnull draggingItem, NSInteger idx, BOOL * _Nonnull stop) {
-        // Not sure whether we could do some useful stuff here. Maybe, adjust starting frame of
-        // dragging item in case of a single item drag? (It may currently be a little off the cursor position)
-        //NSLog(@"Hello, world!");
-    }];
+//    [session enumerateDraggingItemsWithOptions:0 forView:self.view classes:[NSArray arrayWithObject:[NSURL class]] searchOptions:@{} usingBlock:^(NSDraggingItem * _Nonnull draggingItem, NSInteger idx, BOOL * _Nonnull stop) {
+//        // Not sure whether we could do some useful stuff here. Maybe, adjust starting frame of
+//        // dragging item in case of a single item drag? (It may currently be a little off the cursor position)
+//        //NSLog(@"Hello, world!");
+//    }];
+}
+
+- (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session endedAtPoint:(NSPoint)screenPoint operation:(NSDragOperation)operation
+{
+	[NSPasteboard imb_setIMBObjects:nil];
 }
 
 /**
@@ -2017,7 +2056,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 		IMBObject* object = [allObjects objectAtIndex:inIndex];
 
 		// We don't allow non-selectable objects to be dragged either
-		if ([object isSelectable])
+		if (object.isSelectable && (object.accessibility == kIMBResourceIsAccessible ||
+									object.accessibility == kIMBResourceIsAccessibleSecurityScoped))
 		{
 			pasteboardItem = [[NSPasteboardItem alloc] init];
 			[pasteboardItem setDataProvider:object forTypes:[self draggingTypesForWritingToPasteboard]];
