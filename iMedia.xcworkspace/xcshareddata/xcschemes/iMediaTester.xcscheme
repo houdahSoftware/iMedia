@@ -66,8 +66,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D0E96CEE1518C9BF004F3EE7"
-               BuildableName = "com.red-sweater.im.edia.Folder.xpc"
-               BlueprintName = "com.red-sweater.im.edia.Folder"
+               BuildableName = "im.edia.Folder.xpc"
+               BlueprintName = "im.edia.Folder"
                ReferencedContainer = "container:iMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -80,8 +80,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "30FFEBEB150A08DB0009C1D0"
-               BuildableName = "com.red-sweater.im.edia.iPhoto.xpc"
-               BlueprintName = "com.red-sweater.im.edia.iPhoto"
+               BuildableName = "im.edia.iPhoto.xpc"
+               BlueprintName = "im.edia.iPhoto"
                ReferencedContainer = "container:iMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -94,8 +94,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D05D399D152ACD1300E30C43"
-               BuildableName = "com.red-sweater.im.edia.Aperture.xpc"
-               BlueprintName = "com.red-sweater.im.edia.Aperture"
+               BuildableName = "im.edia.Aperture.xpc"
+               BlueprintName = "im.edia.Aperture"
                ReferencedContainer = "container:iMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -108,8 +108,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D05D39AE152ACD2400E30C43"
-               BuildableName = "com.red-sweater.im.edia.Lightroom.xpc"
-               BlueprintName = "com.red-sweater.im.edia.Lightroom"
+               BuildableName = "im.edia.Lightroom.xpc"
+               BlueprintName = "im.edia.Lightroom"
                ReferencedContainer = "container:iMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -122,8 +122,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D05D39BF152ACD3300E30C43"
-               BuildableName = "com.red-sweater.im.edia.Flickr.xpc"
-               BlueprintName = "com.red-sweater.im.edia.Flickr"
+               BuildableName = "im.edia.Flickr.xpc"
+               BlueprintName = "im.edia.Flickr"
                ReferencedContainer = "container:iMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -136,8 +136,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D0F2DDBC152485130059DF8D"
-               BuildableName = "com.red-sweater.im.edia.iTunes.xpc"
-               BlueprintName = "com.red-sweater.im.edia.iTunes"
+               BuildableName = "im.edia.iTunes.xpc"
+               BlueprintName = "im.edia.iTunes"
                ReferencedContainer = "container:iMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -150,8 +150,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D054AFEE152984FA00EBFA1C"
-               BuildableName = "com.red-sweater.im.edia.GarageBand.xpc"
-               BlueprintName = "com.red-sweater.im.edia.GarageBand"
+               BuildableName = "im.edia.GarageBand.xpc"
+               BlueprintName = "im.edia.GarageBand"
                ReferencedContainer = "container:iMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -164,8 +164,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D05D39D0152ACD5E00E30C43"
-               BuildableName = "com.red-sweater.im.edia.Safari.xpc"
-               BlueprintName = "com.red-sweater.im.edia.Safari"
+               BuildableName = "im.edia.Safari.xpc"
+               BlueprintName = "im.edia.Safari"
                ReferencedContainer = "container:iMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -178,8 +178,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D05D39E1152ACD6800E30C43"
-               BuildableName = "com.red-sweater.im.edia.Firefox.xpc"
-               BlueprintName = "com.red-sweater.im.edia.Firefox"
+               BuildableName = "im.edia.Firefox.xpc"
+               BlueprintName = "im.edia.Firefox"
                ReferencedContainer = "container:iMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -192,8 +192,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D05D3A05152AD0D000E30C43"
-               BuildableName = "com.red-sweater.im.edia.Chrome.xpc"
-               BlueprintName = "com.red-sweater.im.edia.Chrome"
+               BuildableName = "im.edia.Chrome.xpc"
+               BlueprintName = "im.edia.Chrome"
                ReferencedContainer = "container:iMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -206,8 +206,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D05D39F2152ACD8800E30C43"
-               BuildableName = "com.red-sweater.im.edia.FSEvents.xpc"
-               BlueprintName = "com.red-sweater.im.edia.FSEvents"
+               BuildableName = "im.edia.FSEvents.xpc"
+               BlueprintName = "im.edia.FSEvents"
                ReferencedContainer = "container:iMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

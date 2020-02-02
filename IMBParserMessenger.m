@@ -193,7 +193,7 @@
 
 + (NSString*) xpcServiceIdentifierPrefix
 {
-	return @"com.red-sweater.im.edia.";
+	return @"im.edia.";
 }
 
 

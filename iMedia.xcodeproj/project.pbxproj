@@ -53,11 +53,11 @@
 		3010BE4416A85D2600798D2E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D02CD4CB1224F78E00C773A2 /* Localizable.strings */; };
 		3016792913B225B9000E57D2 /* badge_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 3016792813B225B9000E57D2 /* badge_checkbox.png */; };
 		3016792A13B225B9000E57D2 /* badge_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 3016792813B225B9000E57D2 /* badge_checkbox.png */; };
-		301C61ED1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61EB1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h */; };
+		301C61ED1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61EB1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		301C61EE1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61EC1AAA571200A0E15F /* IMBAppleMediaLibraryParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		301C61F21AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F01AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.h */; };
 		301C61F31AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F11AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		301C61F61AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F41AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h */; };
+		301C61F61AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F41AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		301C61F71AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F51AAF22CD00A0E15F /* IMBApplePhotosParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		301C61FA1AAF45C200A0E15F /* IMBiTunesParserConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 301C61F81AAF45C200A0E15F /* IMBiTunesParserConfiguration.h */; };
 		301C61FB1AAF45C200A0E15F /* IMBiTunesParserConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 301C61F91AAF45C200A0E15F /* IMBiTunesParserConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -110,7 +110,7 @@
 		3094F7171715C0980016E810 /* PhFacebook.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3094F7151715C0070016E810 /* PhFacebook.framework */; };
 		3099018E16637B93006C1212 /* NSBundle+iMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = 3099018C16637B93006C1212 /* NSBundle+iMedia.h */; };
 		3099018F16637B93006C1212 /* NSBundle+iMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 3099018D16637B93006C1212 /* NSBundle+iMedia.m */; };
-		309901941663B2A3006C1212 /* com.red-sweater.im.edia.Aperture.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D39AC152ACD1300E30C43 /* com.red-sweater.im.edia.Aperture.xpc */; };
+		309901941663B2A3006C1212 /* im.edia.Aperture.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D39AC152ACD1300E30C43 /* im.edia.Aperture.xpc */; };
 		309BA06917F0219500866E64 /* album_512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 309BA06717F0219500866E64 /* album_512x512.png */; };
 		309BA06A17F0219500866E64 /* person_512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 309BA06817F0219500866E64 /* person_512x512.png */; };
 		30B83AD01701AFDB000EC74E /* SBServiceMain.m in Sources */ = {isa = PBXBuildFile; fileRef = D08109A7151A052300201850 /* SBServiceMain.m */; };
@@ -120,10 +120,10 @@
 		30B83AD51701AFDB000EC74E /* XPCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3089F94A151C8FDD00D56DC0 /* XPCKit.framework */; };
 		30B83AD71701AFDB000EC74E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D02CD4CB1224F78E00C773A2 /* Localizable.strings */; };
 		30B83AD81701AFDB000EC74E /* SandboxingKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30421DE616A9943400311AC4 /* SandboxingKit.strings */; };
-		30B83AE11701B1C8000EC74E /* com.red-sweater.im.edia.Facebook.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30B83ADC1701AFDB000EC74E /* com.red-sweater.im.edia.Facebook.xpc */; };
-		30BA9D221A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D201A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h */; };
+		30B83AE11701B1C8000EC74E /* im.edia.Facebook.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30B83ADC1701AFDB000EC74E /* im.edia.Facebook.xpc */; };
+		30BA9D221A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D201A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30BA9D231A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BA9D211A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		30BA9D271A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D251A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h */; };
+		30BA9D271A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BA9D251A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30BA9D281A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BA9D261A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		30D700B0177A2928003CB6FE /* missing-thumbnail.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 30D700AF177A2928003CB6FE /* missing-thumbnail.jpg */; };
 		30DA32421A8E29680039B07C /* IMBAppleMediaLibraryPropertySynchronizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 30DA32401A8E29680039B07C /* IMBAppleMediaLibraryPropertySynchronizer.h */; };
@@ -155,7 +155,7 @@
 		30FD64661546AF6E0036BDE2 /* NSPasteboard+iMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = 30FD64641546AF6E0036BDE2 /* NSPasteboard+iMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30FD64671546AF6E0036BDE2 /* NSPasteboard+iMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FD64651546AF6E0036BDE2 /* NSPasteboard+iMedia.m */; };
 		30FD646B1546BAE90036BDE2 /* IMBApertureHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCA064112368388009072AE /* IMBApertureHeaderViewController.m */; };
-		30FFEBFE150A0AA70009C1D0 /* com.red-sweater.im.edia.iPhoto.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30FFEBEC150A08DB0009C1D0 /* com.red-sweater.im.edia.iPhoto.xpc */; };
+		30FFEBFE150A0AA70009C1D0 /* im.edia.iPhoto.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = 30FFEBEC150A08DB0009C1D0 /* im.edia.iPhoto.xpc */; };
 		651F0B142210CFD2007CFEFF /* IMBObjectCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 651F0B132210CFD2007CFEFF /* IMBObjectCollectionViewItem.xib */; };
 		6523FF231B0CE589004FD6D2 /* IMBItemizableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BC5C641AFF22BE002BF87F /* IMBItemizableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		657C066522133E7100A2DB7F /* IMBObjectCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 657C066322133E7000A2DB7F /* IMBObjectCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -193,6 +193,7 @@
 		8F93177E10A9FC53002CDB19 /* IMBPyramidObjectPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F93177C10A9FC53002CDB19 /* IMBPyramidObjectPromise.h */; };
 		8FC1040A23E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC1040823E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.h */; };
 		8FC1040B23E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC1040923E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.m */; };
+		8FC1043423E6C7CA000F063E /* IMBiPhotoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CB9174150F7753007716FA /* IMBiPhotoParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8FC15E4C176A99EB007FF34F /* IMBLightroom5Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC15E4A176A99EB007FF34F /* IMBLightroom5Parser.h */; };
 		8FC15E4D176A99EB007FF34F /* IMBLightroom5Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC15E4B176A99EB007FF34F /* IMBLightroom5Parser.m */; };
 		8FC2089D11C29E1C0083EAB3 /* IMBLightroom3VideoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC2089B11C29E1C0083EAB3 /* IMBLightroom3VideoParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -292,7 +293,7 @@
 		D054AFF0152984FA00EBFA1C /* SBServiceMain.m in Sources */ = {isa = PBXBuildFile; fileRef = D08109A7151A052300201850 /* SBServiceMain.m */; };
 		D054AFF5152984FA00EBFA1C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09930FC1010FF9700C527B7 /* Quartz.framework */; };
 		D054AFF7152984FA00EBFA1C /* XPCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3089F94A151C8FDD00D56DC0 /* XPCKit.framework */; };
-		D054AFFF1529927E00EBFA1C /* com.red-sweater.im.edia.GarageBand.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D054AFFD152984FA00EBFA1C /* com.red-sweater.im.edia.GarageBand.xpc */; };
+		D054AFFF1529927E00EBFA1C /* im.edia.GarageBand.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D054AFFD152984FA00EBFA1C /* im.edia.GarageBand.xpc */; };
 		D054B0011529A65100EBFA1C /* IMBGarageBandParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D02D17591081CF3B00142E8A /* IMBGarageBandParser.m */; };
 		D05D398F152A280F00E30C43 /* IMBFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E8D2D1019E8A5005D8614 /* IMBFileWatcher.m */; };
 		D05D3990152A280F00E30C43 /* IMBKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E8D2A1019E89E005D8614 /* IMBKQueue.m */; };
@@ -320,7 +321,7 @@
 		D05D3A0E152AD0D000E30C43 /* XPCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3089F94A151C8FDD00D56DC0 /* XPCKit.framework */; };
 		D063A1EF1A28AC5500ED8BC3 /* ToolbarMovieFolderIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = D063A1EE1A28AC5500ED8BC3 /* ToolbarMovieFolderIcon.icns */; };
 		D065383615EFDC810081D8D3 /* IMBAccessRightsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D065383515EFDC810081D8D3 /* IMBAccessRightsViewController.xib */; };
-		D0680C3C1518CCCE00CED506 /* com.red-sweater.im.edia.Folder.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D0E96D021518C9BF004F3EE7 /* com.red-sweater.im.edia.Folder.xpc */; };
+		D0680C3C1518CCCE00CED506 /* im.edia.Folder.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D0E96D021518C9BF004F3EE7 /* im.edia.Folder.xpc */; };
 		D08070BF10442CD700891137 /* IMBMovieObjectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D08070BD10442CD700891137 /* IMBMovieObjectViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08070C310442CE100891137 /* IMBAudioObjectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D08070C110442CE100891137 /* IMBAudioObjectViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08070C810442DAE00891137 /* IMBAudioObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D08070C710442DAE00891137 /* IMBAudioObjectViewController.xib */; };
@@ -364,12 +365,12 @@
 		D08F82B411E4A1C1006E618E /* IMBQLPreviewPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = D08F7F3E11E4974E006E618E /* IMBQLPreviewPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0904DA8152CA51F003FDD08 /* IMBFileSystemObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = D0904DA6152CA51F003FDD08 /* IMBFileSystemObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0904DA9152CA51F003FDD08 /* IMBFileSystemObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = D0904DA7152CA51F003FDD08 /* IMBFileSystemObserver.m */; };
-		D0904DAC152CAA4A003FDD08 /* com.red-sweater.im.edia.Lightroom.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D39BD152ACD2400E30C43 /* com.red-sweater.im.edia.Lightroom.xpc */; };
-		D0904DAD152CAA4A003FDD08 /* com.red-sweater.im.edia.Flickr.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D39CE152ACD3300E30C43 /* com.red-sweater.im.edia.Flickr.xpc */; };
-		D0904DAE152CAA4A003FDD08 /* com.red-sweater.im.edia.Safari.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D39DF152ACD5E00E30C43 /* com.red-sweater.im.edia.Safari.xpc */; };
-		D0904DAF152CAA4A003FDD08 /* com.red-sweater.im.edia.Firefox.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D39F0152ACD6800E30C43 /* com.red-sweater.im.edia.Firefox.xpc */; };
-		D0904DB0152CAA4A003FDD08 /* com.red-sweater.im.edia.FSEvents.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D3A01152ACD8800E30C43 /* com.red-sweater.im.edia.FSEvents.xpc */; };
-		D0904DB1152CAA4A003FDD08 /* com.red-sweater.im.edia.Chrome.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D3A13152AD0D000E30C43 /* com.red-sweater.im.edia.Chrome.xpc */; };
+		D0904DAC152CAA4A003FDD08 /* im.edia.Lightroom.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D39BD152ACD2400E30C43 /* im.edia.Lightroom.xpc */; };
+		D0904DAD152CAA4A003FDD08 /* im.edia.Flickr.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D39CE152ACD3300E30C43 /* im.edia.Flickr.xpc */; };
+		D0904DAE152CAA4A003FDD08 /* im.edia.Safari.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D39DF152ACD5E00E30C43 /* im.edia.Safari.xpc */; };
+		D0904DAF152CAA4A003FDD08 /* im.edia.Firefox.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D39F0152ACD6800E30C43 /* im.edia.Firefox.xpc */; };
+		D0904DB0152CAA4A003FDD08 /* im.edia.FSEvents.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D3A01152ACD8800E30C43 /* im.edia.FSEvents.xpc */; };
+		D0904DB1152CAA4A003FDD08 /* im.edia.Chrome.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D05D3A13152AD0D000E30C43 /* im.edia.Chrome.xpc */; };
 		D0904DD9152D6F79003FDD08 /* XPCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3089F94A151C8FDD00D56DC0 /* XPCKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D0904DDA152D6FBD003FDD08 /* XPCKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3089F94A151C8FDD00D56DC0 /* XPCKit.framework */; };
 		D0904DDC152D700E003FDD08 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0E0C80104C72A200EE6B09 /* Security.framework */; };
@@ -547,7 +548,7 @@
 		D0F2DDBE152485130059DF8D /* SBServiceMain.m in Sources */ = {isa = PBXBuildFile; fileRef = D08109A7151A052300201850 /* SBServiceMain.m */; };
 		D0F2DDC3152485130059DF8D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09930FC1010FF9700C527B7 /* Quartz.framework */; };
 		D0F2DDC5152485130059DF8D /* XPCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3089F94A151C8FDD00D56DC0 /* XPCKit.framework */; };
-		D0F2DDCF152486360059DF8D /* com.red-sweater.im.edia.iTunes.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D0F2DDCB152485130059DF8D /* com.red-sweater.im.edia.iTunes.xpc */; };
+		D0F2DDCF152486360059DF8D /* im.edia.iTunes.xpc in Copy XPCServices */ = {isa = PBXBuildFile; fileRef = D0F2DDCB152485130059DF8D /* im.edia.iTunes.xpc */; };
 		D0FC9518108213A800973FEE /* IMBiTunesMovieParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0FC9516108213A800973FEE /* IMBiTunesMovieParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0FDC62B1668ACC000181E15 /* iTunes11-icon-01.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FDC5EB1668AC7100181E15 /* iTunes11-icon-01.png */; };
 		D0FDC62C1668ACC000181E15 /* iTunes11-icon-01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FDC5EC1668AC7200181E15 /* iTunes11-icon-01@2x.png */; };
@@ -869,18 +870,18 @@
 			dstPath = Contents/XPCServices;
 			dstSubfolderSpec = 1;
 			files = (
-				30B83AE11701B1C8000EC74E /* com.red-sweater.im.edia.Facebook.xpc in Copy XPCServices */,
-				D0904DAC152CAA4A003FDD08 /* com.red-sweater.im.edia.Lightroom.xpc in Copy XPCServices */,
-				D0904DAD152CAA4A003FDD08 /* com.red-sweater.im.edia.Flickr.xpc in Copy XPCServices */,
-				D0904DAE152CAA4A003FDD08 /* com.red-sweater.im.edia.Safari.xpc in Copy XPCServices */,
-				D0904DAF152CAA4A003FDD08 /* com.red-sweater.im.edia.Firefox.xpc in Copy XPCServices */,
-				D0904DB0152CAA4A003FDD08 /* com.red-sweater.im.edia.FSEvents.xpc in Copy XPCServices */,
-				D0904DB1152CAA4A003FDD08 /* com.red-sweater.im.edia.Chrome.xpc in Copy XPCServices */,
-				D054AFFF1529927E00EBFA1C /* com.red-sweater.im.edia.GarageBand.xpc in Copy XPCServices */,
-				D0F2DDCF152486360059DF8D /* com.red-sweater.im.edia.iTunes.xpc in Copy XPCServices */,
-				D0680C3C1518CCCE00CED506 /* com.red-sweater.im.edia.Folder.xpc in Copy XPCServices */,
-				30FFEBFE150A0AA70009C1D0 /* com.red-sweater.im.edia.iPhoto.xpc in Copy XPCServices */,
-				309901941663B2A3006C1212 /* com.red-sweater.im.edia.Aperture.xpc in Copy XPCServices */,
+				30B83AE11701B1C8000EC74E /* im.edia.Facebook.xpc in Copy XPCServices */,
+				D0904DAC152CAA4A003FDD08 /* im.edia.Lightroom.xpc in Copy XPCServices */,
+				D0904DAD152CAA4A003FDD08 /* im.edia.Flickr.xpc in Copy XPCServices */,
+				D0904DAE152CAA4A003FDD08 /* im.edia.Safari.xpc in Copy XPCServices */,
+				D0904DAF152CAA4A003FDD08 /* im.edia.Firefox.xpc in Copy XPCServices */,
+				D0904DB0152CAA4A003FDD08 /* im.edia.FSEvents.xpc in Copy XPCServices */,
+				D0904DB1152CAA4A003FDD08 /* im.edia.Chrome.xpc in Copy XPCServices */,
+				D054AFFF1529927E00EBFA1C /* im.edia.GarageBand.xpc in Copy XPCServices */,
+				D0F2DDCF152486360059DF8D /* im.edia.iTunes.xpc in Copy XPCServices */,
+				D0680C3C1518CCCE00CED506 /* im.edia.Folder.xpc in Copy XPCServices */,
+				30FFEBFE150A0AA70009C1D0 /* im.edia.iPhoto.xpc in Copy XPCServices */,
+				309901941663B2A3006C1212 /* im.edia.Aperture.xpc in Copy XPCServices */,
 			);
 			name = "Copy XPCServices";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -998,7 +999,7 @@
 		3099018D16637B93006C1212 /* NSBundle+iMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+iMedia.m"; sourceTree = "<group>"; };
 		309BA06717F0219500866E64 /* album_512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album_512x512.png; sourceTree = "<group>"; };
 		309BA06817F0219500866E64 /* person_512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person_512x512.png; sourceTree = "<group>"; };
-		30B83ADC1701AFDB000EC74E /* com.red-sweater.im.edia.Facebook.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.Facebook.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
+		30B83ADC1701AFDB000EC74E /* im.edia.Facebook.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.Facebook.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B83ADE1701B11F000EC74E /* im.edia.Facebook.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = im.edia.Facebook.entitlements; sourceTree = "<group>"; };
 		30BA9D201A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBAppleMediaLibraryParser.h; sourceTree = "<group>"; };
 		30BA9D211A9C8A3900FDFA3A /* IMBAppleMediaLibraryParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBAppleMediaLibraryParser.m; sourceTree = "<group>"; };
@@ -1035,7 +1036,7 @@
 		30FD64461545833A0036BDE2 /* IMBApertureParserMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBApertureParserMessenger.m; sourceTree = "<group>"; };
 		30FD64641546AF6E0036BDE2 /* NSPasteboard+iMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPasteboard+iMedia.h"; sourceTree = "<group>"; };
 		30FD64651546AF6E0036BDE2 /* NSPasteboard+iMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPasteboard+iMedia.m"; sourceTree = "<group>"; };
-		30FFEBEC150A08DB0009C1D0 /* com.red-sweater.im.edia.iPhoto.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.iPhoto.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
+		30FFEBEC150A08DB0009C1D0 /* im.edia.iPhoto.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.iPhoto.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		30FFEBEE150A08DB0009C1D0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		32DBCF5E0370ADEE00C91783 /* iMedia.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iMedia.pch; sourceTree = "<group>"; };
 		651F0B132210CFD2007CFEFF /* IMBObjectCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IMBObjectCollectionViewItem.xib; sourceTree = "<group>"; };
@@ -1203,14 +1204,14 @@
 		D054AFE8152984C300EBFA1C /* IMBGarageBandParserMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBGarageBandParserMessenger.h; sourceTree = "<group>"; };
 		D054AFE9152984C300EBFA1C /* IMBGarageBandParserMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBGarageBandParserMessenger.m; sourceTree = "<group>"; };
 		D054AFED152984ED00EBFA1C /* im.edia.GarageBand.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = im.edia.GarageBand.entitlements; sourceTree = "<group>"; };
-		D054AFFD152984FA00EBFA1C /* com.red-sweater.im.edia.GarageBand.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.GarageBand.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D05D39AC152ACD1300E30C43 /* com.red-sweater.im.edia.Aperture.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.Aperture.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D05D39BD152ACD2400E30C43 /* com.red-sweater.im.edia.Lightroom.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.Lightroom.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D05D39CE152ACD3300E30C43 /* com.red-sweater.im.edia.Flickr.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.Flickr.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D05D39DF152ACD5E00E30C43 /* com.red-sweater.im.edia.Safari.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.Safari.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D05D39F0152ACD6800E30C43 /* com.red-sweater.im.edia.Firefox.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.Firefox.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D05D3A01152ACD8800E30C43 /* com.red-sweater.im.edia.FSEvents.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.FSEvents.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D05D3A13152AD0D000E30C43 /* com.red-sweater.im.edia.Chrome.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.Chrome.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D054AFFD152984FA00EBFA1C /* im.edia.GarageBand.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.GarageBand.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		D05D39AC152ACD1300E30C43 /* im.edia.Aperture.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.Aperture.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		D05D39BD152ACD2400E30C43 /* im.edia.Lightroom.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.Lightroom.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		D05D39CE152ACD3300E30C43 /* im.edia.Flickr.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.Flickr.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		D05D39DF152ACD5E00E30C43 /* im.edia.Safari.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.Safari.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		D05D39F0152ACD6800E30C43 /* im.edia.Firefox.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.Firefox.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		D05D3A01152ACD8800E30C43 /* im.edia.FSEvents.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.FSEvents.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		D05D3A13152AD0D000E30C43 /* im.edia.Chrome.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.Chrome.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		D05D3A15152AD27300E30C43 /* im.edia.Aperture.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = im.edia.Aperture.entitlements; sourceTree = "<group>"; };
 		D05D3A16152AD28400E30C43 /* im.edia.Lightroom.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = im.edia.Lightroom.entitlements; sourceTree = "<group>"; };
 		D05D3A17152AD29700E30C43 /* im.edia.Flickr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = im.edia.Flickr.entitlements; sourceTree = "<group>"; };
@@ -1417,7 +1418,7 @@
 		D0E96CE41518A296004F3EE7 /* IMBImageFolderParserMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBImageFolderParserMessenger.h; sourceTree = "<group>"; };
 		D0E96CE51518A297004F3EE7 /* IMBImageFolderParserMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBImageFolderParserMessenger.m; sourceTree = "<group>"; };
 		D0E96CEA1518C97B004F3EE7 /* im.edia.Folder.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = im.edia.Folder.entitlements; sourceTree = "<group>"; };
-		D0E96D021518C9BF004F3EE7 /* com.red-sweater.im.edia.Folder.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.Folder.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0E96D021518C9BF004F3EE7 /* im.edia.Folder.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.Folder.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E96D1A104410BD0015979F /* IMBPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBPanelController.h; sourceTree = "<group>"; };
 		D0E96D1B104410BD0015979F /* IMBPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBPanelController.m; sourceTree = "<group>"; };
 		D0F2DB941098262D004280C1 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = fmdb/src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
@@ -1429,7 +1430,7 @@
 		D0F2DBCE1098270F004280C1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		D0F2DDB6152475C00059DF8D /* IMBiTunesParserMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBiTunesParserMessenger.h; sourceTree = "<group>"; };
 		D0F2DDB7152475C00059DF8D /* IMBiTunesParserMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBiTunesParserMessenger.m; sourceTree = "<group>"; };
-		D0F2DDCB152485130059DF8D /* com.red-sweater.im.edia.iTunes.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "com.red-sweater.im.edia.iTunes.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0F2DDCB152485130059DF8D /* im.edia.iTunes.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = im.edia.iTunes.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F2DDCD1524859A0059DF8D /* im.edia.iTunes.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = im.edia.iTunes.entitlements; sourceTree = "<group>"; };
 		D0FC9516108213A800973FEE /* IMBiTunesMovieParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBiTunesMovieParser.h; sourceTree = "<group>"; };
 		D0FC9517108213A800973FEE /* IMBiTunesMovieParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBiTunesMovieParser.m; sourceTree = "<group>"; };
@@ -1650,18 +1651,18 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* iMedia.framework */,
 				D09933551011B26E00C527B7 /* iMediaTester.app */,
-				30FFEBEC150A08DB0009C1D0 /* com.red-sweater.im.edia.iPhoto.xpc */,
-				D0E96D021518C9BF004F3EE7 /* com.red-sweater.im.edia.Folder.xpc */,
-				D0F2DDCB152485130059DF8D /* com.red-sweater.im.edia.iTunes.xpc */,
-				D054AFFD152984FA00EBFA1C /* com.red-sweater.im.edia.GarageBand.xpc */,
-				D05D39AC152ACD1300E30C43 /* com.red-sweater.im.edia.Aperture.xpc */,
-				D05D39BD152ACD2400E30C43 /* com.red-sweater.im.edia.Lightroom.xpc */,
-				D05D39CE152ACD3300E30C43 /* com.red-sweater.im.edia.Flickr.xpc */,
-				D05D39DF152ACD5E00E30C43 /* com.red-sweater.im.edia.Safari.xpc */,
-				D05D39F0152ACD6800E30C43 /* com.red-sweater.im.edia.Firefox.xpc */,
-				D05D3A01152ACD8800E30C43 /* com.red-sweater.im.edia.FSEvents.xpc */,
-				D05D3A13152AD0D000E30C43 /* com.red-sweater.im.edia.Chrome.xpc */,
-				30B83ADC1701AFDB000EC74E /* com.red-sweater.im.edia.Facebook.xpc */,
+				30FFEBEC150A08DB0009C1D0 /* im.edia.iPhoto.xpc */,
+				D0E96D021518C9BF004F3EE7 /* im.edia.Folder.xpc */,
+				D0F2DDCB152485130059DF8D /* im.edia.iTunes.xpc */,
+				D054AFFD152984FA00EBFA1C /* im.edia.GarageBand.xpc */,
+				D05D39AC152ACD1300E30C43 /* im.edia.Aperture.xpc */,
+				D05D39BD152ACD2400E30C43 /* im.edia.Lightroom.xpc */,
+				D05D39CE152ACD3300E30C43 /* im.edia.Flickr.xpc */,
+				D05D39DF152ACD5E00E30C43 /* im.edia.Safari.xpc */,
+				D05D39F0152ACD6800E30C43 /* im.edia.Firefox.xpc */,
+				D05D3A01152ACD8800E30C43 /* im.edia.FSEvents.xpc */,
+				D05D3A13152AD0D000E30C43 /* im.edia.Chrome.xpc */,
+				30B83ADC1701AFDB000EC74E /* im.edia.Facebook.xpc */,
 				307F9691183D090D004F87E0 /* iMedia Tests.xctest */,
 			);
 			name = Products;
@@ -2725,6 +2726,7 @@
 				D024A31C15319CB4005B6C0A /* IMBAlertPopover.h in Headers */,
 				D024A31E15319CB4005B6C0A /* IMBAlertPopoverViewController.h in Headers */,
 				30BA9D271A9C8AAE00FDFA3A /* IMBAppleMediaLibraryParserMessenger.h in Headers */,
+				8FC1043423E6C7CA000F063E /* IMBiPhotoParser.h in Headers */,
 				D024A32315319CCD005B6C0A /* IMBPopover.h in Headers */,
 				D006CFF81534084C00C53C23 /* IMBLightroomModernParser.h in Headers */,
 				30FD64471545833A0036BDE2 /* IMBApertureParserMessenger.h in Headers */,
@@ -2780,9 +2782,9 @@
 			productReference = 307F9691183D090D004F87E0 /* iMedia Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		30B83ACE1701AFDB000EC74E /* com.red-sweater.im.edia.Facebook */ = {
+		30B83ACE1701AFDB000EC74E /* im.edia.Facebook */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 30B83AD91701AFDB000EC74E /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Facebook" */;
+			buildConfigurationList = 30B83AD91701AFDB000EC74E /* Build configuration list for PBXNativeTarget "im.edia.Facebook" */;
 			buildPhases = (
 				30B83ACF1701AFDB000EC74E /* Sources */,
 				30B83AD11701AFDB000EC74E /* Frameworks */,
@@ -2792,14 +2794,14 @@
 			);
 			dependencies = (
 			);
-			name = "com.red-sweater.im.edia.Facebook";
+			name = im.edia.Facebook;
 			productName = "iPhoto Parser XPC Service";
-			productReference = 30B83ADC1701AFDB000EC74E /* com.red-sweater.im.edia.Facebook.xpc */;
+			productReference = 30B83ADC1701AFDB000EC74E /* im.edia.Facebook.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
-		30FFEBEB150A08DB0009C1D0 /* com.red-sweater.im.edia.iPhoto */ = {
+		30FFEBEB150A08DB0009C1D0 /* im.edia.iPhoto */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 30FFEBF9150A08DC0009C1D0 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.iPhoto" */;
+			buildConfigurationList = 30FFEBF9150A08DC0009C1D0 /* Build configuration list for PBXNativeTarget "im.edia.iPhoto" */;
 			buildPhases = (
 				30FFEBE8150A08DB0009C1D0 /* Sources */,
 				30FFEBE9150A08DB0009C1D0 /* Frameworks */,
@@ -2811,9 +2813,9 @@
 				654782BB17EBD78F00F34934 /* PBXTargetDependency */,
 				654782A517EBD6C700F34934 /* PBXTargetDependency */,
 			);
-			name = "com.red-sweater.im.edia.iPhoto";
+			name = im.edia.iPhoto;
 			productName = "iPhoto Parser XPC Service";
-			productReference = 30FFEBEC150A08DB0009C1D0 /* com.red-sweater.im.edia.iPhoto.xpc */;
+			productReference = 30FFEBEC150A08DB0009C1D0 /* im.edia.iPhoto.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
 		8DC2EF4F0486A6940098B216 /* iMedia */ = {
@@ -2836,9 +2838,9 @@
 			productReference = 8DC2EF5B0486A6940098B216 /* iMedia.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D054AFEE152984FA00EBFA1C /* com.red-sweater.im.edia.GarageBand */ = {
+		D054AFEE152984FA00EBFA1C /* im.edia.GarageBand */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D054AFFA152984FA00EBFA1C /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.GarageBand" */;
+			buildConfigurationList = D054AFFA152984FA00EBFA1C /* Build configuration list for PBXNativeTarget "im.edia.GarageBand" */;
 			buildPhases = (
 				D054AFEF152984FA00EBFA1C /* Sources */,
 				D054AFF1152984FA00EBFA1C /* Frameworks */,
@@ -2850,14 +2852,14 @@
 				654782C517EBD7D700F34934 /* PBXTargetDependency */,
 				654782AF17EBD6E900F34934 /* PBXTargetDependency */,
 			);
-			name = "com.red-sweater.im.edia.GarageBand";
+			name = im.edia.GarageBand;
 			productName = "iPhoto Parser XPC Service";
-			productReference = D054AFFD152984FA00EBFA1C /* com.red-sweater.im.edia.GarageBand.xpc */;
+			productReference = D054AFFD152984FA00EBFA1C /* im.edia.GarageBand.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D05D399D152ACD1300E30C43 /* com.red-sweater.im.edia.Aperture */ = {
+		D05D399D152ACD1300E30C43 /* im.edia.Aperture */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D05D39A9152ACD1300E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Aperture" */;
+			buildConfigurationList = D05D39A9152ACD1300E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Aperture" */;
 			buildPhases = (
 				D05D399E152ACD1300E30C43 /* Sources */,
 				D05D39A0152ACD1300E30C43 /* Frameworks */,
@@ -2869,14 +2871,14 @@
 				654782BD17EBD79300F34934 /* PBXTargetDependency */,
 				654782A717EBD6D000F34934 /* PBXTargetDependency */,
 			);
-			name = "com.red-sweater.im.edia.Aperture";
+			name = im.edia.Aperture;
 			productName = "iPhoto Parser XPC Service";
-			productReference = D05D39AC152ACD1300E30C43 /* com.red-sweater.im.edia.Aperture.xpc */;
+			productReference = D05D39AC152ACD1300E30C43 /* im.edia.Aperture.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D05D39AE152ACD2400E30C43 /* com.red-sweater.im.edia.Lightroom */ = {
+		D05D39AE152ACD2400E30C43 /* im.edia.Lightroom */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D05D39BA152ACD2400E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Lightroom" */;
+			buildConfigurationList = D05D39BA152ACD2400E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Lightroom" */;
 			buildPhases = (
 				D05D39AF152ACD2400E30C43 /* Sources */,
 				D05D39B1152ACD2400E30C43 /* Frameworks */,
@@ -2888,14 +2890,14 @@
 				654782BF17EBD79800F34934 /* PBXTargetDependency */,
 				654782A917EBD6D600F34934 /* PBXTargetDependency */,
 			);
-			name = "com.red-sweater.im.edia.Lightroom";
+			name = im.edia.Lightroom;
 			productName = "iPhoto Parser XPC Service";
-			productReference = D05D39BD152ACD2400E30C43 /* com.red-sweater.im.edia.Lightroom.xpc */;
+			productReference = D05D39BD152ACD2400E30C43 /* im.edia.Lightroom.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D05D39BF152ACD3300E30C43 /* com.red-sweater.im.edia.Flickr */ = {
+		D05D39BF152ACD3300E30C43 /* im.edia.Flickr */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D05D39CB152ACD3300E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Flickr" */;
+			buildConfigurationList = D05D39CB152ACD3300E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Flickr" */;
 			buildPhases = (
 				D05D39C0152ACD3300E30C43 /* Sources */,
 				D05D39C2152ACD3300E30C43 /* Frameworks */,
@@ -2907,14 +2909,14 @@
 				654782C117EBD79B00F34934 /* PBXTargetDependency */,
 				654782AB17EBD6DD00F34934 /* PBXTargetDependency */,
 			);
-			name = "com.red-sweater.im.edia.Flickr";
+			name = im.edia.Flickr;
 			productName = "iPhoto Parser XPC Service";
-			productReference = D05D39CE152ACD3300E30C43 /* com.red-sweater.im.edia.Flickr.xpc */;
+			productReference = D05D39CE152ACD3300E30C43 /* im.edia.Flickr.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D05D39D0152ACD5E00E30C43 /* com.red-sweater.im.edia.Safari */ = {
+		D05D39D0152ACD5E00E30C43 /* im.edia.Safari */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D05D39DC152ACD5E00E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Safari" */;
+			buildConfigurationList = D05D39DC152ACD5E00E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Safari" */;
 			buildPhases = (
 				D05D39D1152ACD5E00E30C43 /* Sources */,
 				D05D39D3152ACD5E00E30C43 /* Frameworks */,
@@ -2926,14 +2928,14 @@
 				654782C717EBD7DB00F34934 /* PBXTargetDependency */,
 				654782B117EBD6ED00F34934 /* PBXTargetDependency */,
 			);
-			name = "com.red-sweater.im.edia.Safari";
+			name = im.edia.Safari;
 			productName = "iPhoto Parser XPC Service";
-			productReference = D05D39DF152ACD5E00E30C43 /* com.red-sweater.im.edia.Safari.xpc */;
+			productReference = D05D39DF152ACD5E00E30C43 /* im.edia.Safari.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D05D39E1152ACD6800E30C43 /* com.red-sweater.im.edia.Firefox */ = {
+		D05D39E1152ACD6800E30C43 /* im.edia.Firefox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D05D39ED152ACD6800E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Firefox" */;
+			buildConfigurationList = D05D39ED152ACD6800E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Firefox" */;
 			buildPhases = (
 				D05D39E2152ACD6800E30C43 /* Sources */,
 				D05D39E4152ACD6800E30C43 /* Frameworks */,
@@ -2945,14 +2947,14 @@
 				654782C917EBD7DE00F34934 /* PBXTargetDependency */,
 				654782B317EBD6F100F34934 /* PBXTargetDependency */,
 			);
-			name = "com.red-sweater.im.edia.Firefox";
+			name = im.edia.Firefox;
 			productName = "iPhoto Parser XPC Service";
-			productReference = D05D39F0152ACD6800E30C43 /* com.red-sweater.im.edia.Firefox.xpc */;
+			productReference = D05D39F0152ACD6800E30C43 /* im.edia.Firefox.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D05D39F2152ACD8800E30C43 /* com.red-sweater.im.edia.FSEvents */ = {
+		D05D39F2152ACD8800E30C43 /* im.edia.FSEvents */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D05D39FE152ACD8800E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.FSEvents" */;
+			buildConfigurationList = D05D39FE152ACD8800E30C43 /* Build configuration list for PBXNativeTarget "im.edia.FSEvents" */;
 			buildPhases = (
 				D05D39F3152ACD8800E30C43 /* Sources */,
 				D05D39F5152ACD8800E30C43 /* Frameworks */,
@@ -2964,14 +2966,14 @@
 				654782CD17EBD7E800F34934 /* PBXTargetDependency */,
 				654782B717EBD6FA00F34934 /* PBXTargetDependency */,
 			);
-			name = "com.red-sweater.im.edia.FSEvents";
+			name = im.edia.FSEvents;
 			productName = "iPhoto Parser XPC Service";
-			productReference = D05D3A01152ACD8800E30C43 /* com.red-sweater.im.edia.FSEvents.xpc */;
+			productReference = D05D3A01152ACD8800E30C43 /* im.edia.FSEvents.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D05D3A05152AD0D000E30C43 /* com.red-sweater.im.edia.Chrome */ = {
+		D05D3A05152AD0D000E30C43 /* im.edia.Chrome */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D05D3A10152AD0D000E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Chrome" */;
+			buildConfigurationList = D05D3A10152AD0D000E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Chrome" */;
 			buildPhases = (
 				D05D3A06152AD0D000E30C43 /* Sources */,
 				D05D3A08152AD0D000E30C43 /* Frameworks */,
@@ -2983,9 +2985,9 @@
 				654782CB17EBD7E400F34934 /* PBXTargetDependency */,
 				654782B517EBD6F400F34934 /* PBXTargetDependency */,
 			);
-			name = "com.red-sweater.im.edia.Chrome";
+			name = im.edia.Chrome;
 			productName = "iPhoto Parser XPC Service";
-			productReference = D05D3A13152AD0D000E30C43 /* com.red-sweater.im.edia.Chrome.xpc */;
+			productReference = D05D3A13152AD0D000E30C43 /* im.edia.Chrome.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
 		D09933541011B26E00C527B7 /* iMediaTester */ = {
@@ -3018,9 +3020,9 @@
 			productReference = D09933551011B26E00C527B7 /* iMediaTester.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D0E96CEE1518C9BF004F3EE7 /* com.red-sweater.im.edia.Folder */ = {
+		D0E96CEE1518C9BF004F3EE7 /* im.edia.Folder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D0E96CFE1518C9BF004F3EE7 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Folder" */;
+			buildConfigurationList = D0E96CFE1518C9BF004F3EE7 /* Build configuration list for PBXNativeTarget "im.edia.Folder" */;
 			buildPhases = (
 				D0E96CEF1518C9BF004F3EE7 /* Sources */,
 				D0E96CF61518C9BF004F3EE7 /* Frameworks */,
@@ -3032,14 +3034,14 @@
 				654782B917EBD78800F34934 /* PBXTargetDependency */,
 				6547829F17EBD6BE00F34934 /* PBXTargetDependency */,
 			);
-			name = "com.red-sweater.im.edia.Folder";
+			name = im.edia.Folder;
 			productName = "iPhoto Parser XPC Service";
-			productReference = D0E96D021518C9BF004F3EE7 /* com.red-sweater.im.edia.Folder.xpc */;
+			productReference = D0E96D021518C9BF004F3EE7 /* im.edia.Folder.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D0F2DDBC152485130059DF8D /* com.red-sweater.im.edia.iTunes */ = {
+		D0F2DDBC152485130059DF8D /* im.edia.iTunes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D0F2DDC8152485130059DF8D /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.iTunes" */;
+			buildConfigurationList = D0F2DDC8152485130059DF8D /* Build configuration list for PBXNativeTarget "im.edia.iTunes" */;
 			buildPhases = (
 				D0F2DDBD152485130059DF8D /* Sources */,
 				D0F2DDBF152485130059DF8D /* Frameworks */,
@@ -3051,9 +3053,9 @@
 				654782C317EBD79E00F34934 /* PBXTargetDependency */,
 				654782AD17EBD6E400F34934 /* PBXTargetDependency */,
 			);
-			name = "com.red-sweater.im.edia.iTunes";
+			name = im.edia.iTunes;
 			productName = "iPhoto Parser XPC Service";
-			productReference = D0F2DDCB152485130059DF8D /* com.red-sweater.im.edia.iTunes.xpc */;
+			productReference = D0F2DDCB152485130059DF8D /* im.edia.iTunes.xpc */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -3163,18 +3165,18 @@
 			targets = (
 				8DC2EF4F0486A6940098B216 /* iMedia */,
 				D09933541011B26E00C527B7 /* iMediaTester */,
-				D0E96CEE1518C9BF004F3EE7 /* com.red-sweater.im.edia.Folder */,
-				30FFEBEB150A08DB0009C1D0 /* com.red-sweater.im.edia.iPhoto */,
-				D05D399D152ACD1300E30C43 /* com.red-sweater.im.edia.Aperture */,
-				D05D39AE152ACD2400E30C43 /* com.red-sweater.im.edia.Lightroom */,
-				D05D39BF152ACD3300E30C43 /* com.red-sweater.im.edia.Flickr */,
-				D0F2DDBC152485130059DF8D /* com.red-sweater.im.edia.iTunes */,
-				D054AFEE152984FA00EBFA1C /* com.red-sweater.im.edia.GarageBand */,
-				D05D39D0152ACD5E00E30C43 /* com.red-sweater.im.edia.Safari */,
-				D05D39E1152ACD6800E30C43 /* com.red-sweater.im.edia.Firefox */,
-				D05D3A05152AD0D000E30C43 /* com.red-sweater.im.edia.Chrome */,
-				D05D39F2152ACD8800E30C43 /* com.red-sweater.im.edia.FSEvents */,
-				30B83ACE1701AFDB000EC74E /* com.red-sweater.im.edia.Facebook */,
+				D0E96CEE1518C9BF004F3EE7 /* im.edia.Folder */,
+				30FFEBEB150A08DB0009C1D0 /* im.edia.iPhoto */,
+				D05D399D152ACD1300E30C43 /* im.edia.Aperture */,
+				D05D39AE152ACD2400E30C43 /* im.edia.Lightroom */,
+				D05D39BF152ACD3300E30C43 /* im.edia.Flickr */,
+				D0F2DDBC152485130059DF8D /* im.edia.iTunes */,
+				D054AFEE152984FA00EBFA1C /* im.edia.GarageBand */,
+				D05D39D0152ACD5E00E30C43 /* im.edia.Safari */,
+				D05D39E1152ACD6800E30C43 /* im.edia.Firefox */,
+				D05D3A05152AD0D000E30C43 /* im.edia.Chrome */,
+				D05D39F2152ACD8800E30C43 /* im.edia.FSEvents */,
+				30B83ACE1701AFDB000EC74E /* im.edia.Facebook */,
 				D02CD49E1224F22400C773A2 /* genstrings */,
 				307F9690183D090D004F87E0 /* iMedia Tests */,
 			);
@@ -3905,52 +3907,52 @@
 		};
 		65D10B14171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D0E96CEE1518C9BF004F3EE7 /* com.red-sweater.im.edia.Folder */;
+			target = D0E96CEE1518C9BF004F3EE7 /* im.edia.Folder */;
 			targetProxy = 65D10B13171C864F00ED5733 /* PBXContainerItemProxy */;
 		};
 		65D10B16171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 30FFEBEB150A08DB0009C1D0 /* com.red-sweater.im.edia.iPhoto */;
+			target = 30FFEBEB150A08DB0009C1D0 /* im.edia.iPhoto */;
 			targetProxy = 65D10B15171C864F00ED5733 /* PBXContainerItemProxy */;
 		};
 		65D10B18171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D05D399D152ACD1300E30C43 /* com.red-sweater.im.edia.Aperture */;
+			target = D05D399D152ACD1300E30C43 /* im.edia.Aperture */;
 			targetProxy = 65D10B17171C864F00ED5733 /* PBXContainerItemProxy */;
 		};
 		65D10B1A171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D05D39AE152ACD2400E30C43 /* com.red-sweater.im.edia.Lightroom */;
+			target = D05D39AE152ACD2400E30C43 /* im.edia.Lightroom */;
 			targetProxy = 65D10B19171C864F00ED5733 /* PBXContainerItemProxy */;
 		};
 		65D10B1E171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D0F2DDBC152485130059DF8D /* com.red-sweater.im.edia.iTunes */;
+			target = D0F2DDBC152485130059DF8D /* im.edia.iTunes */;
 			targetProxy = 65D10B1D171C864F00ED5733 /* PBXContainerItemProxy */;
 		};
 		65D10B20171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D054AFEE152984FA00EBFA1C /* com.red-sweater.im.edia.GarageBand */;
+			target = D054AFEE152984FA00EBFA1C /* im.edia.GarageBand */;
 			targetProxy = 65D10B1F171C864F00ED5733 /* PBXContainerItemProxy */;
 		};
 		65D10B22171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D05D39D0152ACD5E00E30C43 /* com.red-sweater.im.edia.Safari */;
+			target = D05D39D0152ACD5E00E30C43 /* im.edia.Safari */;
 			targetProxy = 65D10B21171C864F00ED5733 /* PBXContainerItemProxy */;
 		};
 		65D10B24171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D05D39E1152ACD6800E30C43 /* com.red-sweater.im.edia.Firefox */;
+			target = D05D39E1152ACD6800E30C43 /* im.edia.Firefox */;
 			targetProxy = 65D10B23171C864F00ED5733 /* PBXContainerItemProxy */;
 		};
 		65D10B26171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D05D3A05152AD0D000E30C43 /* com.red-sweater.im.edia.Chrome */;
+			target = D05D3A05152AD0D000E30C43 /* im.edia.Chrome */;
 			targetProxy = 65D10B25171C864F00ED5733 /* PBXContainerItemProxy */;
 		};
 		65D10B28171C864F00ED5733 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D05D39F2152ACD8800E30C43 /* com.red-sweater.im.edia.FSEvents */;
+			target = D05D39F2152ACD8800E30C43 /* im.edia.FSEvents */;
 			targetProxy = 65D10B27171C864F00ED5733 /* PBXContainerItemProxy */;
 		};
 		65E26F3C17135D1A000994C3 /* PBXTargetDependency */ = {
@@ -5068,7 +5070,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		30B83AD91701AFDB000EC74E /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Facebook" */ = {
+		30B83AD91701AFDB000EC74E /* Build configuration list for PBXNativeTarget "im.edia.Facebook" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				30B83ADA1701AFDB000EC74E /* Debug */,
@@ -5077,7 +5079,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		30FFEBF9150A08DC0009C1D0 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.iPhoto" */ = {
+		30FFEBF9150A08DC0009C1D0 /* Build configuration list for PBXNativeTarget "im.edia.iPhoto" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				30FFEBFA150A08DC0009C1D0 /* Debug */,
@@ -5095,7 +5097,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D054AFFA152984FA00EBFA1C /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.GarageBand" */ = {
+		D054AFFA152984FA00EBFA1C /* Build configuration list for PBXNativeTarget "im.edia.GarageBand" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D054AFFB152984FA00EBFA1C /* Debug */,
@@ -5104,7 +5106,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D05D39A9152ACD1300E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Aperture" */ = {
+		D05D39A9152ACD1300E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Aperture" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D05D39AA152ACD1300E30C43 /* Debug */,
@@ -5113,7 +5115,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D05D39BA152ACD2400E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Lightroom" */ = {
+		D05D39BA152ACD2400E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Lightroom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D05D39BB152ACD2400E30C43 /* Debug */,
@@ -5122,7 +5124,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D05D39CB152ACD3300E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Flickr" */ = {
+		D05D39CB152ACD3300E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Flickr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D05D39CC152ACD3300E30C43 /* Debug */,
@@ -5131,7 +5133,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D05D39DC152ACD5E00E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Safari" */ = {
+		D05D39DC152ACD5E00E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Safari" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D05D39DD152ACD5E00E30C43 /* Debug */,
@@ -5140,7 +5142,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D05D39ED152ACD6800E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Firefox" */ = {
+		D05D39ED152ACD6800E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Firefox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D05D39EE152ACD6800E30C43 /* Debug */,
@@ -5149,7 +5151,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D05D39FE152ACD8800E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.FSEvents" */ = {
+		D05D39FE152ACD8800E30C43 /* Build configuration list for PBXNativeTarget "im.edia.FSEvents" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D05D39FF152ACD8800E30C43 /* Debug */,
@@ -5158,7 +5160,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D05D3A10152AD0D000E30C43 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Chrome" */ = {
+		D05D3A10152AD0D000E30C43 /* Build configuration list for PBXNativeTarget "im.edia.Chrome" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D05D3A11152AD0D000E30C43 /* Debug */,
@@ -5176,7 +5178,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D0E96CFE1518C9BF004F3EE7 /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.Folder" */ = {
+		D0E96CFE1518C9BF004F3EE7 /* Build configuration list for PBXNativeTarget "im.edia.Folder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0E96CFF1518C9BF004F3EE7 /* Debug */,
@@ -5185,7 +5187,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D0F2DDC8152485130059DF8D /* Build configuration list for PBXNativeTarget "com.red-sweater.im.edia.iTunes" */ = {
+		D0F2DDC8152485130059DF8D /* Build configuration list for PBXNativeTarget "im.edia.iTunes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0F2DDC9152485130059DF8D /* Debug */,
