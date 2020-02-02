@@ -8,7 +8,16 @@
 #import "IMBObjectCollectionView.h"
 #import "IMBObjectViewController.h"
 
+
 @implementation IMBObjectCollectionView
+
+- (void) dealloc
+{
+	IMBRelease(_typeSelectTableView);
+	IMBRelease(_skimmingTrackingArea);
+
+	[super dealloc];
+}
 
 #pragma mark
 #pragma mark Event Handling
