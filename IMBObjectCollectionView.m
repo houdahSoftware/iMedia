@@ -87,6 +87,22 @@
 	return returnedMenu;
 }
 
+- (void)magnifyWithEvent:(NSEvent *)event
+{
+	IMBObjectViewController* controller = (IMBObjectViewController*) self.delegate;
+
+	if ([controller isKindOfClass:[IMBObjectViewController class]])
+	{
+		CGFloat iconSize = [controller iconSize];
+
+		iconSize	+= [event magnification];
+		iconSize	= MAX(0.0, iconSize);
+		iconSize	= MIN(1.0, iconSize);
+
+		[controller setIconSize:iconSize];
+	}
+}
+
 #pragma mark
 #pragma mark Quicklook
 
