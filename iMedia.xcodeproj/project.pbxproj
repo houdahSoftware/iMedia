@@ -191,6 +191,8 @@
 		8F76F8621770D259007B56FC /* IMBLightroom5VideoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F76F8601770D259007B56FC /* IMBLightroom5VideoParser.h */; };
 		8F76F8631770D259007B56FC /* IMBLightroom5VideoParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F76F8611770D259007B56FC /* IMBLightroom5VideoParser.m */; };
 		8F93177E10A9FC53002CDB19 /* IMBPyramidObjectPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F93177C10A9FC53002CDB19 /* IMBPyramidObjectPromise.h */; };
+		8FC1040A23E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC1040823E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.h */; };
+		8FC1040B23E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC1040923E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.m */; };
 		8FC15E4C176A99EB007FF34F /* IMBLightroom5Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC15E4A176A99EB007FF34F /* IMBLightroom5Parser.h */; };
 		8FC15E4D176A99EB007FF34F /* IMBLightroom5Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC15E4B176A99EB007FF34F /* IMBLightroom5Parser.m */; };
 		8FC2089D11C29E1C0083EAB3 /* IMBLightroom3VideoParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FC2089B11C29E1C0083EAB3 /* IMBLightroom3VideoParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1064,6 +1066,8 @@
 		8F76F8611770D259007B56FC /* IMBLightroom5VideoParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBLightroom5VideoParser.m; sourceTree = "<group>"; };
 		8F93177C10A9FC53002CDB19 /* IMBPyramidObjectPromise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBPyramidObjectPromise.h; sourceTree = "<group>"; };
 		8F93177D10A9FC53002CDB19 /* IMBPyramidObjectPromise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBPyramidObjectPromise.m; sourceTree = "<group>"; };
+		8FC1040823E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBObjectCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		8FC1040923E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMBObjectCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		8FC15E4A176A99EB007FF34F /* IMBLightroom5Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBLightroom5Parser.h; sourceTree = "<group>"; };
 		8FC15E4B176A99EB007FF34F /* IMBLightroom5Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMBLightroom5Parser.m; sourceTree = "<group>"; };
 		8FC2089B11C29E1C0083EAB3 /* IMBLightroom3VideoParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMBLightroom3VideoParser.h; sourceTree = "<group>"; };
@@ -2273,6 +2277,8 @@
 				D08C5C9D104862540068FF07 /* IMBTextFieldCell.m */,
 				657C066322133E7000A2DB7F /* IMBObjectCollectionView.h */,
 				657C066422133E7100A2DB7F /* IMBObjectCollectionView.m */,
+				8FC1040823E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.h */,
+				8FC1040923E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.m */,
 				65E4AF2D2211B4A4000B9BD9 /* IMBObjectCollectionViewItem.h */,
 				65E4AF2E2211B4A4000B9BD9 /* IMBObjectCollectionViewItem.m */,
 				65E4AF292211B424000B9BD9 /* IMBImageSelectionView.h */,
@@ -2723,6 +2729,7 @@
 				D006CFF81534084C00C53C23 /* IMBLightroomModernParser.h in Headers */,
 				30FD64471545833A0036BDE2 /* IMBApertureParserMessenger.h in Headers */,
 				30FD64661546AF6E0036BDE2 /* NSPasteboard+iMedia.h in Headers */,
+				8FC1040A23E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.h in Headers */,
 				D052EB881558F64300D16C55 /* IMBFolderParser.h in Headers */,
 				D052EB891558F64300D16C55 /* IMBImageFolderParser.h in Headers */,
 				301C61F21AAF0FAA00A0E15F /* IMBiPhotoParserConfiguration.h in Headers */,
@@ -3058,49 +3065,49 @@
 				LastUpgradeCheck = 1120;
 				TargetAttributes = {
 					307F9690183D090D004F87E0 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 						TestTargetID = 8DC2EF4F0486A6940098B216;
 					};
 					30B83ACE1701AFDB000EC74E = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					30FFEBEB150A08DB0009C1D0 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					8DC2EF4F0486A6940098B216 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
 					D02CD49E1224F22400C773A2 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					D054AFEE152984FA00EBFA1C = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					D05D399D152ACD1300E30C43 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					D05D39AE152ACD2400E30C43 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					D05D39BF152ACD3300E30C43 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					D05D39D0152ACD5E00E30C43 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					D05D39E1152ACD6800E30C43 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					D05D39F2152ACD8800E30C43 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					D05D3A05152AD0D000E30C43 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					D09933541011B26E00C527B7 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -3108,10 +3115,10 @@
 						};
 					};
 					D0E96CEE1518C9BF004F3EE7 = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 					D0F2DDBC152485130059DF8D = {
-						DevelopmentTeam = 493CVA9A35;
+						DevelopmentTeam = DKGQD8H8ZY;
 					};
 				};
 			};
@@ -3598,6 +3605,7 @@
 				30DA32431A8E29680039B07C /* IMBAppleMediaLibraryPropertySynchronizer.m in Sources */,
 				D0C911BF1520CFEE006655C9 /* IMBPanelController.m in Sources */,
 				D0C911C11520CFF3006655C9 /* IMBNodeViewController.m in Sources */,
+				8FC1040B23E6BA61000F063E /* IMBObjectCollectionViewFlowLayout.m in Sources */,
 				D0C911C21520D00A006655C9 /* IMBButtonObject.m in Sources */,
 				D0C911C31520D016006655C9 /* IMBNodeCell.m in Sources */,
 				D0C911C41520D3D2006655C9 /* IMBPanel.m in Sources */,
@@ -4027,7 +4035,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 493CVA9A35;
+				DEVELOPMENT_TEAM = DKGQD8H8ZY;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -4049,7 +4057,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 493CVA9A35;
+				DEVELOPMENT_TEAM = DKGQD8H8ZY;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
