@@ -126,7 +126,6 @@
                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
                                                         <binding destination="465" name="content" keyPath="arrangedObjects" id="cwb-ny-78h"/>
-                                                        <binding destination="465" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="cwb-ny-78h" id="PFS-eg-2LC"/>
                                                         <outlet property="dataSource" destination="-2" id="p1i-yJ-FbD"/>
                                                         <outlet property="delegate" destination="-2" id="XVa-5K-cM1"/>
                                                     </connections>

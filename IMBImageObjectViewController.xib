@@ -67,7 +67,6 @@
                                                     <accessibility description="list of thumbnail images matching the current search in the selected folder"/>
                                                     <connections>
                                                         <binding destination="465" name="content" keyPath="arrangedObjects" id="KaB-fj-eqw"/>
-                                                        <binding destination="465" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="KaB-fj-eqw" id="QOY-6h-BDs"/>
                                                         <outlet property="dataSource" destination="-2" id="pWc-5M-zSJ"/>
                                                         <outlet property="delegate" destination="-2" id="BPj-dH-y6A"/>
                                                     </connections>
