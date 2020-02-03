@@ -1070,8 +1070,6 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	IMBObject* representedObject = [collectionView.content objectAtIndex:indexPath.item];
 	if (representedObject != nil)
 	{
-		thisItem.selected = NO;
-
 		// Seems we have to call imageRepresentation first to get the thumbnail loaded, then
 		// thumbnail returns it in NSImage format.
 		(void) [representedObject imageRepresentation];
