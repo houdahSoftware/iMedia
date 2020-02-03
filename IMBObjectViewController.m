@@ -78,6 +78,7 @@
 #import "IMBComboTableView.h"
 #import "IMBComboTextCell.h"
 #import "IMBObjectCollectionView.h"
+#import "IMBObjectCollectionViewIndexPathTransformer.h"
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -466,6 +467,14 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	[ibObjectArrayController addObserver:self forKeyPath:kArrangedObjectsKey options:0 context:(void*)kArrangedObjectsKey];
 	[ibObjectArrayController addObserver:self forKeyPath:kImageRepresentationKeyPath options:NSKeyValueObservingOptionNew context:(void*)kImageRepresentationKeyPath];
 
+	// Bind selectionIndexPaths instead of selectionIndexes.
+	// This works around an issue where the icon view scrolls to the top upon clicking an item to select it
+	[ibIconView unbind:NSSelectionIndexesBinding];
+	[ibIconView bind:NSSelectionIndexPathsBinding
+			toObject:ibObjectArrayController
+		 withKeyPath:@"selectionIndexes"
+			 options:@{ NSValueTransformerBindingOption : [IMBObjectCollectionViewIndexPathTransformer new]}];
+
 	// We need to save preferences before the app quits...
 	
 	[[NSNotificationCenter defaultCenter] 
@@ -526,7 +535,8 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
     [ibIconView setDataSource:nil];
 	[ibIconView setDelegate:nil];
-	
+	[ibIconView unbind:NSSelectionIndexPathsBinding];
+
 	[ibListView setDataSource:nil];
     [ibListView setDelegate:nil];
 	

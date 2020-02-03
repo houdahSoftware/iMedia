@@ -63,7 +63,6 @@
                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
                                                         <binding destination="465" name="content" keyPath="arrangedObjects" id="W7d-ab-HBM"/>
-                                                        <binding destination="465" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="W7d-ab-HBM" id="2qZ-1S-8PA"/>
                                                         <outlet property="dataSource" destination="-2" id="RaT-F8-mcX"/>
                                                         <outlet property="delegate" destination="-2" id="YqO-4t-6E3"/>
                                                     </connections>
