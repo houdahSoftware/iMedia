@@ -1092,6 +1092,11 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 - (void)collectionView:(NSCollectionView *)collectionView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths
 {
+	//	Prevent item from being hidden (creating a hole in the grid) while being dragged
+	for (NSIndexPath *indexPath in indexPaths) {
+		[[[collectionView itemAtIndexPath:indexPath] view] setHidden:NO];
+	}
+
 	session.animatesToStartingPositionsOnCancelOrFail = YES;
 	session.draggingFormation = NSDraggingFormationDefault;
 
