@@ -473,7 +473,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	[ibIconView bind:NSSelectionIndexPathsBinding
 			toObject:ibObjectArrayController
 		 withKeyPath:@"selectionIndexes"
-			 options:@{ NSValueTransformerBindingOption : [IMBObjectCollectionViewIndexPathTransformer new]}];
+			 options:@{ NSValueTransformerBindingOption : [[IMBObjectCollectionViewIndexPathTransformer new] autorelease] }];
 
 	// We need to save preferences before the app quits...
 	
