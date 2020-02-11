@@ -300,8 +300,14 @@
             CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
             [self willDrawImageInRect:rect context:context];
             [image drawInRect:rect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
-            CGContextRestoreGState(context);
-        }
+
+			if (_badge)
+			{
+				NSRect badgeRect = [self badgeRectForImageRect:rect];
+				[_badge drawInRect:badgeRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
+			}
+			CGContextRestoreGState(context);
+		}
         
         // Draw the thumbnail image (CGImage)...
         
