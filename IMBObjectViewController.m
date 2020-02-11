@@ -786,6 +786,24 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	return rect;
 }
 
+- (BOOL) tableView:(NSTableView*)inTableView canDragRowsWithIndexes:(NSIndexSet *)rowIndexes
+{
+	NSArray* objects = [ibObjectArrayController arrangedObjects];
+
+	NSUInteger index = [rowIndexes firstIndex];
+
+	while (index != NSNotFound)
+	{
+		IMBObject* object = [objects objectAtIndex:index];
+		if ( !(object.isSelectable && object.isDraggable)) {
+			return NO;
+		}
+		index = [rowIndexes indexGreaterThanIndex:index];
+	}
+
+	return YES;
+}
+
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -1215,6 +1233,22 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	// user goes to double-click on a folder item, which is not selectable, it will deselect
 	// whatever was previously selected before passing along the double-click message to the client.
 	return indexPaths;
+}
+
+- (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event
+{
+	NSArray* objects = [ibObjectArrayController arrangedObjects];
+
+	for (NSIndexPath* indexPath in indexPaths) {
+		NSUInteger index = [indexPath item];
+		IMBObject* object = [objects objectAtIndex:index];
+
+		if (! (object.isSelectable && object.isDraggable)) {
+			return NO;
+		}
+	}
+
+	return YES;
 }
 
 #pragma mark
@@ -2061,7 +2095,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	{
 		IMBObject* object = [objects objectAtIndex:index];
 		if (object.isSelectable && (object.accessibility == kIMBResourceIsAccessible ||
-                                    object.accessibility == kIMBResourceIsAccessibleSecurityScoped)) {
+									object.accessibility == kIMBResourceIsAccessibleSecurityScoped)) {
             [indexes addIndex:index];
         }
 		index = [inIndexes indexGreaterThanIndex:index];
