@@ -78,6 +78,7 @@
 #import "IMBComboTableView.h"
 #import "IMBComboTextCell.h"
 #import "IMBObjectCollectionView.h"
+#import "IMBObjectCollectionViewItem.h"
 #import "IMBObjectCollectionViewIndexPathTransformer.h"
 
 
@@ -1066,7 +1067,7 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSCollectionViewItem* thisItem = [collectionView makeItemWithIdentifier:@"IMBObjectCollectionViewItem" forIndexPath:indexPath];
+	IMBObjectCollectionViewItem* thisItem = [collectionView makeItemWithIdentifier:@"IMBObjectCollectionViewItem" forIndexPath:indexPath];
 	IMBObject* representedObject = [collectionView.content objectAtIndex:indexPath.item];
 	if (representedObject != nil)
 	{
@@ -1080,6 +1081,15 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 
 		// Associate the tooltip with the container view
 		thisItem.view.toolTip = representedObject.tooltipString;
+
+		NSImage* badge = nil;
+
+		if ([self.delegate respondsToSelector:@selector(objectViewController:badgeForObject:)])
+		{
+			badge = [self.delegate objectViewController:self badgeForObject:representedObject];
+		}
+
+		thisItem.badgeImageView.image = badge;
 	}
 	return thisItem;
 }
