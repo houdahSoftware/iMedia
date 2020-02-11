@@ -127,7 +127,7 @@
 		if (databaseVersionLong < 700003) {
 			return NO;
 		}
-		else if (databaseVersionLong >= 100000) {
+		else if (databaseVersionLong >= 1000000) {
 			return NO;
 		}
         
