@@ -37,7 +37,7 @@
 /**
  An experimental switch to boost performance but definitly not ready for prime time
  */
-#define ALWAYS_COPY_OBJECTS_ON_PERFORM_SELECTOR_ASYNC 1
+#define ALWAYS_COPY_OBJECTS_ON_PERFORM_SELECTOR_ASYNC 0
 
 /**
  We would prefer the more comfortable NSOperationQueue over dispatch_async()/dispatch_semaphore_... but it
@@ -386,6 +386,15 @@ void SBPerformSelectorAsync(id inConnection,id inTarget,SEL inSelector,id inObje
 #if ALWAYS_COPY_OBJECTS_ON_PERFORM_SELECTOR_ASYNC
                     result = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:result]];
 					error = [error copy];
+#else
+                    if (SBIsSandboxed()) {
+                        result = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:result]];
+                        error = [error copy];
+                    }
+					else {
+						result = [result copy];
+						error = [error copy];
+					}
 #endif
                     dispatch_async(returnHandlerQueue,^()
                                    {
