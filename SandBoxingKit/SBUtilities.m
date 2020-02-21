@@ -349,8 +349,17 @@ void SBPerformSelectorAsync(id inConnection,id inTarget,SEL inSelector,id inObje
         id targetCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:inTarget]];
         id objectCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:inObject]];
 #else
-        id targetCopy = inTarget;
-        id objectCopy = inObject;
+		id targetCopy;
+		id objectCopy;
+
+		if (SBIsSandboxed()) {
+			targetCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:inTarget]];
+			objectCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:inObject]];
+		}
+		else {
+			targetCopy = [inTarget copy];
+			objectCopy = [inObject copy];
+		}
 #endif
 //        NSLog(@"Asynchronous perform on target object %@", targetCopy);
 //        NSLog(@"Asynchronous perform with parameter object %@", objectCopy);
