@@ -25,10 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IMBObjectCollectionView : NSCollectionView
 
 // Delegate "type select" to table view
-@property (nonatomic, strong) NSTableView *typeSelectTableView;
+@property (nonatomic, strong, nullable) NSTableView *typeSelectTableView;
 
 // If we are a skimmable view then we use this to track mouse movements
-@property (nonatomic, strong) NSTrackingArea* skimmingTrackingArea;
+@property (nonatomic, strong, nullable) NSTrackingArea* skimmingTrackingArea;
 
 - (void) enableSkimming;
 
