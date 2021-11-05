@@ -1416,6 +1416,11 @@ static NSMutableDictionary* sRegisteredObjectViewControllerClasses = nil;
 	return [object isSelectable];
 }
 
+- (void) tableViewSelectionDidChange:(NSNotification*)inNotification
+{
+	[self udpateQuickLookPanel];
+}
+
 
 //----------------------------------------------------------------------------------------------------------------------
 
