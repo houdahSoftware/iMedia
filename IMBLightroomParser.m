@@ -764,7 +764,11 @@ static NSArray* sSupportedImageUTIs = nil;
 						NSRange searchRange = NSMakeRange(searchStart, [infoString length] - searchStart);
 						NSRange nameEndRange = [infoString rangeOfString:@"\",\n" options:NSLiteralSearch range:searchRange];
 
-						if (nameStartRange.location != NSNotFound) {
+						if (nameEndRange.location == NSNotFound) {
+							nameEndRange = [infoString rangeOfString:@"\"\n" options:NSLiteralSearch range:searchRange];
+						}
+
+						if ((nameEndRange.location != NSNotFound) && (nameEndRange.location > searchStart)) {
 							NSRange nameRange = NSMakeRange(searchStart, nameEndRange.location - searchStart);
 
 							if (nameRange.length > 0) {
