@@ -500,7 +500,7 @@
         }
         return nil;
     };
-	
+
     [inCoder encodeObject:iconWithSmallRepresentations(self.icon) forKey:@"icon"];
     [inCoder encodeObject:iconWithSmallRepresentations(self.highlightIcon) forKey:@"highlightIcon"];
 }
@@ -612,11 +612,11 @@
 {
 	@synchronized (self)
 	{
-			if (_subnodes == nil)
+		if (_subnodes == nil)
 		{
 			self.atomic_subnodes = [NSMutableArray arrayWithCapacity:1];
 		}
-
+		
 		if (inIndex <= _subnodes.count)
 		{
 			[_subnodes insertObject:inNode atIndex:inIndex];
@@ -626,7 +626,7 @@
 		{
 			NSLog(@"%s ERROR trying to insert node at illegal index %lu!",__FUNCTION__, (unsigned long)inIndex);
 		}
-	}
+ 	}
 }
 
 
@@ -659,7 +659,7 @@
 			[_subnodes replaceObjectAtIndex:inIndex withObject:inNode];
 			inNode.parentNode = self;
 		}
-		else 
+		else
 		{
 			NSLog(@"%s ERROR trying to replace node at illegal index!",__FUNCTION__);
 		}

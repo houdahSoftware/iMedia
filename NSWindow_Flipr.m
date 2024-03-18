@@ -8,6 +8,7 @@
 
 #import "NSWindow_Flipr.h"
 #import <QuartzCore/QuartzCore.h>
+#import <CoreImage/CoreImage.h>
 #include <sys/sysctl.h>
 
 // Read the "ReadMe.rtf" file for general discussion.

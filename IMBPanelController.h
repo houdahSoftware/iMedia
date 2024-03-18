@@ -55,7 +55,8 @@
 
 #pragma mark HEADERS
 
-#import <iMedia/IMBCommon.h>
+#import <AppKit/AppKit.h>
+#import "IMBCommon.h"
 
 
 //----------------------------------------------------------------------------------------------------------------------
