@@ -418,6 +418,9 @@
         if (inImage)
         {
             NSImage* strippedIcon = [[[NSImage alloc] initWithSize:NSMakeSize(16.0,16.0)]autorelease];
+
+			strippedIcon.template = inImage.template;
+
             for (NSImageRep* iconRep in inImage.representations)
             {
                 NSSize size = iconRep.size;
@@ -427,8 +430,65 @@
                     //			if ([rep isKindOfClass:[NSBitmapImageRep class]])
                     if (YES)
                     {
+#define HOUDAH 1
+#if HOUDAH
+						BOOL releaseIconRep = NO;
+
+						// NSISIconImageRep is very slow to archive
+						if ([[iconRep className] isEqualToString:@"NSISIconImageRep"]) {
+#if 1
+							CGRect imageRect = CGRectMake(0, 0, size.width, size.height);
+							CGImageRef CGImage = [iconRep CGImageForProposedRect:&imageRect context:nil hints:nil];
+							iconRep = [[NSBitmapImageRep alloc] initWithCGImage:CGImage];
+							releaseIconRep = YES;
+#endif
+
+#if 0
+							NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]
+													 initWithBitmapDataPlanes: NULL
+													 pixelsWide: size.width
+													 pixelsHigh: size.height
+													 bitsPerSample: 8
+													 samplesPerPixel: 4
+													 hasAlpha: YES
+													 isPlanar: NO
+													 colorSpaceName: NSDeviceRGBColorSpace
+													 bytesPerRow: size.width * 4
+													 bitsPerPixel: 32];
+
+							NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep: rep];
+							[NSGraphicsContext saveGraphicsState];
+							[NSGraphicsContext setCurrentContext: ctx];
+							[iconRep drawInRect:NSMakeRect(0, 0, size.width, size.height)];
+							[ctx flushGraphics];
+							[NSGraphicsContext restoreGraphicsState];
+
+							iconRep = rep;
+#endif
+
+#if 0
+							// Fastest, but looses shadow on Photos icon. Probably picks a random image representation
+							[inImage lockFocus];
+							iconRep = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, inImage.size.width, inImage.size.height)] autorelease];
+							[inImage unlockFocus];
+
+							[strippedIcon addRepresentation:iconRep];
+
+							return strippedIcon;
+#endif
+
+						}
+
                         //				NSLog(@"%s %@ %@",__FUNCTION__,NSStringFromClass([rep class]),NSStringFromSize(size));
                         [strippedIcon addRepresentation:iconRep];
+
+						if (releaseIconRep && (iconRep != NULL)) {
+							CFRelease(iconRep);
+						}
+#else
+						//				NSLog(@"%s %@ %@",__FUNCTION__,NSStringFromClass([rep class]),NSStringFromSize(size));
+						[strippedIcon addRepresentation:iconRep];
+#endif
                     }
                     else
                     {
@@ -440,7 +500,7 @@
         }
         return nil;
     };
-
+	
     [inCoder encodeObject:iconWithSmallRepresentations(self.icon) forKey:@"icon"];
     [inCoder encodeObject:iconWithSmallRepresentations(self.highlightIcon) forKey:@"highlightIcon"];
 }
