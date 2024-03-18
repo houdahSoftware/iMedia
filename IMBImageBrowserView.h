@@ -52,6 +52,9 @@
 
 #pragma mark HEADERS
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 #import <Quartz/Quartz.h>
 #import "IMBItemizableView.h"
 
@@ -109,5 +112,7 @@
 @end
 
 
-
 //----------------------------------------------------------------------------------------------------------------------
+
+
+#pragma clang diagnostic pop

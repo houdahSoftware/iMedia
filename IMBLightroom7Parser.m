@@ -128,9 +128,9 @@
 		if (databaseVersionLong < 700003) {
 			return NO;
 		}
-		else if (databaseVersionLong >= 1100000) {
-			return NO;
-		}
+//		else if (databaseVersionLong >= 1100000) {		// PB 17.05.22: Commented out upper bound check for now
+//			return NO;									// As long as we do not have a newer class due to new
+//		}												// database schemes, this should be okay?
         
         return YES;
 	}

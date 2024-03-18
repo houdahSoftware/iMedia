@@ -509,7 +509,16 @@ NSString* kIMBObjectPasteboardType = @"com.karelia.imedia.IMBObject";
 
 - (void) setImageRepresentation:(id)inImageRepresentation
 {
-	self.atomic_imageRepresentation = inImageRepresentation;
+	id rep = inImageRepresentation;
+	
+	if (rep == nil || CFGetTypeID((CFTypeRef)rep)==CGImageGetTypeID() || [rep isKindOfClass:NSImage.class] || [rep isKindOfClass:NSData.class])
+	{
+		self.atomic_imageRepresentation = inImageRepresentation;
+	}
+	else
+	{
+		NSLog(@"WARNING: unexpected data type for inImageRepresentation");
+	}
 }
 
 
