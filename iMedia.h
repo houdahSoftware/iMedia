@@ -94,6 +94,7 @@
 #import <iMedia/IMBImageFolderParser.h>
 #import <iMedia/IMBAudioFolderParser.h>
 #import <iMedia/IMBMovieFolderParser.h>
+#import <iMedia/IMBLightroomParser.h>
 
 // Model
 
