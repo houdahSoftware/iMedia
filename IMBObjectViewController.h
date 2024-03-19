@@ -74,10 +74,11 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-#import "IMBCommon.h"
-#import "IMBQLPreviewPanel.h"
-#import "IMBObjectArrayController.h"
-#import "IMBItemizableView.h"
+#import <iMedia/IMBCommon.h>
+#import <iMedia/IMBQLPreviewPanel.h>
+#import <iMedia/IMBObjectArrayController.h>
+#import <iMedia/IMBObjectCollectionView.h>
+#import <iMedia/IMBItemizableView.h>
 #import <Quartz/Quartz.h>
 
 
