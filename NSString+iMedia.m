@@ -63,6 +63,12 @@
 
 + (NSString *)imb_UTIForFileAtPath:(NSString *)anAbsolutePath
 {
+	if (![[NSFileManager defaultManager] fileExistsAtPath:anAbsolutePath]) {
+		NSString* fileExtension = [anAbsolutePath pathExtension];
+
+		return [NSString imb_UTIForFilenameExtension:fileExtension];
+	}
+
 	NSString *result = nil;
 	NSURL* targetFileURL = [NSURL fileURLWithPath:anAbsolutePath];
 
