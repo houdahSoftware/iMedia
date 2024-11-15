@@ -504,7 +504,16 @@ NSString* kIMBObjectPasteboardType = @"com.karelia.imedia.IMBObject";
 
 - (void) setImageRepresentation:(id)inImageRepresentation
 {
-	self.atomic_imageRepresentation = inImageRepresentation;
+	id rep = inImageRepresentation;
+	
+	if (rep == nil || CFGetTypeID((CFTypeRef)rep)==CGImageGetTypeID() || [rep isKindOfClass:NSImage.class] || [rep isKindOfClass:NSData.class])
+	{
+		self.atomic_imageRepresentation = inImageRepresentation;
+	}
+	else
+	{
+		NSLog(@"WARNING: unexpected data type for inImageRepresentation");
+	}
 }
 
 
@@ -700,9 +709,18 @@ NSString* kIMBObjectPasteboardType = @"com.karelia.imedia.IMBObject";
 				if (inError)
 				{
 					NSLog(@"%s Error trying to load thumbnail of IMBObject %@ (%@)",__FUNCTION__,self.name,inError);
-                    
-                    self.accessibility = kIMBResourceDoesNotExist;
-					self.error = inError;
+
+					NSURL *locationURL = self.URL;
+
+					if ([locationURL isKindOfClass:[NSURL class]] &&
+						[locationURL isFileURL] &&
+						[[NSFileManager defaultManager] fileExistsAtPath:[locationURL path]]) {
+						self.error = inPopulatedObject.error;
+					}
+					else {
+						self.accessibility = kIMBResourceDoesNotExist;
+						self.error = inError;
+					}
 				}
 				else {
 					self.accessibility = inPopulatedObject.accessibility;

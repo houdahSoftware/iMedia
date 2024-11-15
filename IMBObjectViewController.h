@@ -71,6 +71,9 @@
 
 #pragma mark HEADERS
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 #import <iMedia/IMBCommon.h>
 #import <iMedia/IMBQLPreviewPanel.h>
 #import <iMedia/IMBObjectArrayController.h>
@@ -287,3 +290,4 @@ extern NSString* const IMBObjectViewControllerSegmentedControlKey;		/* Segmented
 //----------------------------------------------------------------------------------------------------------------------
 
 
+#pragma clang diagnostic pop
