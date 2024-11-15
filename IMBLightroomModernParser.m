@@ -292,30 +292,99 @@
 	__block NSString *uuid = nil;
 	__block NSString *digest = nil;
 
-	[self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
-		if (libraryDatabase == nil) {
+	[self inThumbnailDatabase:^(FMDatabase *thumbnailDatabase) {
+		if (thumbnailDatabase == nil) {
 			return;
 		}
-		
-		NSString* query =	@" SELECT alf.id_global uuid, ids.digest"
-		@" FROM Adobe_imageDevelopSettings ids"
-		@" INNER JOIN Adobe_images ai ON ai.id_local = ids.image"
-		@" INNER JOIN AgLibraryFile alf on alf.id_local = ai.rootFile"
-		@" WHERE ids.image = ?"
-		@" ORDER BY alf.id_global ASC";
 
-		FMResultSet* results = [libraryDatabase executeQuery:query, idLocal];
+		NSString* query =	@" SELECT ice.imageId AS image_id,  p.uuid, p.digest"
+		@" FROM Pyramid p"
+		@" JOIN ImageCacheEntry ice ON ice.uuid = p.uuid"
+		@" WHERE image_id = ?";
 
-        // JJ/2012-10-02: For some reason we may get multiple rows with some of them not properly filled. Try best we can.
+		FMResultSet* results = [thumbnailDatabase executeQuery:query, idLocal];
 
-        while ([results next] && (uuid == nil || digest == nil || [uuid isEqualToString:@""] || [digest isEqualToString:@""]))
-        {
+		while ([results next] && ([digest length] == 0))
+		{
 			uuid = [results stringForColumn:@"uuid"];
 			digest = [results stringForColumn:@"digest"];
-        }
+		}
 
 		[results close];
 	}];
+
+#if 0
+	if (digest == nil) {
+		[self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
+			if (libraryDatabase == nil) {
+				return;
+			}
+
+			NSString* query =	@" SELECT alf.id_global uuid"
+			@" FROM Adobe_images ai"
+			@" INNER JOIN AgLibraryFile alf on alf.id_local = ai.rootFile"
+			@" WHERE ai.id_local = ?";
+
+			FMResultSet* results = [libraryDatabase executeQuery:query, idLocal];
+
+			while ([results next] && ([uuid length] == 0))
+			{
+				uuid = [results stringForColumn:@"uuid"];
+			}
+
+			[results close];
+		}];
+
+		if (uuid != nil) {
+			[self inThumbnailDatabase:^(FMDatabase *thumbnailDatabase) {
+				if (thumbnailDatabase == nil) {
+					return;
+				}
+
+				NSString* query =	@" SELECT p.digest"
+				@" FROM Pyramid p"
+				@" WHERE p.uuid = ?";
+
+				FMResultSet* results = [thumbnailDatabase executeQuery:query, uuid];
+
+				while ([results next] && ([digest length] == 0))
+				{
+					digest = [results stringForColumn:@"digest"];
+				}
+
+				[results close];
+			}];
+		}
+	}
+#endif
+
+	if (digest == nil) {
+		[self inLibraryDatabase:^(FMDatabase *libraryDatabase) {
+			if (libraryDatabase == nil) {
+				return;
+			}
+
+			NSString* query =	@" SELECT alf.id_global uuid, ids.digest"
+			@" FROM Adobe_imageDevelopSettings ids"
+			@" INNER JOIN Adobe_images ai ON ai.id_local = ids.image"
+			@" INNER JOIN AgLibraryFile alf on alf.id_local = ai.rootFile"
+			@" WHERE ids.image = ?"
+			@" ORDER BY alf.id_global ASC";
+
+			FMResultSet* results = [libraryDatabase executeQuery:query, idLocal];
+
+			// JJ/2012-10-02: For some reason we may get multiple rows with some of them not properly filled. Try best we can.
+			// Pierre/2024-11-15: Check Adobe_libraryImageDevelopHistoryStep for digests ordered by date
+			
+			while ([results next] && (uuid == nil || digest == nil || [uuid isEqualToString:@""] || [digest isEqualToString:@""]))
+			{
+				uuid = [results stringForColumn:@"uuid"];
+				digest = [results stringForColumn:@"digest"];
+			}
+
+			[results close];
+		}];
+	}
 
 	if ((uuid != nil) && (digest != nil)) {
 		NSString* prefixOne = [uuid substringToIndex:1];
@@ -328,109 +397,309 @@
 	return nil;
 }
 
+- (BOOL)usesLrprevPyramidFiles
+{
+	if (_usesLrprevPyramidFiles == nil) {
+		NSNumber* databaseVersion = [self databaseVersion];
+		long databaseVersionLong = [databaseVersion longValue];
+		BOOL usesLrprevPyramidFiles = (databaseVersionLong < 1303000);
+
+		_usesLrprevPyramidFiles = [NSNumber numberWithBool:usesLrprevPyramidFiles];
+	}
+
+	return [_usesLrprevPyramidFiles boolValue];
+}
+
 - (NSData*) previewDataForObject:(IMBObject*)inObject maximumSize:(NSNumber*)maximumSize
 {
 	if ([inObject isKindOfClass:[IMBLightroomObject class]]) {
-		return [[self class] previewDataForLightroomObject:(IMBLightroomObject *)inObject maximumSize:maximumSize];
+		BOOL preferLrprev = [self usesLrprevPyramidFiles];
+		NSString* absolutePyramidPath = [(IMBLightroomObject*)inObject absolutePyramidPath];
+
+		return [[self class] previewDataWithPyramidPath:absolutePyramidPath maximumSize:maximumSize preferLrprev:preferLrprev acceptAlternateDigest:YES];
 	}
 
 	return nil;
 }
 
-+ (NSData*) previewDataForLightroomObject:(IMBLightroomObject*)lightroomObject maximumSize:(NSNumber*)maximumSize
++ (NSData*) previewDataWithPyramidPath:(NSString *)absolutePyramidPath
+						   maximumSize:(NSNumber*)maximumSize
+						  preferLrprev:(BOOL)preferLrprev
+				 acceptAlternateDigest:(BOOL)acceptAlternateDigest
 {
-	NSString* absolutePyramidPath = [lightroomObject absolutePyramidPath];
+	// Starting with Lightroom 13.3, previews are no longer stored in a .lrprev file.
+	// Instead Lightroom 13.3, creates individual JPEG files with no extension.
+	// These files retain the same uuid-digest basename as the .lrprev file and add a suffix specifying the dimension
+
+	// https://community.adobe.com/t5/lightroom-classic-discussions/upgrading-catalog-with-13-3-loses-previews/m-p/14659945
+	// https://community.adobe.com/t5/lightroom-classic-discussions/preview-files-have-multiplied/m-p/14845368
+
+	// Lightroom 13.3 probably maps to database version 1303000
+	// Lightroom migrates lprev files as needed. An upgraded library has a mix of JPEG an .lrprev previews
+
 	NSData* data = nil;
 
-	if (absolutePyramidPath != nil) {
-		data = [NSData dataWithContentsOfMappedFile:absolutePyramidPath];
+	if (preferLrprev) {
+		data = [self previewDataFromLrprevWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:NO];
+
+		if (data == nil) {
+			data = [self previewDataFromFilesWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:NO];
+		}
+	}
+	else {
+		data = [self previewDataFromFilesWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:NO];
+
+		if (data == nil) {
+			data = [self previewDataFromLrprevWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:NO];
+		}
 	}
 
 	if (data != nil) {
-		NSData* data = [NSData dataWithContentsOfMappedFile:absolutePyramidPath];
-
-		//		'AgHg'					-- a magic marker
-		//		header length			-- 2 bytes, big endian includes marker and length
-		//		version					-- 1 byte, zero for now
-		//		kind					-- 1 bytes, 0 == string, 1 == blob
-		//		data length				-- 8 bytes, big endian
-		//		data padding length		-- 8 bytes, big endian
-		//		name					-- zero terminated
-		//		< padding for rest of header >
-		//		< data >
-		//		< data padding >
-
-		const char pattern[4] = { 0x41, 0x67, 0x48, 0x67 };
-
-		NSUInteger index = NSNotFound;
-
-		if (maximumSize == nil) {
-			index = [data lastIndexOfBytes:pattern length:4];
-		}
-		else {
-			index = [data indexOfBytes:pattern length:4];
-		}
-
-		NSData* previousData = nil;
-		CGFloat maximumSizeFloat = [maximumSize floatValue];
-
-		while (index != NSNotFound) {
-			unsigned short headerLengthValue; // size 2
-			unsigned long long dataLengthValue; // size 8
-
-			[data getBytes:&headerLengthValue range:NSMakeRange(index + 4, 2)];
-			[data getBytes:&dataLengthValue range:NSMakeRange(index + 4 + 2 + 1 + 1, 8)];
-
-			headerLengthValue = NSSwapBigShortToHost(headerLengthValue);
-			dataLengthValue = NSSwapBigLongLongToHost(dataLengthValue);
-
-			NSData* jpegData = nil;
-
-            if ((index + headerLengthValue + dataLengthValue) <= [data length]) {
-                jpegData = [data subdataWithRange:NSMakeRange(index + headerLengthValue, dataLengthValue)];
-            }
-			else {
-				break;
-			}
-
-			if (maximumSize == nil) {
-				return jpegData;
-			}
-
-			if (previousData == nil) {
-				previousData = jpegData;
-			}
-
-			if (jpegData != nil) {
-				CGImageSourceRef source = CGImageSourceCreateWithData((CFDataRef)jpegData, nil);
-
-				if (source != NULL) {
-					CGImageRef imageRepresentation = CGImageSourceCreateImageAtIndex(source, 0, NULL);
-
-					CFRelease(source);
-
-					if (imageRepresentation != NULL) {
-						CGFloat width = CGImageGetWidth(imageRepresentation);
-						CGFloat height = CGImageGetHeight(imageRepresentation);
-
-						CFRelease(imageRepresentation);
-
-						if ((width > maximumSizeFloat) || (height > maximumSizeFloat)) {
-							break;
-						}
-					}
-
-					previousData = jpegData;
-				}
-			}
-
-			index = [data indexOfBytes:pattern length:4 options:0 range:NSMakeRange(index + 4, [data length] - index - 4)];
-		}
-
-		return previousData;
+		return data;
 	}
 
-	return nil;
+	if (acceptAlternateDigest) {
+		if (preferLrprev) {
+			data = [self previewDataFromLrprevWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:YES];
+
+			if (data == nil) {
+				data = [self previewDataFromFilesWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:YES];
+			}
+		}
+		else {
+			data = [self previewDataFromFilesWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:YES];
+
+			if (data == nil) {
+				data = [self previewDataFromLrprevWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:YES];
+			}
+		}
+	}
+
+	return data;
+}
+
+//------------------------------------
++ (NSData*) previewDataFromLrprevWithPyramidPath:(NSString *)absolutePyramidPath
+									 maximumSize:(NSNumber*)maximumSize
+						   acceptAlternateDigest:(BOOL)acceptAlternateDigest
+{
+	if (absolutePyramidPath == nil) {
+		return nil;
+	}
+
+	NSString* lrprevFilePath = absolutePyramidPath;
+	NSFileManager* fileManager = [NSFileManager defaultManager];
+
+	if (![fileManager fileExistsAtPath:lrprevFilePath]) {
+		NSString* alternatePath = nil;
+
+		if (acceptAlternateDigest) {
+			NSString* absoluteFolderPath = [absolutePyramidPath stringByDeletingLastPathComponent];
+			NSString* baseName = [[absolutePyramidPath lastPathComponent] stringByDeletingPathExtension];
+			NSRange lastDashRange = [baseName rangeOfString:@"-" options:NSBackwardsSearch];
+
+			if (lastDashRange.location != NSNotFound) {
+				NSString* prefix = [baseName substringToIndex:(lastDashRange.location + 1)];
+				NSError* fileManagerError = nil;
+				NSArray* allFiles = [fileManager contentsOfDirectoryAtPath:absoluteFolderPath error:&fileManagerError];
+
+				if (allFiles == nil) {
+					NSLog(@"Lightroom parser. Directory listing error: %@", fileManagerError);
+
+					return nil;
+				}
+
+				for (NSString* fileName in allFiles) {
+					if ([fileName hasPrefix:prefix] && [[fileName pathExtension] isEqual:@"lrprev"]) {
+						alternatePath = [absoluteFolderPath stringByAppendingPathComponent:fileName];
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (alternatePath != nil) {
+			lrprevFilePath = alternatePath;
+		}
+		else {
+			NSLog(@"Lightroom parser. File not found: %@", absolutePyramidPath);
+		}
+	}
+
+	NSURL* lrprevFileURL = [NSURL fileURLWithPath:lrprevFilePath isDirectory:NO];
+	NSError* dataError = nil;
+	NSData* data = [NSData dataWithContentsOfURL:lrprevFileURL options:NSDataReadingMappedIfSafe error:&dataError];
+
+	if (data == nil) {
+		NSLog(@"Lightroom parser. File read error: %@", dataError);
+
+		return nil;
+	}
+
+	//		'AgHg'					-- a magic marker
+	//		header length			-- 2 bytes, big endian includes marker and length
+	//		version					-- 1 byte, zero for now
+	//		kind					-- 1 bytes, 0 == string, 1 == blob
+	//		data length				-- 8 bytes, big endian
+	//		data padding length		-- 8 bytes, big endian
+	//		name					-- zero terminated
+	//		< padding for rest of header >
+	//		< data >
+	//		< data padding >
+
+	const char pattern[4] = { 0x41, 0x67, 0x48, 0x67 };
+
+	NSUInteger index = NSNotFound;
+
+	if (maximumSize == nil) {
+		index = [data lastIndexOfBytes:pattern length:4];
+	}
+	else {
+		index = [data indexOfBytes:pattern length:4];
+	}
+
+	NSData* previousData = nil;
+	CGFloat maximumSizeFloat = [maximumSize floatValue];
+
+	while (index != NSNotFound) {
+		unsigned short headerLengthValue; // size 2
+		unsigned long long dataLengthValue; // size 8
+
+		[data getBytes:&headerLengthValue range:NSMakeRange(index + 4, 2)];
+		[data getBytes:&dataLengthValue range:NSMakeRange(index + 4 + 2 + 1 + 1, 8)];
+
+		headerLengthValue = NSSwapBigShortToHost(headerLengthValue);
+		dataLengthValue = NSSwapBigLongLongToHost(dataLengthValue);
+
+		NSData* jpegData = nil;
+
+		if ((index + headerLengthValue + dataLengthValue) <= [data length]) {
+			jpegData = [data subdataWithRange:NSMakeRange(index + headerLengthValue, dataLengthValue)];
+		}
+		else {
+			break;
+		}
+
+		if (maximumSize == nil) {
+			return jpegData;
+		}
+
+		if (previousData == nil) {
+			previousData = jpegData;
+		}
+
+		if (jpegData != nil) {
+			CGImageSourceRef source = CGImageSourceCreateWithData((CFDataRef)jpegData, nil);
+
+			if (source != NULL) {
+				CGImageRef imageRepresentation = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+
+				CFRelease(source);
+
+				if (imageRepresentation != NULL) {
+					CGFloat width = CGImageGetWidth(imageRepresentation);
+					CGFloat height = CGImageGetHeight(imageRepresentation);
+
+					CFRelease(imageRepresentation);
+
+					if ((width > maximumSizeFloat) || (height > maximumSizeFloat)) {
+						break;
+					}
+				}
+
+				previousData = jpegData;
+			}
+		}
+
+		index = [data indexOfBytes:pattern length:4 options:0 range:NSMakeRange(index + 4, [data length] - index - 4)];
+	}
+
+	return previousData;
+}
+
++ (NSData*) previewDataFromFilesWithPyramidPath:(NSString *)absolutePyramidPath
+									maximumSize:(NSNumber*)maximumSize
+						  acceptAlternateDigest:(BOOL)acceptAlternateDigest
+{
+	if (absolutePyramidPath == nil) {
+		return nil;
+	}
+
+	NSFileManager* fileManager = [NSFileManager defaultManager];
+	NSString* absoluteFolderPath = [absolutePyramidPath stringByDeletingLastPathComponent];
+	NSString* baseName = [[absolutePyramidPath lastPathComponent] stringByDeletingPathExtension];
+
+	NSError* fileManagerError = nil;
+	NSArray* allFiles = [fileManager contentsOfDirectoryAtPath:absoluteFolderPath error:&fileManagerError];
+
+	if (allFiles == nil) {
+		NSLog(@"Lightroom parser. Directory listing error: %@", fileManagerError);
+
+		return nil;
+	}
+
+	NSString* regexPattern = [NSString stringWithFormat:@"%@_(\\d+)$", baseName];
+
+	if (acceptAlternateDigest) {
+		NSString* absoluteFolderPath = [absolutePyramidPath stringByDeletingLastPathComponent];
+		NSString* baseName = [[absolutePyramidPath lastPathComponent] stringByDeletingPathExtension];
+		NSRange lastDashRange = [baseName rangeOfString:@"-" options:NSBackwardsSearch];
+
+		if (lastDashRange.location != NSNotFound) {
+			NSString* uuid = [baseName substringToIndex:lastDashRange.location];
+
+			regexPattern = [NSString stringWithFormat:@"%@-[a-z0-9]+_(\\d+)$", uuid];
+		}
+	}
+
+	NSError* regexError = nil;
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern
+																		   options:0
+																			 error:&regexError];
+
+	if (regex == nil) {
+		NSLog(@"Lightroom parser. Regular expression error: %@", regexError);
+
+		return nil;
+	}
+
+	NSString* bestMatchFileName = nil;
+	NSInteger bestMatchSizeValue = NSNotFound;
+	NSInteger maximumSizeValue = (maximumSize != nil) ? [maximumSize integerValue] : NSIntegerMax;
+
+	for (NSString* fileName in allFiles) {
+		NSRange range = NSMakeRange(0, fileName.length);
+		NSTextCheckingResult* match = [regex firstMatchInString:fileName options:0 range:range];
+
+		if (match) {
+			NSRange sizeRange = [match rangeAtIndex:1];
+			NSString* sizeString = [fileName substringWithRange:sizeRange];
+			NSInteger sizeValue = [sizeString integerValue];
+
+			if ((bestMatchFileName == nil) || ((sizeValue > bestMatchSizeValue) && (sizeValue <= maximumSizeValue))) {
+				bestMatchFileName = fileName;
+				bestMatchSizeValue = sizeValue;
+			}
+		}
+	}
+
+	if (bestMatchFileName == nil) {
+		return nil;
+	}
+
+	NSString* bestMatchFilePath = [absoluteFolderPath stringByAppendingPathComponent:bestMatchFileName];
+	NSURL* bestMatchFileURL = [NSURL fileURLWithPath:bestMatchFilePath isDirectory:NO];
+	NSError* dataError = nil;
+	NSData* data = [NSData dataWithContentsOfURL:bestMatchFileURL options:NSDataReadingMappedIfSafe error:&dataError];
+
+	if (data == nil) {
+		NSLog(@"Lightroom parser. File read error: %@", dataError);
+
+		return nil;
+	}
+
+	return data;
 }
 
 
