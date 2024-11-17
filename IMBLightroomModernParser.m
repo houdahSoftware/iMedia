@@ -416,7 +416,7 @@
 		BOOL preferLrprev = [self usesLrprevPyramidFiles];
 		NSString* absolutePyramidPath = [(IMBLightroomObject*)inObject absolutePyramidPath];
 
-		return [[self class] previewDataWithPyramidPath:absolutePyramidPath maximumSize:maximumSize preferLrprev:preferLrprev acceptAlternateDigest:YES];
+		return [[self class] previewDataWithPyramidPath:absolutePyramidPath maximumSize:maximumSize preferLrprev:preferLrprev acceptAlternateDigest:NO];
 	}
 
 	return nil;
