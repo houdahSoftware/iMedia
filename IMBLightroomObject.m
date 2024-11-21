@@ -67,6 +67,7 @@
 @implementation IMBLightroomObject
 
 @synthesize absolutePyramidPath = _absolutePyramidPath;
+@synthesize resolvedPyramidPath = _resolvedPyramidPath;
 @synthesize idLocal = _idLocal;
 
 
@@ -78,6 +79,7 @@
 	if ((self = [super init]))
 	{
 		_absolutePyramidPath = nil;
+		_resolvedPyramidPath = nil;
 	}
 	
 	return self;
@@ -87,6 +89,7 @@
 - (void) dealloc
 {
 	IMBRelease(_absolutePyramidPath);
+	IMBRelease(_resolvedPyramidPath);
 	IMBRelease(_idLocal);
 	[super dealloc];
 }
@@ -100,6 +103,7 @@
 	if ((self = [super initWithCoder:inCoder]) != nil)
 	{
 		self.absolutePyramidPath = [inCoder decodeObjectForKey:@"absolutePyramidPath"];
+		self.resolvedPyramidPath = [inCoder decodeObjectForKey:@"resolvedPyramidPath"];
 		self.idLocal = [inCoder decodeObjectForKey:@"idLocal"];
 	}
 	
@@ -112,6 +116,7 @@
 	[super encodeWithCoder:inCoder];
 	
 	[inCoder encodeObject:self.absolutePyramidPath forKey:@"absolutePyramidPath"];
+	[inCoder encodeObject:self.resolvedPyramidPath forKey:@"resolvedPyramidPath"];
 	[inCoder encodeObject:self.idLocal forKey:@"idLocal"];
 }
 
@@ -123,6 +128,7 @@
 {
 	IMBLightroomObject* copy = [super copyWithZone:inZone];
 	copy.absolutePyramidPath = self.absolutePyramidPath;
+	copy.resolvedPyramidPath = self.resolvedPyramidPath;
 	copy.idLocal = self.idLocal;
 	return copy;
 }

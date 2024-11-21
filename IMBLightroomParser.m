@@ -53,6 +53,7 @@
 #pragma mark HEADERS
 
 #import "IMBLightroomParser.h"
+#import "IMBLightroomModernParser.h"
 #import "IMBLightroomObject.h"
 #import "FMDatabase.h"
 #import "FMDatabasePool.h"
@@ -222,6 +223,11 @@ static NSArray* sSupportedImageUTIs = nil;
 {
 	[self imb_throwAbstractBaseClassExceptionForSelector:_cmd];
 	return nil;
+}
+
+- (BOOL)usesLrprevPyramidFiles
+{
+	return NO;
 }
 
 // Key in Ligthroom app user defaults: which library to load
@@ -1638,11 +1644,38 @@ static NSArray* sSupportedImageUTIs = nil;
 - (IMBResourceAccessibility) accessibilityForObject:(IMBObject*)inObject
 {
     IMBResourceAccessibility accessibility = kIMBResourceDoesNotExist;
-	
-    NSString* path = [self.mediaType isEqualToString:kIMBMediaTypeImage] ?
-		((IMBLightroomObject*)inObject).absolutePyramidPath :
-		inObject.location.path;
-    
+	NSString* path = nil;
+
+	if ([self.mediaType isEqualToString:kIMBMediaTypeImage])
+	{
+		IMBLightroomObject* lightroomObject = (IMBLightroomObject*)inObject;
+		NSString* absolutePyramidPath = lightroomObject.absolutePyramidPath;
+		NSString* resolvedPyramidPath = lightroomObject.resolvedPyramidPath;
+
+		if (resolvedPyramidPath == nil)
+		{
+			BOOL usesLrprevPyramidFiles = [self usesLrprevPyramidFiles];
+
+			if ((! usesLrprevPyramidFiles) && (absolutePyramidPath != nil))
+			{
+				resolvedPyramidPath = [IMBLightroomModernParser resolvedPyramidPathWithPyramidPath:absolutePyramidPath preferLrprev:NO acceptAlternateDigest:NO];
+			}
+
+			if (resolvedPyramidPath == nil)
+			{
+				resolvedPyramidPath = absolutePyramidPath;
+			}
+
+			lightroomObject.resolvedPyramidPath = resolvedPyramidPath;
+		}
+
+		path = resolvedPyramidPath;
+	}
+	else
+	{
+		path = inObject.location.path;
+	}
+
     if (path)
 	{
         accessibility = [[NSURL fileURLWithPath:path] imb_accessibility];

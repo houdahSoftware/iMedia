@@ -413,19 +413,33 @@
 - (NSData*) previewDataForObject:(IMBObject*)inObject maximumSize:(NSNumber*)maximumSize
 {
 	if ([inObject isKindOfClass:[IMBLightroomObject class]]) {
-		BOOL preferLrprev = [self usesLrprevPyramidFiles];
 		NSString* absolutePyramidPath = [(IMBLightroomObject*)inObject absolutePyramidPath];
 
-		return [[self class] previewDataWithPyramidPath:absolutePyramidPath maximumSize:maximumSize preferLrprev:preferLrprev acceptAlternateDigest:NO];
+		if (absolutePyramidPath == nil) {
+			return nil;
+		}
+
+		NSString* resolvedPyramidPath = [(IMBLightroomObject*)inObject resolvedPyramidPath];
+
+		if (resolvedPyramidPath == nil) {
+			BOOL preferLrprev = [self usesLrprevPyramidFiles];
+
+			resolvedPyramidPath = [[self class] resolvedPyramidPathWithPyramidPath:absolutePyramidPath preferLrprev:preferLrprev acceptAlternateDigest:NO];
+		}
+
+		if (resolvedPyramidPath == nil) {
+			return nil;
+		}
+
+		return [[self class] previewDataWithResolvedPyramidPath:resolvedPyramidPath maximumSize:maximumSize];
 	}
 
 	return nil;
 }
 
-+ (NSData*) previewDataWithPyramidPath:(NSString *)absolutePyramidPath
-						   maximumSize:(NSNumber*)maximumSize
-						  preferLrprev:(BOOL)preferLrprev
-				 acceptAlternateDigest:(BOOL)acceptAlternateDigest
++ (NSString*) resolvedPyramidPathWithPyramidPath:(NSString *)absolutePyramidPath
+									preferLrprev:(BOOL)preferLrprev
+						   acceptAlternateDigest:(BOOL)acceptAlternateDigest
 {
 	// Starting with Lightroom 13.3, previews are no longer stored in a .lrprev file.
 	// Instead Lightroom 13.3, creates individual JPEG files with no extension.
@@ -437,51 +451,49 @@
 	// Lightroom 13.3 probably maps to database version 1303000
 	// Lightroom migrates lprev files as needed. An upgraded library has a mix of JPEG an .lrprev previews
 
-	NSData* data = nil;
+	NSString* resolvedPyramidPath = nil;
 
 	if (preferLrprev) {
-		data = [self previewDataFromLrprevWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:NO];
+		resolvedPyramidPath = [self resolvedPyramidLrprevPathWithPyramidPath:absolutePyramidPath acceptAlternateDigest:NO];
 
-		if (data == nil) {
-			data = [self previewDataFromFilesWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:NO];
+		if (resolvedPyramidPath == nil) {
+			resolvedPyramidPath = [self resolvedPyramidImagePathWithPyramidPath:absolutePyramidPath acceptAlternateDigest:NO];
 		}
 	}
 	else {
-		data = [self previewDataFromFilesWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:NO];
+		resolvedPyramidPath = [self resolvedPyramidImagePathWithPyramidPath:absolutePyramidPath acceptAlternateDigest:NO];
 
-		if (data == nil) {
-			data = [self previewDataFromLrprevWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:NO];
+		if (resolvedPyramidPath == nil) {
+			resolvedPyramidPath = [self resolvedPyramidLrprevPathWithPyramidPath:absolutePyramidPath acceptAlternateDigest:NO];
 		}
 	}
 
-	if (data != nil) {
-		return data;
+	if (resolvedPyramidPath != nil) {
+		return resolvedPyramidPath;
 	}
 
 	if (acceptAlternateDigest) {
 		if (preferLrprev) {
-			data = [self previewDataFromLrprevWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:YES];
+			resolvedPyramidPath = [self resolvedPyramidLrprevPathWithPyramidPath:absolutePyramidPath acceptAlternateDigest:YES];
 
-			if (data == nil) {
-				data = [self previewDataFromFilesWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:YES];
+			if (resolvedPyramidPath == nil) {
+				resolvedPyramidPath = [self resolvedPyramidImagePathWithPyramidPath:absolutePyramidPath acceptAlternateDigest:YES];
 			}
 		}
 		else {
-			data = [self previewDataFromFilesWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:YES];
+			resolvedPyramidPath = [self resolvedPyramidImagePathWithPyramidPath:absolutePyramidPath acceptAlternateDigest:YES];
 
-			if (data == nil) {
-				data = [self previewDataFromLrprevWithPyramidPath:absolutePyramidPath maximumSize:maximumSize acceptAlternateDigest:YES];
+			if (resolvedPyramidPath == nil) {
+				resolvedPyramidPath = [self resolvedPyramidLrprevPathWithPyramidPath:absolutePyramidPath acceptAlternateDigest:YES];
 			}
 		}
 	}
 
-	return data;
+	return resolvedPyramidPath;
 }
 
-//------------------------------------
-+ (NSData*) previewDataFromLrprevWithPyramidPath:(NSString *)absolutePyramidPath
-									 maximumSize:(NSNumber*)maximumSize
-						   acceptAlternateDigest:(BOOL)acceptAlternateDigest
++ (NSString*) resolvedPyramidLrprevPathWithPyramidPath:(NSString *)absolutePyramidPath
+								 acceptAlternateDigest:(BOOL)acceptAlternateDigest
 {
 	if (absolutePyramidPath == nil) {
 		return nil;
@@ -525,6 +537,106 @@
 		else {
 			NSLog(@"Lightroom parser. File not found: %@", absolutePyramidPath);
 		}
+	}
+
+	return lrprevFilePath;
+}
+
++ (NSString*) resolvedPyramidImagePathWithPyramidPath:(NSString *)absolutePyramidPath
+								acceptAlternateDigest:(BOOL)acceptAlternateDigest
+{
+	if (absolutePyramidPath == nil) {
+		return nil;
+	}
+
+	NSFileManager* fileManager = [NSFileManager defaultManager];
+	NSString* absoluteFolderPath = [absolutePyramidPath stringByDeletingLastPathComponent];
+	NSString* baseName = [[absolutePyramidPath lastPathComponent] stringByDeletingPathExtension];
+
+	NSError* fileManagerError = nil;
+	NSArray* allFiles = [fileManager contentsOfDirectoryAtPath:absoluteFolderPath error:&fileManagerError];
+
+	if (allFiles == nil) {
+		NSLog(@"Lightroom parser. Directory listing error: %@", fileManagerError);
+
+		return nil;
+	}
+
+	NSString* regexPattern = [NSString stringWithFormat:@"%@_(\\d+)$", baseName];
+
+	if (acceptAlternateDigest) {
+		NSString* absoluteFolderPath = [absolutePyramidPath stringByDeletingLastPathComponent];
+		NSString* baseName = [[absolutePyramidPath lastPathComponent] stringByDeletingPathExtension];
+		NSRange lastDashRange = [baseName rangeOfString:@"-" options:NSBackwardsSearch];
+
+		if (lastDashRange.location != NSNotFound) {
+			NSString* uuid = [baseName substringToIndex:lastDashRange.location];
+
+			regexPattern = [NSString stringWithFormat:@"%@-[a-z0-9]+_(\\d+)$", uuid];
+		}
+	}
+
+	NSError* regexError = nil;
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern
+																		   options:0
+																			 error:&regexError];
+
+	if (regex == nil) {
+		NSLog(@"Lightroom parser. Regular expression error: %@", regexError);
+
+		return nil;
+	}
+
+	NSString* bestMatchFileName = nil;
+	NSInteger bestMatchSizeValue = NSNotFound;
+
+	for (NSString* fileName in allFiles) {
+		NSRange range = NSMakeRange(0, fileName.length);
+		NSTextCheckingResult* match = [regex firstMatchInString:fileName options:0 range:range];
+
+		if (match) {
+			NSRange sizeRange = [match rangeAtIndex:1];
+			NSString* sizeString = [fileName substringWithRange:sizeRange];
+			NSInteger sizeValue = [sizeString integerValue];
+
+			if ((bestMatchFileName == nil) || (sizeValue > bestMatchSizeValue)) {
+				bestMatchFileName = fileName;
+				bestMatchSizeValue = sizeValue;
+			}
+		}
+	}
+
+	if (bestMatchFileName == nil) {
+		return nil;
+	}
+
+	NSString* bestMatchFilePath = [absoluteFolderPath stringByAppendingPathComponent:bestMatchFileName];
+
+	return bestMatchFilePath;
+}
+
++ (NSData*) previewDataWithResolvedPyramidPath:(NSString*)resolvedPyramidPath
+								   maximumSize:(NSNumber*)maximumSize
+{
+	if (resolvedPyramidPath == nil) {
+		return nil;
+	}
+
+	if ([[resolvedPyramidPath pathExtension] isEqual:@"lrprev"]) {
+		return [self previewDataFormPyramidLrprevPath:resolvedPyramidPath maximumSize:maximumSize];
+	}
+	else {
+		return [self previewDataFromPyramidImagePath:resolvedPyramidPath maximumSize:maximumSize];
+	}
+
+	return nil;
+}
+
++ (NSData*) previewDataFormPyramidLrprevPath:(NSString *)lrprevFilePath
+								 maximumSize:(NSNumber*)maximumSize
+{
+	if (lrprevFilePath == nil) {
+		return nil;
 	}
 
 	NSURL* lrprevFileURL = [NSURL fileURLWithPath:lrprevFilePath isDirectory:NO];
@@ -618,77 +730,78 @@
 	return previousData;
 }
 
-+ (NSData*) previewDataFromFilesWithPyramidPath:(NSString *)absolutePyramidPath
-									maximumSize:(NSNumber*)maximumSize
-						  acceptAlternateDigest:(BOOL)acceptAlternateDigest
++ (NSData*) previewDataFromPyramidImagePath:(NSString*)pyramidImagePath
+								maximumSize:(NSNumber*)maximumSize
 {
-	if (absolutePyramidPath == nil) {
+	if (pyramidImagePath == nil) {
 		return nil;
 	}
 
+	NSString* bestMatchFilePath = nil;
 	NSFileManager* fileManager = [NSFileManager defaultManager];
-	NSString* absoluteFolderPath = [absolutePyramidPath stringByDeletingLastPathComponent];
-	NSString* baseName = [[absolutePyramidPath lastPathComponent] stringByDeletingPathExtension];
 
-	NSError* fileManagerError = nil;
-	NSArray* allFiles = [fileManager contentsOfDirectoryAtPath:absoluteFolderPath error:&fileManagerError];
-
-	if (allFiles == nil) {
-		NSLog(@"Lightroom parser. Directory listing error: %@", fileManagerError);
-
-		return nil;
+	if ((maximumSize == nil) && ([fileManager isReadableFileAtPath:pyramidImagePath])) {
+		bestMatchFilePath = pyramidImagePath;
 	}
 
-	NSString* regexPattern = [NSString stringWithFormat:@"%@_(\\d+)$", baseName];
+	if (bestMatchFilePath == nil) {
+		NSString* absoluteFolderPath = [pyramidImagePath stringByDeletingLastPathComponent];
+		NSString* baseName = [[pyramidImagePath lastPathComponent] stringByDeletingPathExtension];
+		NSRange lastUnderscoreRange = [baseName rangeOfString:@"_" options:NSBackwardsSearch];
 
-	if (acceptAlternateDigest) {
-		NSString* absoluteFolderPath = [absolutePyramidPath stringByDeletingLastPathComponent];
-		NSString* baseName = [[absolutePyramidPath lastPathComponent] stringByDeletingPathExtension];
-		NSRange lastDashRange = [baseName rangeOfString:@"-" options:NSBackwardsSearch];
-
-		if (lastDashRange.location != NSNotFound) {
-			NSString* uuid = [baseName substringToIndex:lastDashRange.location];
-
-			regexPattern = [NSString stringWithFormat:@"%@-[a-z0-9]+_(\\d+)$", uuid];
+		if (lastUnderscoreRange.location != NSNotFound) {
+			baseName = [baseName substringToIndex:lastUnderscoreRange.location];
 		}
-	}
 
-	NSError* regexError = nil;
-	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern
-																		   options:0
-																			 error:&regexError];
+		NSError* fileManagerError = nil;
+		NSArray* allFiles = [fileManager contentsOfDirectoryAtPath:absoluteFolderPath error:&fileManagerError];
 
-	if (regex == nil) {
-		NSLog(@"Lightroom parser. Regular expression error: %@", regexError);
+		if (allFiles == nil) {
+			NSLog(@"Lightroom parser. Directory listing error: %@", fileManagerError);
 
-		return nil;
-	}
+			return nil;
+		}
 
-	NSString* bestMatchFileName = nil;
-	NSInteger bestMatchSizeValue = NSNotFound;
-	NSInteger maximumSizeValue = (maximumSize != nil) ? [maximumSize integerValue] : NSIntegerMax;
+		NSString* regexPattern = [NSString stringWithFormat:@"%@_(\\d+)$", baseName];
 
-	for (NSString* fileName in allFiles) {
-		NSRange range = NSMakeRange(0, fileName.length);
-		NSTextCheckingResult* match = [regex firstMatchInString:fileName options:0 range:range];
+		NSError* regexError = nil;
+		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern
+																			   options:0
+																				 error:&regexError];
 
-		if (match) {
-			NSRange sizeRange = [match rangeAtIndex:1];
-			NSString* sizeString = [fileName substringWithRange:sizeRange];
-			NSInteger sizeValue = [sizeString integerValue];
+		if (regex == nil) {
+			NSLog(@"Lightroom parser. Regular expression error: %@", regexError);
 
-			if ((bestMatchFileName == nil) || ((sizeValue > bestMatchSizeValue) && (sizeValue <= maximumSizeValue))) {
-				bestMatchFileName = fileName;
-				bestMatchSizeValue = sizeValue;
+			return nil;
+		}
+
+		NSString* bestMatchFileName = nil;
+		NSInteger bestMatchSizeValue = NSNotFound;
+		NSInteger maximumSizeValue = (maximumSize != nil) ? [maximumSize integerValue] : NSIntegerMax;
+
+		for (NSString* fileName in allFiles) {
+			NSRange range = NSMakeRange(0, fileName.length);
+			NSTextCheckingResult* match = [regex firstMatchInString:fileName options:0 range:range];
+
+			if (match) {
+				NSRange sizeRange = [match rangeAtIndex:1];
+				NSString* sizeString = [fileName substringWithRange:sizeRange];
+				NSInteger sizeValue = [sizeString integerValue];
+
+				if ((bestMatchFileName == nil) || ((sizeValue > bestMatchSizeValue) && (sizeValue <= maximumSizeValue))) {
+					bestMatchFileName = fileName;
+					bestMatchSizeValue = sizeValue;
+				}
 			}
 		}
+
+		if (bestMatchFileName == nil) {
+			return nil;
+		}
+		
+		bestMatchFilePath = [absoluteFolderPath stringByAppendingPathComponent:bestMatchFileName];
 	}
 
-	if (bestMatchFileName == nil) {
-		return nil;
-	}
-
-	NSString* bestMatchFilePath = [absoluteFolderPath stringByAppendingPathComponent:bestMatchFileName];
 	NSURL* bestMatchFileURL = [NSURL fileURLWithPath:bestMatchFilePath isDirectory:NO];
 	NSError* dataError = nil;
 	NSData* data = [NSData dataWithContentsOfURL:bestMatchFileURL options:NSDataReadingMappedIfSafe error:&dataError];
@@ -701,7 +814,6 @@
 
 	return data;
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------
 
